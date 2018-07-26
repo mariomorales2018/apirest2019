@@ -6,7 +6,7 @@ var AuthenticationController = require('./controllers/authentication'),
     EventoController = require('./controllers/eventos'),
     PerfilController = require('./controllers/perfil'),
     EmpresaController = require('./controllers/empresa'),
-    ModuloController = require('./controllers/modulo'),
+    //ModuloController = require('./controllers/modulo'),
     SuscriptorController = require('./controllers/suscriptor'),
     busController = require('./controllers/bus'),
     PermisoController = require('./controllers/permiso'),
@@ -29,7 +29,7 @@ module.exports = function(app){
     var apiRoutes = express.Router(),
         authRoutes = express.Router(),
         participaRoutes = express.Router(),
-        moduloRoutes = express.Router(),
+      //  moduloRoutes = express.Router(),
         datosfijosRoutes = express.Router(),
         eventoRoutes = express.Router(),
         perfilRoutes = express.Router(),
@@ -142,9 +142,8 @@ permisoRoutes.get('/:id',  PermisoController.getPermiso);
 permisoRoutes.get('/:id/:id2',  PermisoController.getPermiso);
 permisoRoutes.post('/:id',  PermisoController.creaPermiso2s);
 permisoRoutes.delete('/:id/:userID',  PermisoController.deletePermiso);
-
+/*
 //-----------------------------------MODULO
-   /*
 apiRoutes.use('/modulos', moduloRoutes);
 moduloRoutes.get('/', ModuloController.getModulo);
 moduloRoutes.get('/:id',  ModuloController.getModulo);

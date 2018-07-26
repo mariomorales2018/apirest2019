@@ -1,5 +1,5 @@
 
-var Modulo = require('../models/Modulo');
+/*var Modulo = require('../models/Modulo');
 var Bitacora = require('../models/bitacora');
 
 exports.getModulo = function(req, res, next){
@@ -85,3 +85,4 @@ else{
 
 
 
+*/

@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+/*var mongoose = require('mongoose');
 
     var ModuloSchema 		=	new  mongoose.Schema({
         grupo   		: { type : String, required : true },
@@ -17,4 +17,5 @@ var mongoose = require('mongoose');
       
 
 module.exports = mongoose.model('Modulo', ModuloSchema);
+*/
 

@@ -6,7 +6,7 @@ var AuthenticationController = require('./controllers/authentication'),
     EventoController = require('./controllers/eventos'),
     PerfilController = require('./controllers/perfil'),
     EmpresaController = require('./controllers/empresa'),
-    //ModuloController = require('./controllers/modulo'),
+    ModuloController = require('./controllers/modulo'),
     SuscriptorController = require('./controllers/suscriptor'),
     busController = require('./controllers/bus'),
     PermisoController = require('./controllers/permiso'),
@@ -17,7 +17,7 @@ var AuthenticationController = require('./controllers/authentication'),
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport');
-   // PersonalController = require('./controllers/personal');
+    PersonalController = require('./controllers/personal');
  
 var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
@@ -29,7 +29,7 @@ module.exports = function(app){
     var apiRoutes = express.Router(),
         authRoutes = express.Router(),
         participaRoutes = express.Router(),
-      //  moduloRoutes = express.Router(),
+        moduloRoutes = express.Router(),
         datosfijosRoutes = express.Router(),
         eventoRoutes = express.Router(),
         perfilRoutes = express.Router(),
@@ -41,8 +41,8 @@ module.exports = function(app){
         qrimagenRoutes = express.Router(),
         busRoutes = express.Router(),
         afiliadoRoutes = express.Router(),
-          mailRoutes = express.Router();
-          personalRoutes = express.Router();
+        mailRoutes = express.Router();
+        personalRoutes = express.Router();
 
     apiRoutes.use('/auth', authRoutes);
  

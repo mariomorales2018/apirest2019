@@ -6,7 +6,7 @@ var AuthenticationController = require('./controllers/authentication'),
     EventoController = require('./controllers/eventos'),
     PerfilController = require('./controllers/perfil'),
     EmpresaController = require('./controllers/empresa'),
-    ModuloController = require('./controllers/modulo'),
+    ModuloController = require('./controllers/moduloxx'),
     SuscriptorController = require('./controllers/suscriptor'),
     busController = require('./controllers/bus'),
     PermisoController = require('./controllers/permiso'),
@@ -142,14 +142,14 @@ permisoRoutes.get('/:id',  PermisoController.getPermiso);
 permisoRoutes.get('/:id/:id2',  PermisoController.getPermiso);
 permisoRoutes.post('/:id',  PermisoController.creaPermiso2s);
 permisoRoutes.delete('/:id/:userID',  PermisoController.deletePermiso);
-/*
+
 //-----------------------------------MODULO
 apiRoutes.use('/modulos', moduloRoutes);
-moduloRoutes.get('/', ModuloController.getModulo);
-moduloRoutes.get('/:id',  ModuloController.getModulo);
-moduloRoutes.post('/:recordID',  ModuloController.creaModulo2s);
-moduloRoutes.delete('/:recordID/:userID',  ModuloController.deleteModulo);
-*/
+moduloRoutes.get('/', ModuloController.getModuloxx);
+moduloRoutes.get('/:id',  ModuloController.getModuloxx);
+moduloRoutes.post('/:recordID',  ModuloController.creaModuloxx2s);
+moduloRoutes.delete('/:recordID/:userID',  ModuloController.deleteModuloxx);
+
 
 //-----------------------------------datos combo fijos
 apiRoutes.use('/datosfijos', datosfijosRoutes);

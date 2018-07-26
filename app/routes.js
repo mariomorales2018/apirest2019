@@ -144,12 +144,13 @@ permisoRoutes.post('/:id',  PermisoController.creaPermiso2s);
 permisoRoutes.delete('/:id/:userID',  PermisoController.deletePermiso);
 
 //-----------------------------------MODULO
+   /*
 apiRoutes.use('/modulos', moduloRoutes);
 moduloRoutes.get('/', ModuloController.getModulo);
 moduloRoutes.get('/:id',  ModuloController.getModulo);
 moduloRoutes.post('/:recordID',  ModuloController.creaModulo2s);
 moduloRoutes.delete('/:recordID/:userID',  ModuloController.deleteModulo);
-
+*/
 
 //-----------------------------------datos combo fijos
 apiRoutes.use('/datosfijos', datosfijosRoutes);

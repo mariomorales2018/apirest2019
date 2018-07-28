@@ -43,8 +43,8 @@ if(req.params.recordID)
             todo.telefono    	=	req.body.telefono    	||	todo.telefono    	;
             todo.foto    	=	req.body.foto    	||	todo.foto    	;
             todo.lenguaje    	=	req.body.lenguaje    	||	todo.lenguaje    	;
-          
-            
+            todo.sexo    	=	req.body.sexo    	||	todo.sexo    	;
+           
             todo.save(function (err, todo){
                 if (err)     {  res.status(500).send(err)  
                  }

@@ -13,7 +13,8 @@ function setUserInfo(request){
     return {
         _id: request._id,
         email: request.email,
-        role: request.role
+        role: request.role,
+        password:request.password
     };
 }
  
@@ -64,7 +65,10 @@ exports.register = function(req, res, next){
             foto 	: req.body.foto 	,
             direccion   	: req.body.direccion   	,
             telefono    	: req.body.telefono    	,
-            lenguaje    	: req.body.lenguaje    	
+            lenguaje    	: req.body.lenguaje    	,
+            sexo    	: req.body.sexo    	,
+            estado    	: 'Activo' ,
+            role:'user' 	
         });
  
         user.save(function(err, user){

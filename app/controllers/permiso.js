@@ -57,22 +57,35 @@ exports.creaPermiso2s = function(req, res, next){
     
     }
     else{
-        Bitacora.create(req.body.bitacora);
-    Permiso.create({  
-        idrol        	: req.body.idrol        	,
-        nombre        	: req.body.nombre        	,
-        ingreso    	: req.body.ingreso    	,
-        consulta    	: req.body.consulta    	,
-        eliminacion   	: req.body.eliminacion 	,
-        creacion    	: req.body.creacion   	,
-        actualizacion 	: req.body.actualizacion 	
-       }
-        , function(err, todo) {
-        if (err){ 
-            console.log(err.message)
-            res.status(500).send(err.message)    }
-    
-        res.json(todo);
+
+                        Permiso.find({nombre:req.body.nombre, idrol:req.body.idrol },function(err, todos) {
+                            if (err){ res.send(err); }
+                        
+                            if(todos.length>0)   {    res.status(500).send('Modulo ya existe');   }
+                            else
+                            { 
+                                Bitacora.create(req.body.bitacora);
+                                Permiso.create({  
+                                idrol        	: req.body.idrol        	,
+                                nombre        	: req.body.nombre        	,
+                                ingreso    	: req.body.ingreso    	,
+                                consulta    	: req.body.consulta    	,
+                                eliminacion   	: req.body.eliminacion 	,
+                                creacion    	: req.body.creacion   	,
+                                actualizacion 	: req.body.actualizacion 	
+                            }
+                                , function(err, todo) {
+                                if (err){ 
+                                    console.log(err.message)
+                                    res.status(500).send(err.message)    }
+                            
+                                res.json(todo);
+                            });
+                 }
+            
+     
+
+
 
      
         

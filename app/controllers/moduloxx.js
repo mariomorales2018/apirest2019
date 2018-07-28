@@ -57,28 +57,42 @@ if(req.params.recordID!=='crea')
 
 }
 else{
-   
-    Moduloxx.create({ grupo        	: req.body.grupo        	,
-        nombre        	: req.body.nombre        	,
-        titulo       	: req.body.titulo       	,
-        componente       	: req.body.componente       	,
-        tabcomponente       	: req.body.tabcomponente       	,
-        index       	: req.body.index       	,
-         icono      	: req.body.icono       	,
-        nivel      	: req.body.nivel       	,
-        estado 	: req.body.estado 	
-      }
-        , function(err, todo) {
-        if (err){ 
-            console.log(err.message)
-            res.status(500).send(err.message)    }
-    
-        res.json(todo);
 
-     
+    Moduloxx.find({nombre        	: req.body.nombre },function(err, todos) {
+        if (err){ res.send(err); }
+        console.log(todos.length);
+        if(todos.length>0)   {    res.status(500).send('Ya existe un modulo con este nombre'); }
+        else
+        {   
+
+            Moduloxx.create({ grupo        	: req.body.grupo        	,
+                nombre        	: req.body.nombre        	,
+                titulo       	: req.body.titulo       	,
+                componente       	: req.body.componente       	,
+                tabcomponente       	: req.body.tabcomponente       	,
+                index       	: req.body.index       	,
+                 icono      	: req.body.icono       	,
+                nivel      	: req.body.nivel       	,
+                estado 	: req.body.estado 	
+              }
+                , function(err, todo) {
+                if (err){ 
+                    console.log(err.message)
+                    res.status(500).send(err.message)    }
+            
+                res.json(todo);
         
+             
+                
+        
+            });
 
+            
+             }
+        
     });
+   
+ 
 }
 
 }

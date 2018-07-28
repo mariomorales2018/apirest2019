@@ -51,20 +51,31 @@ if(req.params.recordID!=='crea')
 }
 else{
    
-    Perfil.create({ nombre        	: req.body.nombre        	,
-        estado 	: req.body.estado 	
-      }
-        , function(err, todo) {
-        if (err){ 
-            console.log(err.message)
-            res.status(500).send(err.message)    }
-    
-        res.json(todo);
 
-     
+    Perfil.find({ nombre        	: req.body.nombre  },function(err, todos) {
+        if (err){ res.send(err); }
+        console.log(todos.length);
+        if(todos.length>0)   {     res.status(500).send('Ya existe creado un perfil con este nombre');  }
+        else
+        {    
+
+            Perfil.create({ nombre        	: req.body.nombre        	,
+                estado 	: req.body.estado 	
+              }
+                , function(err, todo) {
+                if (err){ 
+                    console.log(err.message)
+                    res.status(500).send(err.message)    }
+            
+                res.json(todo);
+            });
+
+          }
         
-
     });
+
+
+
 }
 
 }

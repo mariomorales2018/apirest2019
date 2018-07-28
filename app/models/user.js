@@ -22,7 +22,9 @@ var UserSchema = new mongoose.Schema({
     direccion	: { type : String, required : true },
     telefono	: { type : String, required : true , max : 20},
     foto 	: { type : String },
-    lenguaje	: { type : String, required : true , max : 20}
+    lenguaje	: { type : String, required : true , max : 20},
+    sexo 	: { type : String },
+    estado 	: { type : String }
  
 }, {
     timestamps: true

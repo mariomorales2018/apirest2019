@@ -24,7 +24,7 @@ exports.getMail = function(req, res, next){
     actualiza: req.body.actualiza// plain text body
   };
 
- 
+ console.log(mailOptions);
   transporter.sendMail(mailOptions, function (err, info) {
     if(err){
     res.status(500).send(err.sqlMessage);
@@ -39,7 +39,6 @@ exports.getMail = function(req, res, next){
           if (err) {  res.send(err);  }
           else
           {  
-              
               todo.estado 	=	req.body.actualiza.estado 	||req.body.actualiza.estado 	;
               todo.otros 	=	req.body.actualiza.otros 	||	req.body.actualiza.otros 	;
               console.log(todo);

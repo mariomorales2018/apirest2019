@@ -21,6 +21,7 @@ exports.getPersonal = function(req, res, next){
     }
 }
 exports.deletePersonal = function(req, res, next){
+    Bitacora.create({email: req.params.userID ,permiso:'Elimina',accion:'Elimina Usuario '});
     Personal.findByIdAndRemove({ _id: req.params.recordID  }, function(err, todo) {
         res.json(todo);
     });
@@ -32,19 +33,23 @@ exports.creaPersonal2s = function(req, res, next){
   
   
     Bitacora.create(req.body.bitacora);
+
 if(req.params.recordID)
 {
     Personal.findById({ _id: req.params.recordID }, function (err, todo)  {
         if (err) {  res.send(err);  }
         else
-        {   todo.nombre        	=	req.body.nombre        	||	todo.nombre        	;
+        {   todo.email        	=	req.body.email        	||	todo.email        	;
+            todo.password       	=	req.body.password        	||	todo.password        	;
+            todo.role        	=	req.body.role       	||	todo.role        	;
+             todo.nombre        	=	req.body.nombre        	||	todo.nombre        	;
             todo.cui 	=	req.body.cui 	||	todo.cui 	;
             todo.direccion   	=	req.body.direccion   	||	todo.direccion   	;
             todo.telefono    	=	req.body.telefono    	||	todo.telefono    	;
             todo.foto    	=	req.body.foto    	||	todo.foto    	;
             todo.lenguaje    	=	req.body.lenguaje    	||	todo.lenguaje    	;
             todo.sexo    	=	req.body.sexo    	||	todo.sexo    	;
-           
+            todo.estado    	=	req.body.estado    	||	todo.estado    	;
             todo.save(function (err, todo){
                 if (err)     {  res.status(500).send(err)  
                  }
@@ -55,6 +60,9 @@ if(req.params.recordID)
     });
 
 }
+
+
+
 
 
 }

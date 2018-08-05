@@ -61,7 +61,7 @@ apiRoutes.use('/personals', personalRoutes);
 personalRoutes.get('/', PersonalController.getPersonal);
 personalRoutes.get('/:email',  PersonalController.getPersonal);
 personalRoutes.post('/:recordID',  PersonalController.creaPersonal2s);
-personalRoutes.delete('/:recordID',  PersonalController.deletePersonal);
+personalRoutes.delete('/:recordID/:userID',  PersonalController.deletePersonal);
 
 //-------------------------------------------------
 //-----------------------------------EMPRESA----------------------------------

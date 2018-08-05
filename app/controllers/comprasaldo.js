@@ -13,7 +13,7 @@ exports.getComprasaldo = function(req, res, next){
     if (connection) 
     {   var sql='';
         if(req.params.id2)  
-        {   sql = "SELECT idcomprasaldo,idsuscriptor,fecha nombre,monto,evento,formapago,nodoc FROM Comprasaldo WHERE idsuscriptor = " + connection.escape(req.params.id)  + " and idcomprasaldo= "+ connection.escape(req.params.id2)
+        {   sql = "SELECT idcomprasaldo,idsuscriptor,DATE_FORMAT(fecha, '%d/%m/%Y')  fecha2,fecha nombre,monto,evento,formapago,nodoc FROM Comprasaldo WHERE idsuscriptor = " + connection.escape(req.params.id)  + " and idcomprasaldo= "+ connection.escape(req.params.id2)
             connection.query(sql, function(error, rows) {
                 if (error){ 
                     res.status(500).send(error.sqlMessage);
@@ -22,7 +22,7 @@ exports.getComprasaldo = function(req, res, next){
             });
         }
         else
-        {   sql="SELECT idcomprasaldo,idsuscriptor,fecha nombre,monto,evento,formapago,nodoc FROM Comprasaldo  where idsuscriptor= "+ connection.escape(req.params.id);
+        {   sql="SELECT idcomprasaldo,idsuscriptor,DATE_FORMAT(fecha, '%d/%m/%Y')  fecha2,fecha nombre,monto,evento,formapago,nodoc FROM Comprasaldo  where idsuscriptor= "+ connection.escape(req.params.id);
             connection.query(sql, function(error, rows) {
                 if (error){ 
                     res.status(500).send(error.sqlMessage);
@@ -89,6 +89,8 @@ exports.creaComprasaldos = function(req, res, next){
                                     res.status(500).send(error.sqlMessage);
                                  }
 
+
+
                                  res.json({idcomprasaldo:results.insertId, idsuscriptor: ComprasaldoData.idsuscriptor,  nombre: ComprasaldoData.fecha, monto: ComprasaldoData.monto, evento: ComprasaldoData.evento, formapago: ComprasaldoData.formapago, nodoc: ComprasaldoData.nodoc });
                             });
 
@@ -104,14 +106,21 @@ exports.creaComprasaldos = function(req, res, next){
                     ',evento = ' + connection.escape(ComprasaldoData.evento) +
                     ',formapago = ' + connection.escape(ComprasaldoData.formapago) +
                     ' WHERE idsuscriptor = ' + connection.escape( ComprasaldoData.idsuscriptor) + ' and idcomprasaldo='
-                    + connection.escape( ComprasaldoData.idcomprasaldo) ;
+                    + req.params.id ;
  
-                  
+console.log(sql);                  
                     connection.query(sql, function(error, rows) {
                         if (error){ 
                             res.status(500).send(error.sqlMessage);
                          }
-                         res.json(ComprasaldoData);
+                         res.json({ idcomprasaldo: req.body.idcomprasaldo,
+                            idsuscriptor : req.body.idsuscriptor,
+                            nombre : req.body.fecha,
+                            fecha2 : req.body.fecha,
+                            monto: req.body.monto,
+                            evento : req.body.evento,
+                            formapago : req.body.formapago,
+                            nodoc : req.body.nodoc});
                     });
         
         }

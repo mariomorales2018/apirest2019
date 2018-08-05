@@ -154,7 +154,7 @@ console.log(sql);
             ', saldo5= ' + connection.escape(suscriptorData.saldo5) +
             ' WHERE nodpi = ' + connection.escape(suscriptorData.nodpi);
  
-                //  console.log(sql);
+                  console.log(sql);
                     connection.query(sql, function(error, rows) {
                         if (error){ 
                             res.status(500).send(error.sqlMessage);

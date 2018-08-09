@@ -24,14 +24,14 @@ exports.getMail = function(req, res, next){
     actualiza: req.body.actualiza// plain text body
   };
 
- console.log(mailOptions);
+ 
   transporter.sendMail(mailOptions, function (err, info) {
     if(err){
     res.status(500).send(err.sqlMessage);
     }
     else
     {
-      console.log(req.body.actualiza);
+      
       if(req.body.actualiza.tipo=='participantes')
       {
 

@@ -63,7 +63,7 @@ exports.getCombofijo = function(req, res, next){
 
                                      //   res.json(todos2);
 
-                                        Evento.find().lean().exec({}, function(err,todos) {
+                                        Evento.find({impresion:'Activo'}).lean().exec({}, function(err,todos) {
                                                 if (err) res.send(err);
                                                 var myData = [];
                                                 var cc=0;

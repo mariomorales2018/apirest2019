@@ -2,6 +2,7 @@ var AuthenticationController = require('./controllers/authentication'),
    
     DatosfijosController = require('./controllers/datosfijos'),
     ParticipaController = require('./controllers/participa'),
+    ConferenciaController = require('./controllers/conferencia'),
     PersonalController = require('./controllers/personal'),
     EventoController = require('./controllers/eventos'),
     PerfilController = require('./controllers/perfil'),
@@ -29,6 +30,7 @@ module.exports = function(app){
     var apiRoutes = express.Router(),
         authRoutes = express.Router(),
         participaRoutes = express.Router(),
+        conferenciaRoutes = express.Router(),
         moduloRoutes = express.Router(),
         datosfijosRoutes = express.Router(),
         eventoRoutes = express.Router(),
@@ -127,6 +129,12 @@ participaRoutes.get('/:id/:id2',  ParticipaController.getParticipa);
 participaRoutes.post('/:id',  ParticipaController.creaParticipa2s);
 participaRoutes.delete('/:id/:userID',  ParticipaController.deleteParticipa);
 
+//-----------------------------------CONFERENCIAS
+apiRoutes.use('/conferencias', conferenciaRoutes);
+conferenciaRoutes.get('/:id',  ConferenciaController.getConferencia);
+conferenciaRoutes.get('/:id/:id2',  ConferenciaController.getConferencia);
+conferenciaRoutes.post('/:id',  ConferenciaController.creaConferencia2s);
+conferenciaRoutes.delete('/:id/:userID', ConferenciaController.deleteConferencia);
 
 //-----------------------------------MAIL
 apiRoutes.use('/mails', mailRoutes);

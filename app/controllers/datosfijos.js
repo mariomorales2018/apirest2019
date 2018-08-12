@@ -26,6 +26,7 @@ var cleanName = function(str) {
 
 exports.getCombofijo = function(req, res, next){
        var sql='';
+console.log(req.params.id)
        if(req.params.id=='suscriptor-disp')  
        {   
                res.json([{id:'RFID interno',nombre:'RFID interno'} ,{id:'DPI',nombre:'DPI'},{id:'RFID externo',nombre:'RFID externo'},{id:'OTRO dispositivo',nombre:'OTRO dispositivo'},{id:'Ninguno',nombre:'Ninguno'}]);
@@ -102,6 +103,39 @@ exports.getCombofijo = function(req, res, next){
                 else
                 {
 
+                        if(req.params.id=='excel-participa')  
+                        {   
+                                var filename   = "participantes.csv";
+        
+                                Participa.find({idevento:req.params.id2}).sort({nombre:1}).exec(function(err, todos2) {
+                                        if (err){ res.send(err); }
+                                        
+        
+                                        if(todos2.length>0)   {  
+        
+                                                var myData = [];
+                                               
+                                                for(var i = 0; i < todos2.length;i++){
+                                                myData.push({nombre:cleanName(todos2[i].nombre) + ' '+ cleanName(todos2[i].apellido)});
+                                                }
+                                                
+                                                res.statusCode = 200;
+                                                res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+                                                res.setHeader("Content-Disposition", 'attachment; filename='+filename);
+                                                res.csv(myData, true);
+                                             
+                                                 
+                                        }
+                                       
+                                });
+        
+        
+                                
+                             
+                        }
+                        else
+                        {
+        
                         Perfil.find({nombre:req.params.id},function(err, todos) {
                                 if (err){ res.send(err); }
                                 
@@ -159,7 +193,7 @@ exports.getCombofijo = function(req, res, next){
                                 {  res.status(500).send('NO EXISTE ROL ASIGNADO');      }
                                 
                             });
-                    
+                        }
                 }}
                
             

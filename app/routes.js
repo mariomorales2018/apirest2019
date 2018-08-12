@@ -161,8 +161,8 @@ moduloRoutes.delete('/:recordID/:userID',  ModuloController.deleteModuloxx);
 
 //-----------------------------------datos combo fijos
 apiRoutes.use('/datosfijos', datosfijosRoutes);
-
 datosfijosRoutes.get('/:id',  DatosfijosController.getCombofijo);
+datosfijosRoutes.get('/:id/:id2',  DatosfijosController.getCombofijo);
 
     app.use('/api', apiRoutes);
  

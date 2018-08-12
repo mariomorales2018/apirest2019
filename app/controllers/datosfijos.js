@@ -107,7 +107,7 @@ console.log(req.params.id)
                         {   
                                 var filename   = "participantes.csv";
         
-                                Participa.find({idevento:req.params.id2}).sort({nombre:1}).exec(function(err, todos2) {
+                                Participa.find({idevento:req.params.id2,estado:'Ingreso'}).sort({nombre:1}).exec(function(err, todos2) {
                                         if (err){ res.send(err); }
                                         
         

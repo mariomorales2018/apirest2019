@@ -38,10 +38,12 @@ exports.creaParticipa2s = function(req, res, next){
         if (err) {  res.send(err);  }
         else
         {  
-            
+            var d = new Date();
+
+
             todo.estado 	=	req.body.estado 	||	todo.estado 	;
             todo.otros 	=	req.body.otros 	||	todo.otros 	;
-         //   todo.fecha 	=	Date.now 	;
+            todo.fecha 	=	d.toISOString()	;
             todo.save(function (err, todo){
                 if (err)     {  res.status(500).send(err.message)   }
                 res.json(todo);

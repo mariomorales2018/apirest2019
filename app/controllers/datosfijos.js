@@ -116,7 +116,8 @@ console.log(req.params.id)
                                                 var myData = [];
                                                
                                                 for(var i = 0; i < todos2.length;i++){
-                                                myData.push({nombre:cleanName(todos2[i].nombre) + ' '+ cleanName(todos2[i].apellido)});
+                                                        var d = new Date(todos2[i].fecha);
+                                                myData.push({nombre:cleanName(todos2[i].nombre) + ' '+ cleanName(todos2[i].apellido),fecha:d.toISOString().substr(0,10)});
                                                 }
                                                 
                                                 res.statusCode = 200;

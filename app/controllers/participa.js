@@ -41,7 +41,7 @@ exports.creaParticipa2s = function(req, res, next){
             
             todo.estado 	=	req.body.estado 	||	todo.estado 	;
             todo.otros 	=	req.body.otros 	||	todo.otros 	;
-            todo.fecha 	=	Date.now 	;
+         //   todo.fecha 	=	Date.now 	;
             todo.save(function (err, todo){
                 if (err)     {  res.status(500).send(err.message)   }
                 res.json(todo);

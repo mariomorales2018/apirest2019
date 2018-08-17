@@ -44,7 +44,7 @@ var ParticipaSchema = new mongoose.Schema({
         required: true
     },
     
-    fecha: { type: Date, default: Date.now }
+    fecha: { type: String }
 }, {
     timestamps: true
 });

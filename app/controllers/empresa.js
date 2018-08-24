@@ -19,6 +19,7 @@ exports.getEmpresa = function(req, res, next){
                     res.status(500).send(error.sqlMessage);
                  }
                 res.json(rows);
+                next();
             });
         }
         else
@@ -28,6 +29,7 @@ exports.getEmpresa = function(req, res, next){
                     res.status(500).send(error.sqlMessage);
                  }
                 res.json(rows);
+                next();
             });
 
         }
@@ -35,6 +37,7 @@ exports.getEmpresa = function(req, res, next){
     else
     {
         res.status(500).send('No conexion con db');
+        next();
     }
 
     

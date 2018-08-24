@@ -7,6 +7,10 @@ var Evento = require('../models/eventos');
 
 var Participa = require('../models/participa');
 
+
+var request = require('request');
+  
+
 var cleanName = function(str) {
         if (str == '') return str; // jQuery
       
@@ -27,6 +31,29 @@ var cleanName = function(str) {
 exports.getCombofijo = function(req, res, next){
        var sql='';
 console.log(req.params.id)
+if(req.params.id=='buses-nelson')  
+{   
+        request('http://190.143.151.236:8500/ws/databuses.cfm', function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                   var importedJSON = JSON.parse(body);
+                   res.json(importedJSON);
+                }
+              })
+
+              
+        
+   
+}
+else
+{
+
+if(req.params.id=='catalogo-tipo')  
+{   
+        res.json([{id:'DIAS FESTIVOS',nombre:'DIAS FESTIVOS'} ]);
+   
+}
+else
+{
        if(req.params.id=='suscriptor-disp')  
        {   
                res.json([{id:'RFID interno',nombre:'RFID interno'} ,{id:'DPI',nombre:'DPI'},{id:'RFID externo',nombre:'RFID externo'},{id:'OTRO dispositivo',nombre:'OTRO dispositivo'},{id:'Ninguno',nombre:'Ninguno'}]);
@@ -200,7 +227,7 @@ console.log(req.params.id)
                
             
         }}
-       
-
+}
+}
     
 }

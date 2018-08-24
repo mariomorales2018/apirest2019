@@ -43,6 +43,10 @@ var ParticipaSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    cuenta: {
+        type: String
+      
+    },
     
     fecha: { type: String }
 }, {

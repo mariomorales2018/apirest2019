@@ -4,14 +4,28 @@ var Bitacora = require('../models/bitacora');
 
 exports.getEvento = function(req, res, next){
     if(req.params.id)
-    {   Evento.find({_id:req.params.id},function(err, todos) {
-            if (err){ res.send(err); }
-            console.log(todos.length);
-            if(todos.length>0)   {    res.json(todos);   }
-            else
-            {  res.status(500).send('NO EXISTE REGISTRO');      }
-            
-        });
+    { 
+        if(req.params.id=='activo')
+        {
+            Evento.find({impresion:'Activo'},function(err, todos) {
+                if (err){  res.send(err);  }
+                 res.json(todos);
+                
+            });
+        }
+        else
+        {
+            Evento.find({_id:req.params.id},function(err, todos) {
+                if (err){ res.send(err); }
+                console.log(todos.length);
+                if(todos.length>0)   {    res.json(todos);   }
+                else
+                {  res.status(500).send('NO EXISTE REGISTRO');      }
+                
+            });
+
+        }   
+       
     }
     else
     { Evento.find(function(err, todos) {

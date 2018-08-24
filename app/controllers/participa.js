@@ -43,6 +43,7 @@ exports.creaParticipa2s = function(req, res, next){
 
             todo.estado 	=	req.body.estado 	||	todo.estado 	;
             todo.otros 	=	req.body.otros 	||	todo.otros 	;
+            todo.cuenta 	=	Number(req.body.cuenta)+1 	||	Number(todo.cuenta)+1 	;
             todo.fecha 	=	d.toISOString()	;
             todo.save(function (err, todo){
                 if (err)     {  res.status(500).send(err.message)   }
@@ -92,6 +93,7 @@ else{
         unidad 	: req.body.unidad 	,
         otros 	: req.body.otros 	,
         estado 	: req.body.estado 	,
+        cuenta 	: '0' 	,
        }
         , function(err, todo) {
         if (err){ 

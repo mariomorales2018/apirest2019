@@ -8,9 +8,12 @@ var AuthenticationController = require('./controllers/authentication'),
     PerfilController = require('./controllers/perfil'),
     EmpresaController = require('./controllers/empresa'),
     ModuloController = require('./controllers/moduloxx'),
+    CatalogoController = require('./controllers/catalogo'),
+    TarifaController = require('./controllers/tarifa'),
     SuscriptorController = require('./controllers/suscriptor'),
     busController = require('./controllers/bus'),
     PermisoController = require('./controllers/permiso'),
+    DtarifaController = require('./controllers/dtarifa'),
     AfiliadoController = require('./controllers/afiliado'),
     ComprasaldoController = require('./controllers/comprasaldo'),
     MailController = require('./controllers/mail'),
@@ -32,12 +35,15 @@ module.exports = function(app){
         participaRoutes = express.Router(),
         conferenciaRoutes = express.Router(),
         moduloRoutes = express.Router(),
+        catalogoRoutes = express.Router(),
+        tarifaRoutes = express.Router(),
         datosfijosRoutes = express.Router(),
         eventoRoutes = express.Router(),
         perfilRoutes = express.Router(),
         mailRoutes = express.Router(),
         empresaRoutes = express.Router(),
         permisoRoutes = express.Router(),
+        dtarifaRoutes = express.Router(),
         suscriptorRoutes = express.Router(),
         comprasaldoRoutes = express.Router(),
         qrimagenRoutes = express.Router(),
@@ -157,6 +163,27 @@ moduloRoutes.get('/', ModuloController.getModuloxx);
 moduloRoutes.get('/:id',  ModuloController.getModuloxx);
 moduloRoutes.post('/:recordID',  ModuloController.creaModuloxx2s);
 moduloRoutes.delete('/:recordID/:userID',  ModuloController.deleteModuloxx);
+
+//-----------------------------------CATALOGO
+apiRoutes.use('/catalogos', catalogoRoutes);
+catalogoRoutes.get('/', CatalogoController.getCatalogo);
+catalogoRoutes.get('/:id',  CatalogoController.getCatalogo);
+catalogoRoutes.post('/:recordID',  CatalogoController.creaCatalogo2s);
+catalogoRoutes.delete('/:recordID/:userID',  CatalogoController.deleteCatalogo);
+
+//-----------------------------------TARIFA
+apiRoutes.use('/tarifas', tarifaRoutes);
+tarifaRoutes.get('/', TarifaController.getTarifa);
+tarifaRoutes.get('/:id',  TarifaController.getTarifa);
+tarifaRoutes.post('/:recordID',  TarifaController.creaTarifa2s);
+tarifaRoutes.delete('/:recordID/:userID',  TarifaController.deleteTarifa);
+
+//-----------------------------------DTARIFA
+apiRoutes.use('/dtarifas', dtarifaRoutes);
+dtarifaRoutes.get('/:id',  DtarifaController.getDtarifa);
+dtarifaRoutes.get('/:id/:id2',  DtarifaController.getDtarifa);
+dtarifaRoutes.post('/:id',  DtarifaController.creaDtarifa2s);
+dtarifaRoutes.delete('/:id/:userID',  DtarifaController.deleteDtarifa);
 
 
 //-----------------------------------datos combo fijos

@@ -83,6 +83,7 @@ else{
     }
     else{
         Bitacora.create(req.body.bitacora);
+        var d = new Date();
     Participa.create({  idevento       	: req.body.idevento       	,
         nombre        	: req.body.nombre        	,
         apellido    	: req.body.apellido    	,
@@ -93,7 +94,8 @@ else{
         unidad 	: req.body.unidad 	,
         otros 	: req.body.otros 	,
         estado 	: req.body.estado 	,
-        cuenta 	: '0' 	,
+        cuenta 	: '1' 	,
+        fecha:d.toISOString()	
        }
         , function(err, todo) {
         if (err){ 

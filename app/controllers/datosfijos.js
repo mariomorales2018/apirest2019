@@ -141,11 +141,11 @@ else
                                         if(todos2.length>0)   {  
         
                                                 var myData = [];
-                                               
+                                               console.log(todos2);
                                                 for(var i = 0; i < todos2.length;i++){
                
 
-                                                myData.push({nombre:cleanName(todos2[i].nombre) + ' '+ cleanName(todos2[i].apellido),fecha:todos2[i].fecha.substr(0,10)});
+                                                myData.push({nombre:cleanName(todos2[i].nombre) + ' '+ cleanName(todos2[i].apellido),fecha:todos2[i].fecha.substr(0,10),ingresos:cleanName(todos2[i].cuenta) });
                                                 }
                                                 
                                                 res.statusCode = 200;

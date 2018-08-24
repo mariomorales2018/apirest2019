@@ -1,5 +1,5 @@
 
-var Dtarifa = require('../models/Dtarifa');
+var Dtarifa = require('../models/dtarifa');
 var Bitacora = require('../models/bitacora');
 
 exports.getDtarifa = function(req, res, next){

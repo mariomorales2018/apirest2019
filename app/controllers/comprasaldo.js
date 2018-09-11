@@ -85,8 +85,7 @@ exports.creaComprasaldos = function(req, res, next){
                             ',evento = ' + connection.escape(ComprasaldoData.evento) +
                             ',formapago = ' + connection.escape(ComprasaldoData.formapago) +
                             ',nodoc = ' + connection.escape(ComprasaldoData.nodoc) 
-                           console.log(sql);
-
+                       
                             connection.query(sql,  ComprasaldoData,function(error, results,fields) {
                                 if (error){ 
                                     res.status(500).send(error.sqlMessage);
@@ -111,7 +110,7 @@ exports.creaComprasaldos = function(req, res, next){
                     ' WHERE idsuscriptor = ' + connection.escape( ComprasaldoData.idsuscriptor) + ' and idcomprasaldo='
                     + req.params.id ;
  
-console.log(sql);                  
+                
                     connection.query(sql, function(error, rows) {
                         if (error){ 
                             res.status(500).send(error.sqlMessage);

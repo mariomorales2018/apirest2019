@@ -17,7 +17,7 @@ exports.getEvento = function(req, res, next){
         {
             Evento.find({_id:req.params.id},function(err, todos) {
                 if (err){ res.send(err); }
-                console.log(todos.length);
+               
                 if(todos.length>0)   {    res.json(todos);   }
                 else
                 {  res.status(500).send('NO EXISTE REGISTRO');      }
@@ -84,7 +84,7 @@ else{
         date 			: Date.now() }
         , function(err, todo) {
         if (err){ 
-            console.log(err.message)
+          
             res.status(500).send(err.message)    }
     
         res.json(todo);

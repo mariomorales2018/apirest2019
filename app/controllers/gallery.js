@@ -75,7 +75,7 @@ exports.createGallery = function(req, res, next){
         , function(err, todo) {
 
         if (err){
-            console.log(err);
+          
             res.send(err);
         }
 

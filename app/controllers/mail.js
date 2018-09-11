@@ -41,7 +41,7 @@ exports.getMail = function(req, res, next){
           {  
               todo.estado 	=	req.body.actualiza.estado 	||req.body.actualiza.estado 	;
               todo.otros 	=	req.body.actualiza.otros 	||	req.body.actualiza.otros 	;
-              console.log(todo);
+            
               todo.save(function (err, todo){
                   if (err)     {  res.status(500).send(err.message)   }
                   res.json(todo);

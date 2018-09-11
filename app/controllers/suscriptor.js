@@ -14,7 +14,7 @@ exports.getSuscriptor = function(req, res, next){
     {   var sql='';
         if(req.params.nodpi)  
         {   sql = "SELECT *  FROM Suscriptor WHERE nodpi = " + connection.escape(req.params.nodpi) ;
-        console.log(sql);   
+        
         connection.query(sql, function(error, rows) {
                 if (error){ 
                     res.status(500).send(error.sqlMessage);
@@ -117,7 +117,7 @@ exports.creaSuscriptors = function(req, res, next){
                             ', saldo3= ' + connection.escape(suscriptorData.saldo3) +
                             ', saldo4= ' + connection.escape(suscriptorData.saldo4) +
                             ', saldo5= ' + connection.escape(suscriptorData.saldo5) 
-console.log(sql);
+
                                 connection.query(sql,  function(error, rows) {
                                 if (error){ 
                                     res.status(500).send(error.sqlMessage);
@@ -157,7 +157,7 @@ console.log(sql);
             ', saldo5= ' + connection.escape(suscriptorData.saldo5) +
             ' WHERE nodpi = ' + connection.escape(suscriptorData.nodpi);
  
-                  console.log(sql);
+           
                     connection.query(sql, function(error, rows) {
                         if (error){ 
                             res.status(500).send(error.sqlMessage);

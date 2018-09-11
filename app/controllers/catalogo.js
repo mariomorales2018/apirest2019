@@ -3,22 +3,43 @@ var Catalogo = require('../models/catalogo');
 var Bitacora = require('../models/bitacora');
 
 exports.getCatalogo = function(req, res, next){
-    if(req.params.id)
-    {   Catalogo.find({_id:req.params.id},function(err, todos) {
+    if(req.params.id2)
+    { 
+        Catalogo.find({tipo:req.params.id2},function(err, todos) {
             if (err){ res.send(err); }
-            console.log(todos.length);
+           
             if(todos.length>0)   {    res.json(todos);   }
             else
             {  res.status(500).send('NO EXISTE REGISTRO');      }
             
         });
+  
     }
     else
-    { Catalogo.find(function(err, todos) {
-           if (err){  res.send(err);  }
-            res.json(todos);
-        });
+    {
+        if(req.params.id)
+        {  
+           
+                Catalogo.find({_id:req.params.id},function(err, todos) {
+                    if (err){ res.send(err); }
+                   
+                    if(todos.length>0)   {    res.json(todos);   }
+                    else
+                    {  res.status(500).send('NO EXISTE REGISTRO');      }
+                    
+                });
+             
+           
+        }
+        else
+        { Catalogo.find(function(err, todos) {
+               if (err){  res.send(err);  }
+                res.json(todos);
+            });
+        }
+
     }
+ 
 }
 exports.deleteCatalogo = function(req, res, next){
    
@@ -56,7 +77,7 @@ else{
 
     Catalogo.find({nombre        	: req.body.nombre,tipo        	: req.body.tipo  },function(err, todos) {
         if (err){ res.send(err); }
-        console.log(todos.length);
+      
         if(todos.length>0)   {    res.status(500).send('Ya existe un catalogo con este nombre'); }
         else
         {   
@@ -69,7 +90,7 @@ else{
               }
                 , function(err, todo) {
                 if (err){ 
-                    console.log(err.message)
+                   
                     res.status(500).send(err.message)    }
             
                 res.json(todo);

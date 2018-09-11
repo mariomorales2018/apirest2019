@@ -47,7 +47,7 @@ exports.creaPermiso2s = function(req, res, next){
                 todo.creacion 	=	req.body.creacion	||	todo.creacion 	;
                 todo.actualizacion    	=	req.body.actualizacion    	||	todo.actualizacion    	;
                 
-                console.log(todo)
+             
                 todo.save(function (err, todo){
                     if (err)     {  res.status(500).send(err.message)   }
                     res.json(todo);
@@ -76,7 +76,7 @@ exports.creaPermiso2s = function(req, res, next){
                             }
                                 , function(err, todo) {
                                 if (err){ 
-                                    console.log(err.message)
+                                
                                     res.status(500).send(err.message)    }
                             
                                 res.json(todo);

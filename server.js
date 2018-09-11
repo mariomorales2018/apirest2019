@@ -18,12 +18,12 @@ mongoose.connect(databaseConfig.url);
 
   // schedule tasks to be run on the server
   cron.schedule("59 23 * * *", function() {
-    console.log("---------------------");
+   
     crntt.mandaeventos();
-    console.log("Running Cron Job");
+  
    /* fs.unlink("./error.log", err => {
       if (err) throw err;
-      console.log("Error file succesfully deleted");
+   
     });
     */
   });

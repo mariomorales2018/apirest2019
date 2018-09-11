@@ -6,7 +6,7 @@ exports.getModuloxx = function(req, res, next){
     if(req.params.id)
     {   Moduloxx.find({_id:req.params.id},function(err, todos) {
             if (err){ res.send(err); }
-            console.log(todos.length);
+           
             if(todos.length>0)   {    res.json(todos);   }
             else
             {  res.status(500).send('NO EXISTE REGISTRO');      }
@@ -60,7 +60,7 @@ else{
 
     Moduloxx.find({nombre        	: req.body.nombre },function(err, todos) {
         if (err){ res.send(err); }
-        console.log(todos.length);
+       
         if(todos.length>0)   {    res.status(500).send('Ya existe un modulo con este nombre'); }
         else
         {   
@@ -77,7 +77,7 @@ else{
               }
                 , function(err, todo) {
                 if (err){ 
-                    console.log(err.message)
+                   
                     res.status(500).send(err.message)    }
             
                 res.json(todo);

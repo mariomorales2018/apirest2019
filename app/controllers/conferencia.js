@@ -73,7 +73,7 @@ exports.creaConferencia2s = function(req, res, next){
        }
         , function(err, todo) {
         if (err){ 
-            console.log(err.message)
+          
             res.status(500).send(err.message)    }
     
         res.json(todo);

@@ -62,7 +62,7 @@ exports.creaDtarifa2s = function(req, res, next){
         Dtarifa.find({nombre:req.body.nombre,horaini:req.body.horaini,horafin:req.body.horafin
         },function(err, todos) {
             if (err){ res.send(err); }
-            console.log(todos.length);
+          
             if(todos.length>0)   {    res.status(500).send('Ya existe una tarifa en ese horario'); }
             else
             {
@@ -76,7 +76,7 @@ exports.creaDtarifa2s = function(req, res, next){
                    }
                     , function(err, todo) {
                     if (err){ 
-                        console.log(err.message)
+                    
                         res.status(500).send(err.message)    }
                 
                     res.json(todo);

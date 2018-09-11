@@ -13,7 +13,7 @@ exports.getBus = function(req, res, next){
     if (connection) 
     {   var sql='';
         if(req.params.id3)  
-        {   sql = "SELECT idempresa,idafiliado,codigo,noplaca as nombre,estado FROM Bus WHERE idempresa = " + connection.escape(req.params.id)+ " and idafiliado= "+ connection.escape(req.params.id2)+ " and codigo= "+ connection.escape(req.params.id3)
+        {   sql = "SELECT idtarifa,idruta,idempresa,idafiliado,codigo,noplaca as nombre,estado FROM Bus WHERE idempresa = " + connection.escape(req.params.id)+ " and idafiliado= "+ connection.escape(req.params.id2)+ " and codigo= "+ connection.escape(req.params.id3)
             connection.query(sql, function(error, rows) {
                 if (error){ 
                     res.status(500).send(error.sqlMessage);
@@ -22,7 +22,7 @@ exports.getBus = function(req, res, next){
             });
         }
         else
-        {   sql="SELECT idempresa,idafiliado,codigo,noplaca as nombre,estado FROM Bus  where idempresa= "+ connection.escape(req.params.id)+ " and idafiliado= "+ connection.escape(req.params.id2)
+        {   sql="SELECT idtarifa,idruta,idempresa,idafiliado,codigo,noplaca as nombre,estado FROM Bus  where idempresa= "+ connection.escape(req.params.id)+ " and idafiliado= "+ connection.escape(req.params.id2)
             connection.query(sql, function(error, rows) {
                 if (error){ 
                     res.status(500).send(error.sqlMessage);
@@ -46,7 +46,9 @@ exports.creaBuss = function(req, res, next){
         idafiliado : req.body.idafiliado,
         codigo : req.body.codigo,
         noplaca: req.body.noplaca,
-        estado : req.body.estado
+        estado : req.body.estado,
+        idtarifa : req.body.idtarifa,
+        idruta : req.body.idruta
       
         };
     if (connection) 
@@ -86,8 +88,11 @@ exports.creaBuss = function(req, res, next){
         else
         {
             sql = 'UPDATE Bus SET noplaca = ' + connection.escape(busData.noplaca) +  
+            ',idtarifa = ' + connection.escape(busData.idtarifa) +
+            ',idruta = ' + connection.escape(busData.idruta) +    
                     ' WHERE idafiliado = ' + connection.escape( busData.idafiliado) + ' and idempresa='
-                    + connection.escape( busData.idempresa) + ' and codigo=' + connection.escape( busData.codigo) ;
+                    + connection.escape( busData.idempresa) 
+                    + ' and codigo=' + connection.escape( busData.codigo) ;
  
                   
                     connection.query(sql, function(error, rows) {

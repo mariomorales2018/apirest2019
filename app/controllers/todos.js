@@ -9,7 +9,7 @@ exports.getTodos = function(req, res, next){
         }
  
         res.json(todos);
-        console.log(res);
+       
  
     });
  

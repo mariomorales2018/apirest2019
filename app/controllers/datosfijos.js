@@ -30,7 +30,7 @@ var cleanName = function(str) {
 
 exports.getCombofijo = function(req, res, next){
        var sql='';
-console.log(req.params.id)
+
 if(req.params.id=='buses-nelson')  
 {   
         request('http://190.143.151.236:8500/ws/databuses.cfm', function (error, response, body) {
@@ -49,7 +49,8 @@ else
 
 if(req.params.id=='catalogo-tipo')  
 {   
-        res.json([{id:'DIAS FESTIVOS',nombre:'DIAS FESTIVOS'} ]);
+        res.json([{id:'DIAS FESTIVOS',nombre:'DIAS FESTIVOS'},{id:'RUTAS',nombre:'RUTAS'},{id:'MATERIAS',nombre:'MATERIAS'},{id:'PERIODOSSUM',nombre:'PERIODOSSUM'} 
+        ,{id:'TIPO UNIDADES',nombre:'TIPO UNIDADES'}]);
    
 }
 else
@@ -141,8 +142,7 @@ else
                                         if(todos2.length>0)   {  
         
                                                 var myData = [];
-                                               console.log(todos2);
-                                                for(var i = 0; i < todos2.length;i++){
+                                                 for(var i = 0; i < todos2.length;i++){
                
 
                                                 myData.push({nombre:cleanName(todos2[i].nombre) + ' '+ cleanName(todos2[i].apellido),fecha:todos2[i].fecha.substr(0,10),ingresos:cleanName(todos2[i].cuenta) });

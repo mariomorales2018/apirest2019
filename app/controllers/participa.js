@@ -72,7 +72,7 @@ else{
                 todo.otros   	=	req.body.otros    	||	todo.otros   	;
                 todo.estado 	=	req.body.estado 	||	todo.estado 	;
                 
-                console.log(todo)
+              
                 todo.save(function (err, todo){
                     if (err)     {  res.status(500).send(err.message)   }
                     res.json(todo);
@@ -98,9 +98,7 @@ else{
         fecha:d.toISOString()	
        }
         , function(err, todo) {
-        if (err){ 
-            console.log(err.message)
-            res.status(500).send(err.message)    }
+        if (err){   res.status(500).send(err.message)    }
     
         res.json(todo);
 

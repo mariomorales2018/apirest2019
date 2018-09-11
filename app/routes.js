@@ -1,8 +1,9 @@
 var AuthenticationController = require('./controllers/authentication'), 
-   
+    OraController = require('./controllers/oraclesqlx'), 
     DatosfijosController = require('./controllers/datosfijos'),
     ParticipaController = require('./controllers/participa'),
     ConferenciaController = require('./controllers/conferencia'),
+    DcatalogoController = require('./controllers/dcatalogo'),
     PersonalController = require('./controllers/personal'),
     EventoController = require('./controllers/eventos'),
     PerfilController = require('./controllers/perfil'),
@@ -13,15 +14,22 @@ var AuthenticationController = require('./controllers/authentication'),
     SuscriptorController = require('./controllers/suscriptor'),
     busController = require('./controllers/bus'),
     PermisoController = require('./controllers/permiso'),
+    EstudianteovController = require('./controllers/estudianteov'),
     DtarifaController = require('./controllers/dtarifa'),
     AfiliadoController = require('./controllers/afiliado'),
     ComprasaldoController = require('./controllers/comprasaldo'),
     MailController = require('./controllers/mail'),
     QrimagenController = require('./controllers/qrimagen'),
+    AsignapcbController = require('./controllers/asignapcb'),
+    TipounidadController = require('./controllers/tipounidad'),
+    EdificiousacController = require('./controllers/edificiousac'),
+    FacultadplanController = require('./controllers/facultadplan'),
+    UnidadacademicaController = require('./controllers/unidadacademica'),
     express = require('express'),
     passportService = require('../config/passport'),
-    passport = require('passport');
-    PersonalController = require('./controllers/personal');
+    passport = require('passport'),
+    PersonalController = require('./controllers/personal'),
+    UserController = require('./controllers/sun_facultad');
  
 var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
@@ -34,6 +42,7 @@ module.exports = function(app){
         authRoutes = express.Router(),
         participaRoutes = express.Router(),
         conferenciaRoutes = express.Router(),
+        dcatalogoRoutes = express.Router(),
         moduloRoutes = express.Router(),
         catalogoRoutes = express.Router(),
         tarifaRoutes = express.Router(),
@@ -41,16 +50,24 @@ module.exports = function(app){
         eventoRoutes = express.Router(),
         perfilRoutes = express.Router(),
         mailRoutes = express.Router(),
+        estudianteovRoutes = express.Router(),
         empresaRoutes = express.Router(),
         permisoRoutes = express.Router(),
+        oraRoutes = express.Router(),
         dtarifaRoutes = express.Router(),
         suscriptorRoutes = express.Router(),
         comprasaldoRoutes = express.Router(),
         qrimagenRoutes = express.Router(),
         busRoutes = express.Router(),
         afiliadoRoutes = express.Router(),
-        mailRoutes = express.Router();
-        personalRoutes = express.Router();
+        mailRoutes = express.Router(),
+        personalRoutes = express.Router(),
+        asignapcbRoutes = express.Router(),
+        tipounidadRoutes = express.Router(),
+        edificiousacRoutes = express.Router(),
+        unidadacademicaRoutes = express.Router(),
+        facultadplanRoutes = express.Router(),
+        userRoutes = express.Router();
 
     apiRoutes.use('/auth', authRoutes);
  
@@ -168,8 +185,18 @@ moduloRoutes.delete('/:recordID/:userID',  ModuloController.deleteModuloxx);
 apiRoutes.use('/catalogos', catalogoRoutes);
 catalogoRoutes.get('/', CatalogoController.getCatalogo);
 catalogoRoutes.get('/:id',  CatalogoController.getCatalogo);
+catalogoRoutes.get('/:id/:id2',  CatalogoController.getCatalogo);
 catalogoRoutes.post('/:recordID',  CatalogoController.creaCatalogo2s);
 catalogoRoutes.delete('/:recordID/:userID',  CatalogoController.deleteCatalogo);
+
+
+//-----------------------------------Dcatalogo
+apiRoutes.use('/dcatalogos', dcatalogoRoutes);
+dcatalogoRoutes.get('/:id',  DcatalogoController.getDcatalogo);
+
+dcatalogoRoutes.get('/:id/:id2',  DcatalogoController.getDcatalogo);
+dcatalogoRoutes.post('/:id',  DcatalogoController.creaDcatalogo2s);
+dcatalogoRoutes.delete('/:id/:userID',  DcatalogoController.deleteDcatalogo);
 
 //-----------------------------------TARIFA
 apiRoutes.use('/tarifas', tarifaRoutes);
@@ -190,6 +217,66 @@ dtarifaRoutes.delete('/:id/:userID',  DtarifaController.deleteDtarifa);
 apiRoutes.use('/datosfijos', datosfijosRoutes);
 datosfijosRoutes.get('/:id',  DatosfijosController.getCombofijo);
 datosfijosRoutes.get('/:id/:id2',  DatosfijosController.getCombofijo);
+//---------------------------------------estudiantes ov
+apiRoutes.use('/estudianteov', estudianteovRoutes);
+estudianteovRoutes.get('/',  EstudianteovController.getEstudianteov);
+estudianteovRoutes.get('/:codigo',  EstudianteovController.getEstudianteov);
+
+
+apiRoutes.use('/oracle', userRoutes);
+userRoutes.get('/', UserController.getUser);
+userRoutes.get('/:id',  UserController.getUser);
+userRoutes.post('/:recordID',  UserController.creaUser2s);
+userRoutes.delete('/:recordID/:userID',  UserController.deleteUser);
+
+
+
+apiRoutes.use('/oracle2', oraRoutes);
+oraRoutes.get('/:txt',  OraController.getoraclesqlxx);
+
+
+//-----------------------------------TIPO UNIDAD
+apiRoutes.use('/tipounidads', tipounidadRoutes);
+tipounidadRoutes.get('/', TipounidadController.getTipounidad);
+tipounidadRoutes.get('/:id',  TipounidadController.getTipounidad);
+tipounidadRoutes.post('/:recordID',  TipounidadController.creaTipounidad2s);
+tipounidadRoutes.delete('/:recordID/:userID',  TipounidadController.deleteTipounidad);
+
+
+//-----------------------------------unidad academica
+apiRoutes.use('/unidadacademicas', unidadacademicaRoutes);
+unidadacademicaRoutes.get('/:id',  UnidadacademicaController.getUnidadacademica);
+
+unidadacademicaRoutes.get('/:id/:id2',  UnidadacademicaController.getUnidadacademica);
+unidadacademicaRoutes.post('/:id',  UnidadacademicaController.creaUnidadacademica2s);
+unidadacademicaRoutes.delete('/:id/:userID',  UnidadacademicaController.deleteUnidadacademica);
+
+//-----------------------------------ASIGNA PCB
+apiRoutes.use('/asignapcbs', asignapcbRoutes);
+asignapcbRoutes.get('/', AsignapcbController.getAsignapcb);
+asignapcbRoutes.get('/:id',  AsignapcbController.getAsignapcb);
+asignapcbRoutes.get('/:id/:id2',  AsignapcbController.getAsignapcb);
+asignapcbRoutes.post('/:recordID',  AsignapcbController.creaAsignapcb2s);
+asignapcbRoutes.delete('/:recordID/:userID',  AsignapcbController.deleteAsignapcb);
+
+
+//-----------------------------------edificio unidad
+apiRoutes.use('/edificiousacs',edificiousacRoutes);
+edificiousacRoutes.get('/:id',  EdificiousacController.getEdificiousac);
+
+edificiousacRoutes.get('/:id/:id2',  EdificiousacController.getEdificiousac);
+edificiousacRoutes.post('/:id',  EdificiousacController.creaEdificiousac2s);
+edificiousacRoutes.delete('/:id/:userID',  EdificiousacController.deleteEdificiousac);
+
+
+//-----------------------------------FACULTAD PLAN
+apiRoutes.use('/facultadplans', facultadplanRoutes);
+facultadplanRoutes.get('/', FacultadplanController.getFacultadplan);
+facultadplanRoutes.get('/:id',  FacultadplanController.getFacultadplan);
+facultadplanRoutes.get('/:id/:id2',  FacultadplanController.getFacultadplan);
+facultadplanRoutes.post('/:recordID',  FacultadplanController.creaFacultadplan2s);
+facultadplanRoutes.delete('/:recordID/:userID',  FacultadplanController.deleteFacultadplan);
+
 
     app.use('/api', apiRoutes);
  

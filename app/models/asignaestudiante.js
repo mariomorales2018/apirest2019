@@ -50,16 +50,15 @@ var AsignaestudianteSchema = new mongoose.Schema({
         required: true
     },
     aprobado: {
-        type: String,
-        required: true
+        type: String
     },
     ingreso: {
         type: String,
         required: true
     },
     nota: {
-        type: String,
-        required: true
+        type: String
+      
     },
    
     date 		: { type: Date, default: Date.now }

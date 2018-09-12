@@ -1,7 +1,10 @@
 var mongoose 			=	require('mongoose');
 
 var AsignaestudianteSchema = new mongoose.Schema({
- 
+    idasigna: {
+        type: String,
+        required: true
+    },
     tipounidad: {
         type: String,
         required: true
@@ -43,14 +46,14 @@ var AsignaestudianteSchema = new mongoose.Schema({
         required: true
     },
     fexamen: {
-        type: Date,
+        type: String,
         required: true
     },
     aprobado: {
         type: String,
         required: true
     },
-    linkqr: {
+    ingreso: {
         type: String,
         required: true
     },

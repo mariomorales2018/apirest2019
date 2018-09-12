@@ -24,7 +24,9 @@ var AuthenticationController = require('./controllers/authentication'),
     TipounidadController = require('./controllers/tipounidad'),
     EdificiousacController = require('./controllers/edificiousac'),
     FacultadplanController = require('./controllers/facultadplan'),
+    FacultadmateriaController = require('./controllers/facultadmateria'),
     UnidadacademicaController = require('./controllers/unidadacademica'),
+    AsignaestudianteController = require('./controllers/asignaestudiante'),
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport'),
@@ -67,6 +69,8 @@ module.exports = function(app){
         edificiousacRoutes = express.Router(),
         unidadacademicaRoutes = express.Router(),
         facultadplanRoutes = express.Router(),
+        facultadmateriaRoutes = express.Router(),
+        asignaestudianteRoutes = express.Router(),
         userRoutes = express.Router();
 
     apiRoutes.use('/auth', authRoutes);
@@ -276,6 +280,20 @@ facultadplanRoutes.get('/:id',  FacultadplanController.getFacultadplan);
 facultadplanRoutes.get('/:id/:id2',  FacultadplanController.getFacultadplan);
 facultadplanRoutes.post('/:recordID',  FacultadplanController.creaFacultadplan2s);
 facultadplanRoutes.delete('/:recordID/:userID',  FacultadplanController.deleteFacultadplan);
+
+//-----------------------------------FACULTAD MATERIA
+apiRoutes.use('/facultadmaterias', facultadmateriaRoutes);
+facultadmateriaRoutes.get('/', FacultadmateriaController.getFacultadmateria);
+facultadmateriaRoutes.get('/:id',  FacultadmateriaController.getFacultadmateria);
+facultadmateriaRoutes.post('/:recordID',  FacultadmateriaController.creaFacultadmateria2s);
+facultadmateriaRoutes.delete('/:recordID/:userID',  FacultadmateriaController.deleteFacultadmateria);
+
+
+//-----------------------------------ASIGNA ESTUDIANTE
+apiRoutes.use('/asignaestudiantes', asignaestudianteRoutes);
+
+asignaestudianteRoutes.get('/:id',  AsignaestudianteController.getAsignaestudiante);
+
 
 
     app.use('/api', apiRoutes);

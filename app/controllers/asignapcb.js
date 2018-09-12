@@ -204,8 +204,8 @@ Facplan.find({tipounidad        	: req.body.tipounidad        	,
                                 idhorario:myData3[i].idhorario,
                                 idmateria:myData3[i].idmateria,
                                 fexamen:myData3[i].fexamen,
-                                aprobado:'Reprobado',
-                                nota:0,
+                                aprobado:'',
+                                nota:'',
                                 ingreso:'0'
                             });
                           

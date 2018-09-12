@@ -1,4 +1,4 @@
-var oracledb = require('oracledb');
+/*var oracledb = require('oracledb');
 var Bitacora = require('../models/bitacora');
 
 
@@ -68,3 +68,4 @@ exports.getoraclesqlxx = function(req, res, next){
 
   
 }
+*/

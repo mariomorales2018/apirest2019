@@ -1,6 +1,3 @@
-var oracledb = require('oracledb');
-var Bitacora = require('../models/bitacora');
-
 /*
 var connAttrs = {
     "user": "sun",
@@ -8,6 +5,10 @@ var connAttrs = {
     "connectString": "10.50.40.31/test"
 }
 */
+/*var oracledb = require('oracledb');
+var Bitacora = require('../models/bitacora');
+
+
 var connAttrs = {
     "user": "dbmcloude",
     "password": "mcloude",
@@ -223,6 +224,53 @@ else{
 }
 
 
+
+var buildUpdateStatement = function buildUpdateStatement(req) {
+  "use strict";
+
+  var statement = "",
+      bindValues = {};
+  if (req.body.DISPLAY_NAME) {
+      statement += "DISPLAY_NAME = :DISPLAY_NAME";
+      bindValues.DISPLAY_NAME = req.body.DISPLAY_NAME;
+  }
+  if (req.body.DESCRIPTION) {
+      if (statement) statement = statement + ", ";
+      statement += "DESCRIPTION = :DESCRIPTION";
+      bindValues.DESCRIPTION = req.body.DESCRIPTION;
+  }
+  if (req.body.GENDER) {
+      if (statement) statement = statement + ", ";
+      statement += "GENDER = :GENDER";
+      bindValues.GENDER = req.body.GENDER;
+  }
+  if (req.body.AGE) {
+      if (statement) statement = statement + ", ";
+      statement += "AGE = :AGE";
+      bindValues.AGE = req.body.AGE;
+  }
+  if (req.body.COUNTRY) {
+      if (statement) statement = statement + ", ";
+      statement += "COUNTRY = :COUNTRY";
+      bindValues.COUNTRY = req.body.COUNTRY;
+  }
+  if (req.body.THEME) {
+      if (statement) statement = statement + ", ";
+      statement += "THEME = :THEME";
+      bindValues.THEME = req.body.THEME;
+  }
+
+  statement += " WHERE USER_NAME = :USER_NAME";
+  bindValues.USER_NAME = req.params.USER_NAME;
+  statement = "UPDATE USER_PROFILES SET " + statement;
+
+  return {
+      statement: statement,
+      bindValues: bindValues
+  };
+};
+*/
+
 /*
 
 app.put('/user_profiles/:USER_NAME', function (req, res) {
@@ -283,48 +331,3 @@ app.put('/user_profiles/:USER_NAME', function (req, res) {
 
 */
 
-
-var buildUpdateStatement = function buildUpdateStatement(req) {
-  "use strict";
-
-  var statement = "",
-      bindValues = {};
-  if (req.body.DISPLAY_NAME) {
-      statement += "DISPLAY_NAME = :DISPLAY_NAME";
-      bindValues.DISPLAY_NAME = req.body.DISPLAY_NAME;
-  }
-  if (req.body.DESCRIPTION) {
-      if (statement) statement = statement + ", ";
-      statement += "DESCRIPTION = :DESCRIPTION";
-      bindValues.DESCRIPTION = req.body.DESCRIPTION;
-  }
-  if (req.body.GENDER) {
-      if (statement) statement = statement + ", ";
-      statement += "GENDER = :GENDER";
-      bindValues.GENDER = req.body.GENDER;
-  }
-  if (req.body.AGE) {
-      if (statement) statement = statement + ", ";
-      statement += "AGE = :AGE";
-      bindValues.AGE = req.body.AGE;
-  }
-  if (req.body.COUNTRY) {
-      if (statement) statement = statement + ", ";
-      statement += "COUNTRY = :COUNTRY";
-      bindValues.COUNTRY = req.body.COUNTRY;
-  }
-  if (req.body.THEME) {
-      if (statement) statement = statement + ", ";
-      statement += "THEME = :THEME";
-      bindValues.THEME = req.body.THEME;
-  }
-
-  statement += " WHERE USER_NAME = :USER_NAME";
-  bindValues.USER_NAME = req.params.USER_NAME;
-  statement = "UPDATE USER_PROFILES SET " + statement;
-
-  return {
-      statement: statement,
-      bindValues: bindValues
-  };
-};

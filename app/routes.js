@@ -222,18 +222,18 @@ apiRoutes.use('/estudianteov', estudianteovRoutes);
 estudianteovRoutes.get('/',  EstudianteovController.getEstudianteov);
 estudianteovRoutes.get('/:codigo',  EstudianteovController.getEstudianteov);
 
-
+/*
 apiRoutes.use('/oracle', userRoutes);
 userRoutes.get('/', UserController.getUser);
 userRoutes.get('/:id',  UserController.getUser);
 userRoutes.post('/:recordID',  UserController.creaUser2s);
 userRoutes.delete('/:recordID/:userID',  UserController.deleteUser);
-
-
+*/
+/*
 
 apiRoutes.use('/oracle2', oraRoutes);
 oraRoutes.get('/:txt',  OraController.getoraclesqlxx);
-
+*/
 
 //-----------------------------------TIPO UNIDAD
 apiRoutes.use('/tipounidads', tipounidadRoutes);

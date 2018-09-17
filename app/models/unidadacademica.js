@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
     var UnidadacademicaSchema 		=	new  mongoose.Schema({
         idtipounidad   		: { type : String, required : true },
         nombre	: { type : String, required : true },
+        codigo	: { type : String, required : true },
         }, {
         timestamps: true
         });

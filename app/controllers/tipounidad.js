@@ -46,6 +46,7 @@ if(req.params.recordID!=='crea')
         else
         {  
             todo.nombre        	=	req.body.nombre        	||	todo.nombre        	;
+            todo.codigo        	=	req.body.codigo        	||	todo.codigo        	;
             
             todo.save(function (err, todo){
                 if (err)     {  res.status(500).send(err.message)   }
@@ -57,15 +58,16 @@ if(req.params.recordID!=='crea')
 }
 else{
 
-    Tipounidad.find({nombre        	: req.body.nombre },function(err, todos) {
+    Tipounidad.find({codigo:req.body.codigo  },function(err, todos) {
         if (err){ res.send(err); }
       
-        if(todos.length>0)   {    res.status(500).send('Ya existe un Tipounidad con este nombre'); }
+        if(todos.length>0)   {    res.status(500).send('Codigo ya existe'); }
         else
         {   
 
             Tipounidad.create({
-                nombre        	: req.body.nombre        	
+                nombre        	: req.body.nombre        	,
+                codigo        	: req.body.codigo        
               }
                 , function(err, todo) {
                 if (err){ 

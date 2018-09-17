@@ -284,7 +284,7 @@ facultadplanRoutes.delete('/:recordID/:userID',  FacultadplanController.deleteFa
 //-----------------------------------FACULTAD MATERIA
 apiRoutes.use('/facultadmaterias', facultadmateriaRoutes);
 facultadmateriaRoutes.get('/', FacultadmateriaController.getFacultadmateria);
-facultadmateriaRoutes.get('/:id',  FacultadmateriaController.getFacultadmateria);
+facultadmateriaRoutes.get('/:id/:id2',  FacultadmateriaController.getFacultadmateria);
 facultadmateriaRoutes.post('/:recordID',  FacultadmateriaController.creaFacultadmateria2s);
 facultadmateriaRoutes.delete('/:recordID/:userID',  FacultadmateriaController.deleteFacultadmateria);
 

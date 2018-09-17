@@ -42,6 +42,7 @@ exports.creaUnidadacademica2s = function(req, res, next){
                 
                 todo.idtipounidad        	=	req.body.idtipounidad        	||	todo.idtipounidad;        	;
                 todo.nombre        	=	req.body.nombre        	||	todo.nombre        	;
+                todo.codigo        	=	req.body.codigo        	||	todo.codigo        	;
                
 
                 todo.save(function (err, todo){
@@ -53,24 +54,33 @@ exports.creaUnidadacademica2s = function(req, res, next){
     
     }
     else{
-        Bitacora.create(req.body.bitacora);
-    Unidadacademica.create({  idtipounidad      	: req.body.idtipounidad     	,
-        nombre        	: req.body.nombre        	,
-      
-       }
-        , function(err, todo) {
-        if (err){ 
+
+        Unidadacademica.find({codigo:req.body.codigo  },function(err, todos) {
+            if (err){ res.send(err); }
           
-            res.status(500).send(err.message)    }
-    
-        res.json(todo);
+            if(todos.length>0)   {    res.status(500).send('Codigo ya existe'); }
+            else
+            {   
 
-     
+                
+        Bitacora.create(req.body.bitacora);
+            Unidadacademica.create({  idtipounidad      	: req.body.idtipounidad     	,
+                nombre        	: req.body.nombre        	,
+                codigo        	: req.body.codigo        	
+            
+            }
+                , function(err, todo) {
+                if (err){ 
+                    res.status(500).send(err.message)    }
+                res.json(todo);
+            });
+            
+        }
         
-
     });
+   
+ 
 }
-
 
 }
 

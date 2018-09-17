@@ -41,11 +41,11 @@ exports.creaPermiso2s = function(req, res, next){
                 
                 todo.idrol        	=	req.body.idrol        	||	todo.idrol        	;
                 todo.nombre        	=	req.body.nombre        	||	todo.nombre        	;
-                todo.ingreso 	=	req.body.ingreso	||	todo.ingreso 	;
-                todo.consulta 	=	req.body.consulta	||	todo.consulta 	;
-                todo.eliminacion 	=	req.body.eliminacion	||	todo.eliminacion 	;
-                todo.creacion 	=	req.body.creacion	||	todo.creacion 	;
-                todo.actualizacion    	=	req.body.actualizacion    	||	todo.actualizacion    	;
+                todo.ingreso 	=	req.body.ingreso		;
+                todo.consulta 	=	req.body.consulta		;
+                todo.eliminacion 	=	req.body.eliminacion		;
+                todo.creacion 	=	req.body.creacion		;
+                todo.actualizacion    	=	req.body.actualizacion        	;
                 
              
                 todo.save(function (err, todo){

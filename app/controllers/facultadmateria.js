@@ -3,10 +3,10 @@ var Facultadmateria = require('../models/facultadmateria');
 var Bitacora = require('../models/bitacora');
 
 exports.getFacultadmateria = function(req, res, next){
-       if(req.params.id)
+       if(req.params.id2)
         {  
            
-                Facultadmateria.find({_id:req.params.id},function(err, todos) {
+                Facultadmateria.find({idtipounidad :req.params.id,idunidadacademica:req.params.id2},function(err, todos) {
                     if (err){ res.send(err); }
                    
                     if(todos.length>0)   {    res.json(todos);   }
@@ -41,16 +41,22 @@ exports.creaFacultadmateria2s = function(req, res, next){
     Bitacora.create(req.body.bitacora);
 if(req.params.recordID!=='crea')
 { 
+    console.log(req.body)
     Facultadmateria.findById({ _id: req.params.recordID }, function (err, todo)  {
         if (err) {  res.send(err);  }
         else
         {  
-            
+
+   
             todo.idtipounidad        	=	req.body.idtipounidad        	||	todo.idtipounidad        	;
             todo.idunidadacademica        	=	req.body.idunidadacademica        	||	todo.idunidadacademica        	;
-            todo.idmateria        	=	req.body.idmateria        	||	todo.idmateria        	;
-            todo.estado        	=	req.body.estado        	||	todo.estado        	;
+            todo.lenguaje        	=	req.body.lenguaje        	      	;
+            todo.matematica        	=	req.body.matematica            	;
+            todo.fisica         	=	req.body.fisica            	;
+            todo.biologia        	=	req.body.biologia        	      	;
+            todo.quimica        	=	req.body.quimica             	;
 
+            console.log(todo)
             todo.save(function (err, todo){
                 if (err)     {  res.status(500).send(err.message)   }
                 res.json(todo);
@@ -61,9 +67,12 @@ if(req.params.recordID!=='crea')
 }
 else{
 
+  
+    
+    
     Facultadmateria.find({idtipounidad        	: req.body.idtipounidad        	,
-        idunidadacademica: req.body.idunidadacademica,
-        idmateria: req.body.idmateria
+        idunidadacademica: req.body.idunidadacademica
+      
         
          },function(err, todos) {
         if (err){ res.send(err); }
@@ -75,8 +84,12 @@ else{
             Facultadmateria.create({
                 idtipounidad        	: req.body.idtipounidad        	,
         idunidadacademica: req.body.idunidadacademica,
-        idmateria: req.body.idmateria,
-        estado: req.body.estado
+        lenguaje: req.body.lenguaje,
+        matematica: req.body.matematica,
+        fisica: req.body.fisica,
+        biologia: req.body.biologia,
+        quimica: req.body.quimica
+        
               }
                 , function(err, todo) {
                 if (err){ 

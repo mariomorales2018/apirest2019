@@ -2,15 +2,15 @@ var mongoose 			=	require('mongoose');
 
 var FacultadplanSchema = new mongoose.Schema({
  
-    tipounidad: {
+    idtipounidad: {
         type: String,
         required: true
     },
-    unidadacademica: {
+    idunidadacademica: {
         type: String,
         required: true
     },
-    periodo: {
+    idperiodo: {
         type: String,
         required: true
     },

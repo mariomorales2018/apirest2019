@@ -1,11 +1,11 @@
 
-var Estudianteov = require('../models/estudianteov');
+var Estudiantepcb = require('../models/estudiantepcb');
 
 
-exports.getEstudianteov = function(req, res, next){
+exports.getEstudiantepcb = function(req, res, next){
     if(req.params.codigo)
     { 
-        Estudianteov.find({bo_orientacion:req.params.codigo},function(err, todos) {
+        Estudiantepcb.find({ORIENTACION:req.params.codigo},function(err, todos) {
             if (err){ res.send(err); }
         
             if(todos.length>0)   {    res.json(todos);   }

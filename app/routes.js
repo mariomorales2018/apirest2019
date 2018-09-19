@@ -15,6 +15,7 @@ var AuthenticationController = require('./controllers/authentication'),
     busController = require('./controllers/bus'),
     PermisoController = require('./controllers/permiso'),
     EstudianteovController = require('./controllers/estudianteov'),
+    EstudiantepcbController = require('./controllers/estudiantepcb'),
     DtarifaController = require('./controllers/dtarifa'),
     AfiliadoController = require('./controllers/afiliado'),
     ComprasaldoController = require('./controllers/comprasaldo'),
@@ -22,16 +23,19 @@ var AuthenticationController = require('./controllers/authentication'),
     QrimagenController = require('./controllers/qrimagen'),
     AsignapcbController = require('./controllers/asignapcb'),
     TipounidadController = require('./controllers/tipounidad'),
-    EdificiousacController = require('./controllers/edificiousac'),
-    FacultadplanController = require('./controllers/facultadplan'),
+    DepartamentoController = require('./controllers/departamento'),
+    EdificiousacController = require('./controllers/unidadedificio'),
+    PeriodousacController = require('./controllers/unidadperiodo'),
+    EdificiosalonController = require('./controllers/unidadedificiosalon'),
+    UnidadplanController = require('./controllers/unidadplan'),
     FacultadmateriaController = require('./controllers/facultadmateria'),
     UnidadacademicaController = require('./controllers/unidadacademica'),
     AsignaestudianteController = require('./controllers/asignaestudiante'),
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport'),
-    PersonalController = require('./controllers/personal'),
-    UserController = require('./controllers/sun_facultad');
+    PersonalController = require('./controllers/personal');
+    //UserController = require('./controllers/sun_facultad');
  
 var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
@@ -53,6 +57,7 @@ module.exports = function(app){
         perfilRoutes = express.Router(),
         mailRoutes = express.Router(),
         estudianteovRoutes = express.Router(),
+        estudiantepcbRoutes = express.Router(),
         empresaRoutes = express.Router(),
         permisoRoutes = express.Router(),
         oraRoutes = express.Router(),
@@ -62,14 +67,17 @@ module.exports = function(app){
         qrimagenRoutes = express.Router(),
         busRoutes = express.Router(),
         afiliadoRoutes = express.Router(),
+        departamentoRoutes = express.Router(),
         mailRoutes = express.Router(),
         personalRoutes = express.Router(),
         asignapcbRoutes = express.Router(),
         tipounidadRoutes = express.Router(),
         edificiousacRoutes = express.Router(),
+        periodousacRoutes = express.Router(),
         unidadacademicaRoutes = express.Router(),
-        facultadplanRoutes = express.Router(),
         facultadmateriaRoutes = express.Router(),
+        edificiosalonRoutes = express.Router(),
+        unidadplanRoutes = express.Router(),
         asignaestudianteRoutes = express.Router(),
         userRoutes = express.Router();
 
@@ -226,6 +234,11 @@ apiRoutes.use('/estudianteov', estudianteovRoutes);
 estudianteovRoutes.get('/',  EstudianteovController.getEstudianteov);
 estudianteovRoutes.get('/:codigo',  EstudianteovController.getEstudianteov);
 
+//---------------------------------------estudiantes PCB
+apiRoutes.use('/estudiantepcb', estudiantepcbRoutes);
+estudiantepcbRoutes.get('/',  EstudiantepcbController.getEstudiantepcb);
+estudiantepcbRoutes.get('/:codigo',  EstudiantepcbController.getEstudiantepcb);
+
 /*
 apiRoutes.use('/oracle', userRoutes);
 userRoutes.get('/', UserController.getUser);
@@ -264,22 +277,40 @@ asignapcbRoutes.post('/:recordID',  AsignapcbController.creaAsignapcb2s);
 asignapcbRoutes.delete('/:recordID/:userID',  AsignapcbController.deleteAsignapcb);
 
 
-//-----------------------------------edificio unidad
-apiRoutes.use('/edificiousacs',edificiousacRoutes);
-edificiousacRoutes.get('/:id',  EdificiousacController.getEdificiousac);
+//-----------------------------------unidad edificio 
+apiRoutes.use('/unidadedificios',edificiousacRoutes);
+edificiousacRoutes.get('/:id',  EdificiousacController.getUnidadedificio);
+edificiousacRoutes.get('/:id2/:id3',  EdificiousacController.getUnidadedificio);
+edificiousacRoutes.post('/:recordID',  EdificiousacController.creaUnidadedificio2s);
+edificiousacRoutes.delete('/:recordID/:userID',  EdificiousacController.deleteUnidadedificio);
 
-edificiousacRoutes.get('/:id/:id2',  EdificiousacController.getEdificiousac);
-edificiousacRoutes.post('/:id',  EdificiousacController.creaEdificiousac2s);
-edificiousacRoutes.delete('/:id/:userID',  EdificiousacController.deleteEdificiousac);
+
+//-----------------------------------unidad periodo
+apiRoutes.use('/unidadperiodos',periodousacRoutes);
+periodousacRoutes.get('/:id',  PeriodousacController.getUnidadperiodo);
+periodousacRoutes.get('/:id2/:id3',  PeriodousacController.getUnidadperiodo);
+periodousacRoutes.post('/:recordID',  PeriodousacController.creaUnidadperiodo2s);
+periodousacRoutes.delete('/:recordID/:userID',  PeriodousacController.deleteUnidadperiodo);
 
 
-//-----------------------------------FACULTAD PLAN
-apiRoutes.use('/facultadplans', facultadplanRoutes);
-facultadplanRoutes.get('/', FacultadplanController.getFacultadplan);
-facultadplanRoutes.get('/:id',  FacultadplanController.getFacultadplan);
-facultadplanRoutes.get('/:id/:id2',  FacultadplanController.getFacultadplan);
-facultadplanRoutes.post('/:recordID',  FacultadplanController.creaFacultadplan2s);
-facultadplanRoutes.delete('/:recordID/:userID',  FacultadplanController.deleteFacultadplan);
+
+//-----------------------------------unidad edificio salon
+apiRoutes.use('/unidadedificiosalons',edificiosalonRoutes);
+edificiosalonRoutes.get('/:id',  EdificiosalonController.getUnidadedificiosalon);
+edificiosalonRoutes.get('/:id2/:id3/:id4',  EdificiosalonController.getUnidadedificiosalon);
+edificiosalonRoutes.post('/:recordID',  EdificiosalonController.creaUnidadedificiosalon2s);
+edificiosalonRoutes.delete('/:recordID/:userID',  EdificiosalonController.deleteUnidadedificiosalon);
+
+
+//-----------------------------------unidad plan
+apiRoutes.use('/unidadplans',unidadplanRoutes);
+unidadplanRoutes.get('/:id',  UnidadplanController.getUnidadplan);
+unidadplanRoutes.get('/:id2/:id3/:id4',  UnidadplanController.getUnidadplan);
+unidadplanRoutes.post('/:recordID',  UnidadplanController.creaUnidadplan2s);
+unidadplanRoutes.delete('/:recordID/:userID',  UnidadplanController.deleteUnidadplan);
+
+
+
 
 //-----------------------------------FACULTAD MATERIA
 apiRoutes.use('/facultadmaterias', facultadmateriaRoutes);
@@ -291,8 +322,14 @@ facultadmateriaRoutes.delete('/:recordID/:userID',  FacultadmateriaController.de
 
 //-----------------------------------ASIGNA ESTUDIANTE
 apiRoutes.use('/asignaestudiantes', asignaestudianteRoutes);
-
 asignaestudianteRoutes.get('/:id',  AsignaestudianteController.getAsignaestudiante);
+
+//-----------------------------------DEPARTAMENTO
+apiRoutes.use('/Departamentos', departamentoRoutes);
+departamentoRoutes.get('/', DepartamentoController.getDepartamento);
+departamentoRoutes.get('/:id',  DepartamentoController.getDepartamento);
+departamentoRoutes.post('/:recordID',  DepartamentoController.creaDepartamento2s);
+departamentoRoutes.delete('/:recordID/:userID',  DepartamentoController.deleteDepartamento);
 
 
 

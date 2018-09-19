@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
-    var UnidadacademicaSchema 		=	new  mongoose.Schema({
-        idtipounidad   		: { type : String, required : true },
+    var DepartamentoSchema 		=	new  mongoose.Schema({
         nombre	: { type : String, required : true },
         codigo	: { type : Number, required : true },
         }, {
@@ -10,6 +9,6 @@ var mongoose = require('mongoose');
 
       
 
-module.exports = mongoose.model('Unidadacademica', UnidadacademicaSchema);
+module.exports = mongoose.model('Departamento', DepartamentoSchema);
 
 

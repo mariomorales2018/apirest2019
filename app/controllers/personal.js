@@ -29,8 +29,7 @@ exports.deletePersonal = function(req, res, next){
 
 exports.creaPersonal2s = function(req, res, next){
   
-    c
-  
+ 
     Bitacora.create(req.body.bitacora);
 
 if(req.params.recordID)

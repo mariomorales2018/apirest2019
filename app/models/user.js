@@ -24,7 +24,8 @@ var UserSchema = new mongoose.Schema({
     foto 	: { type : String },
     lenguaje	: { type : String, required : true , max : 20},
     sexo 	: { type : String },
-    estado 	: { type : String }
+    estado 	: { type : String },
+    nov 	: { type : String }
  
 }, {
     timestamps: true

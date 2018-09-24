@@ -1,5 +1,4 @@
-var mongoose =require("../mongodb1.js");
-
+var mongoose =require("mongoose");
 var AsignapcbSchema = new mongoose.Schema({
     idtipounidad :  		{    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
     idunidadacademica   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },

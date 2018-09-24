@@ -1,9 +1,4 @@
-/**
- * Created by mmerida on 4/06/2018.
- */
-
-var mongoose =require("../mongodb1.js"),
-
+var mongoose =require("mongoose");
 /* Create a Mongoose Schema object for generating
  document rules as to what structure MUST be
  expected when requesting/sending data to and from

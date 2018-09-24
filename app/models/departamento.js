@@ -1,5 +1,4 @@
-var mongoose =require("../mongodb1.js");
-
+var mongoose =require("mongoose");
     var DepartamentoSchema 		=	new  mongoose.Schema({
         nombre	: { type : String, required : true },
         codigo	: { type : Number, required : true },

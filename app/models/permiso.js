@@ -1,4 +1,4 @@
-var mongoose =require("../mongodb1.js");
+var mongoose =require("mongoose");
 
     var PermisoSchema 		=	new  mongoose.Schema({
         idrol   		: { type : String, required : true },

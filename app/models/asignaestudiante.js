@@ -1,5 +1,4 @@
-var mongoose =require("../mongodb1.js");
-
+var mongoose =require("mongoose");
 var AsignaestudianteSchema = new mongoose.Schema({
     idasigna: {
         type: String,

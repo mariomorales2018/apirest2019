@@ -1,5 +1,4 @@
-var mongoose =require("../mongodb1.js");
-
+var mongoose =require("mongoose");
 var FacultadmateriaSchema = new mongoose.Schema({
     idtipounidad   		: { type : String, required : true },
     idunidadacademica   		: { type : String, required : true },

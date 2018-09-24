@@ -1,20 +1,11 @@
-var mongoose 			=	require('mongoose');
+var mongoose =require("../mongodb1.js");
 
 var AsignapcbSchema = new mongoose.Schema({
- 
-    tipounidad: {
-        type: String,
-        required: true
-    },
-    unidadacademica: {
-        type: String,
-        required: true
-    },
+    idtipounidad :  		{    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
+    idunidadacademica   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
+    idperiodo   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
+      
     no_orientacion: {
-        type: String,
-        required: true
-    },
-    periodo: {
         type: String,
         required: true
     },

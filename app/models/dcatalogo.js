@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose =require("../mongodb1.js");
 
     var DcatalogoSchema 		=	new  mongoose.Schema({
         idcatalogo  		: { type : String, required : true },

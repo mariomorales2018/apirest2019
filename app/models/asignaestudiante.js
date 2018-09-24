@@ -1,26 +1,21 @@
-var mongoose 			=	require('mongoose');
+var mongoose =require("../mongodb1.js");
 
 var AsignaestudianteSchema = new mongoose.Schema({
     idasigna: {
         type: String,
         required: true
     },
-    tipounidad: {
-        type: String,
-        required: true
-    },
-    unidadacademica: {
-        type: String,
-        required: true
-    },
+    idtipounidad :  		{    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
+    idunidadacademica   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
+    idperiodo   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
+    idedificio: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
+    idsalon: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
+
     no_orientacion: {
         type: String,
         required: true
     },
-    periodo: {
-        type: String,
-        required: true
-    },
+  
     nombre: {
         type: String,
         required: true
@@ -29,14 +24,7 @@ var AsignaestudianteSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    idedificio: {
-        type: String,
-        required: true
-    },
-    idsalon: {
-        type: String,
-        required: true
-    },
+  
     idhorario: {
         type: String,
         required: true

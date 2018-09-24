@@ -184,7 +184,6 @@ else
                                                                 var myData = [];
                                                                 for(var i = 0; i < todos.length;i++){
                                                                         for(var j = 0; j < todos2.length;j++){
-                                                                                console.log(todos[i].nombre + '===' +todos2[i].nombre);
                                                                                 if(todos[i].nombre==todos2[j].nombre)
                                                                                 {
                                                                                         console.log(todos[i].nombre);

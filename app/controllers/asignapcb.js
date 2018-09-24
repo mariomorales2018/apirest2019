@@ -1,7 +1,8 @@
 
 
-var Facplan = require('../models/facultadplan');
+var Facplan = require('../models/unidadplan');
 var Facmat = require('../models/facultadmateria');
+
 var Asignaest = require('../models/asignaestudiante');
 var Asignapcb = require('../models/asignapcb');
 var Bitacora = require('../models/bitacora');
@@ -63,10 +64,10 @@ if(req.params.recordID!=='crea')
     Asignapcb.findById({ _id: req.params.recordID }, function (err, todo)  {
         if (err) {  res.send(err);  }
         else
-        {   todo.tipounidad        	=	req.body.tipounidad        	||	todo.tipounidad        	;
-            todo.unidadacademica        	=	req.body.unidadacademica        	||	todo.unidadacademica        	;
+        {   todo.idtipounidad        	={id:req.body.idtipounidad.id,nombre:req.body.idtipounidad.nombre   }   	;
+            todo.idunidadacademica        	={id:req.body.idunidadacademica.id,nombre:req.body.idunidadacademica.nombre   }   	;
+            todo.idperiodo        	=	{id:req.body.idperiodo.id,nombre:req.body.idperiodo.nombre   }   	;
             todo.no_orientacion        	=	req.body.no_orientacion        	||	todo.no_orientacion        	;
-            todo.periodo        	=	req.body.periodo       	||	todo.periodo        	;
             todo.nombre    	=	req.body.nombre    	||	todo.nombre    	;
             todo.idestudiante    	=	req.body.idestudiante    	||	todo.idestudiante    	;
             todo.idinterno        	=	req.body.idinterno       	||	todo.idinterno        	;
@@ -80,14 +81,15 @@ if(req.params.recordID!=='crea')
 }
 else{
 
-  
+  console.log(req.body);
 
 
 
-    Asignapcb.find({tipounidad        	: req.body.tipounidad        	,
-        unidadacademica        	: req.body.unidadacademica        	,
+    Asignapcb.find({idtipounidad        	: req.body.tipounidad        	,
+        idunidadacademica        	: req.body.unidadacademica        	,
         no_orientacion        	: req.body.no_orientacion        	,
-        periodo        	: req.body.periodo        	, idinterno 	: req.body.idinterno  },function(err, todos) {
+        idperiodo        	: req.body.periodo        
+        	, idinterno 	: req.body.idinterno  },function(err, todos) {
         if (err){ res.send(err); }
       
         if(todos.length>0)   {    res.status(500).send('Ya existe una Asignación para este periodo'); }
@@ -95,36 +97,42 @@ else{
         { 
             
             
+  console.log('busca en las asignaciones');
+  console.log(todos);
 
 //todo lo que tengo que ganar
 
-Facplan.find({tipounidad        	: req.body.tipounidad        	,
-    unidadacademica        	: req.body.unidadacademica        	
+Facplan.find({idtipounidad        	: req.body.tipounidad        	,
+    idunidadacademica        	: req.body.unidadacademica        	
          }).lean().exec({}, function(err,myData) {
     if (err) res.send(err);
 
-    Facmat.find({idtipounidad        	: req.body.tipounidad        	,
-        idunidadacademica        	: req.body.unidadacademica ,estado:'Activo'       	
-             }).lean().exec({}, function(err,myData0) {
+    console.log('busca los planes');
+    console.log(myData);
+  
+    Facmat.find({idtipounidad        	: req.body.tipounidad.id        	,
+        idunidadacademica        	: req.body.unidadacademica.id 	
+             }).lean().exec({}, function(err,myData0t) {
         if (err) res.send(err);
-        
-       // console.log('lo que tengo que ganar')
-       // console.log(myData)
+        var myData0 = [];
+            
+       
+           if(myData0t[0].lenguaje==true){ myData0.push({idmateria:'Lenguaje'});      }
+           if(myData0t[0].fisica==true){ myData0.push({idmateria:'Fisica'});      }
+           if(myData0t[0].matematica==true){ myData0.push({idmateria:'Matematica'});      }
+           if(myData0t[0].quimica==true){ myData0.push({idmateria:'Quimica'});      }
+           if(myData0t[0].biologia==true){ myData0.push({idmateria:'Biologia'});      }
+           console.log('busca las materias');
+           console.log(myData0)
 
-        Asignaest.find({tipounidad        	: req.body.tipounidad        	,
-            unidadacademica        	: req.body.unidadacademica        	,
+        Asignaest.find({idtipounidad        	: req.body.tipounidad        	,
+            idunidadacademica        	: req.body.unidadacademica        	,
             no_orientacion        	: req.body.no_orientacion        	,
             idestudiante:req.body.idestudiante,aprobado:'Aprobado',
-            periodo        	: req.body.periodo        }).lean().exec({}, function(err,myData2) {
+            idperiodo        	: req.body.periodo        }).lean().exec({}, function(err,myData2) {
             if (err) res.send(err);
             
-      
-   
-          // console.log('materia de facultad:' + myData0.length + ' facultad plan: ' + myData.length+ ' lo que e ganado' + myData2.length)
-           // console.log(myData2)
-             //myData : facultad plan      myData0 : facultad materia         myData2: lo que eganado
-             //reviso las que ya gane para poder quitarlas de las que me tocaria ganar
-
+            console.log(myData2)
              var myData0a = [];
              
              if(myData2.length==0)
@@ -151,8 +159,7 @@ Facplan.find({tipounidad        	: req.body.tipounidad        	,
 
             }
 
-         //   console.log('materia de facultad:' + myData0a.length + ' facultad plan: ' + myData.length)
-                         var myData3 = [];
+                          var myData3 = [];
                         for(var i = 0; i < myData0a.length;i++){
 
                             for(var ii = 0; ii < myData.length;ii++){
@@ -172,13 +179,14 @@ Facplan.find({tipounidad        	: req.body.tipounidad        	,
                             }
                         }
 
-     
+     console.log(myData3)
+     res.json(myData3);
 
-
-                        Asignapcb.create({ tipounidad        	: req.body.tipounidad        	,
-                            unidadacademica        	: req.body.unidadacademica        	,
+/*
+                        Asignapcb.create({ idtipounidad        	: req.body.tipounidad        	,
+                            idunidadacademica        	: req.body.unidadacademica        	,
                             no_orientacion        	: req.body.no_orientacion        	,
-                            periodo        	: req.body.periodo        	,
+                            idperiodo        	: req.body.periodo        	,
                             nombre 	: req.body.nombre, 	
                             idestudiante 	: req.body.idestudiante, 	
                             idinterno 	: req.body.idinterno
@@ -188,15 +196,15 @@ Facplan.find({tipounidad        	: req.body.tipounidad        	,
                             
                                 res.status(500).send(err.message)    }
                         //crea todas las asignaciones nuevas que tiene que sacar
-                        //    console.log(todo)
+                       
                         for(var i = 0; i < myData3.length;i++){
                          //   console.log('crea asignaest ' + myData3[i].fexamen)
                             Asignaest.create({ 
                                 idasigna:todo._id,
-                                tipounidad        	: req.body.tipounidad        	,
-                                unidadacademica        	: req.body.unidadacademica        	,
+                                idtipounidad        	: req.body.tipounidad        	,
+                                idunidadacademica        	: req.body.unidadacademica        	,
                                 no_orientacion        	: req.body.no_orientacion        	,
-                                periodo        	: req.body.periodo        	,
+                                idperiodo        	: req.body.periodo        	,
                                 nombre 	: req.body.nombre, 	
                                 idestudiante 	: req.body.idestudiante, 	
                                 idedificio:myData3[i].idedificio,
@@ -227,7 +235,7 @@ Facplan.find({tipounidad        	: req.body.tipounidad        	,
                             res.json(todo);
 
                         });
-
+*/
 
            
          });

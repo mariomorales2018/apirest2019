@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose =require("../mongodb1.js");
 
     var ModuloxxSchema 		=	new  mongoose.Schema({
         grupo   		: { type : String, required : true },

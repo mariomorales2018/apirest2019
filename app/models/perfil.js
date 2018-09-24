@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose =require("../mongodb1.js");
 
     var PerfilSchema 		=	new  mongoose.Schema({
         nombre   		: { type : String, required : true },

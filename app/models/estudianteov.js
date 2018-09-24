@@ -1,4 +1,5 @@
-var mongoose = require('mongoose');
+var mongoose =require("../mongodb2.js");
+
 
     var EstudianteovSchema 		=	new  mongoose.Schema({
         bo_orientacion   		: { type : String},

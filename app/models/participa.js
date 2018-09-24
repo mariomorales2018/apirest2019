@@ -1,7 +1,7 @@
 /**
  * Created by mmerida on 17/05/2018.
  */
-var mongoose = require('mongoose');
+var mongoose =require("../mongodb1.js");
 
 var ParticipaSchema = new mongoose.Schema({
     idevento: {

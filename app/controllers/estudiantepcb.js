@@ -1,5 +1,5 @@
 
-var Estudiantepcb = require('../models/estudiantepcb');
+var Estudiantepcb = require('mongoose');
 
 
 exports.getEstudiantepcb = function(req, res, next){

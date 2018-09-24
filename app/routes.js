@@ -78,17 +78,14 @@ module.exports = function(app){
         facultadmateriaRoutes = express.Router(),
         edificiosalonRoutes = express.Router(),
         unidadplanRoutes = express.Router(),
-        asignaestudianteRoutes = express.Router(),
-        userRoutes = express.Router();
-
-    apiRoutes.use('/auth', authRoutes);
+        asignaestudianteRoutes = express.Router();
+        apiRoutes.use('/auth', authRoutes);
+        authRoutes.post('/register', AuthenticationController.register);
+        authRoutes.post('/login', requireLogin, AuthenticationController.login);
  
-    authRoutes.post('/register', AuthenticationController.register);
-    authRoutes.post('/login', requireLogin, AuthenticationController.login);
- 
-    authRoutes.get('/protected', requireAuth, function(req, res){
-        res.send({ content: 'Success'});
-    });
+        authRoutes.get('/protected', requireAuth, function(req, res){
+            res.send({ content: 'Success'});
+        });
  
    
 

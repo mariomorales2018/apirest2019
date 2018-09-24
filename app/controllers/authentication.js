@@ -68,7 +68,8 @@ exports.register = function(req, res, next){
             lenguaje    	: req.body.lenguaje    	,
             sexo    	: req.body.sexo    	,
             estado    	: 'Activo' ,
-            role:req.body.role
+            role:req.body.role,
+            nov    	: req.body.nov    	
         });
  
         user.save(function(err, user){

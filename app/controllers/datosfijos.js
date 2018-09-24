@@ -164,29 +164,31 @@ else
                         }
                         else
                         {
-        
+                        
                         Perfil.find({nombre:req.params.id},function(err, todos) {
                                 if (err){ res.send(err); }
                                 
-
+                               
                                 if(todos.length>0)   {  
                                         
                                 
                                         Permiso.find({idrol:todos[0]._id},function(err, todos) {
                                                 if (err){ res.send(err); }
                                                 
-                
+                                               
                                                 if(todos.length>0)   {  
                                                         
                                                         Moduloxx.find({},function(err, todos2) {
                                                                 if (err){ res.send(err); }
-                                        
+                                                               
                                                                 var myData = [];
                                                                 for(var i = 0; i < todos.length;i++){
                                                                         for(var j = 0; j < todos2.length;j++){
-                                                                                if(todos[i].nombre==todos2[i].nombre)
+                                                                                console.log(todos[i].nombre + '===' +todos2[i].nombre);
+                                                                                if(todos[i].nombre==todos2[j].nombre)
                                                                                 {
-                                                                                        myData.push({idrol:todos[i].idrol,title:todos2[i].nombre,component: todos2[i].componente, tabComponent:todos2[i].tabcomponente,name:todos2[i].titulo,index:todos2[i].index,icon:todos2[i].icono,estado:todos2[i].estado,
+                                                                                        console.log(todos[i].nombre);
+                                                                                        myData.push({idrol:todos[i].idrol,title:todos2[j].nombre,component: todos2[j].componente, tabComponent:todos2[j].tabcomponente,name:todos2[j].titulo,index:todos2[j].index,icon:todos2[j].icono,estado:todos2[j].estado,
                                                                                         permiso:todos[i].ingreso+','+todos[i].consulta+','+todos[i].eliminacion+','+todos[i].creacion+','+todos[i].actualizacion});
                                                 
                                                                                         break;                

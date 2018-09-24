@@ -1,4 +1,4 @@
-var mongoose =require("../mongodb2.js");
+var mongoose =require("mongoose");
 
 
     var EstudianteovSchema 		=	new  mongoose.Schema({

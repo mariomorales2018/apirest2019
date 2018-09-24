@@ -15,6 +15,7 @@ var AuthenticationController = require('./controllers/authentication'),
     busController = require('./controllers/bus'),
     PermisoController = require('./controllers/permiso'),
     EstudianteovController = require('./controllers/estudianteov'),
+    EstudiantevtController = require('./controllers/estudiantevt'),
     EstudiantepcbController = require('./controllers/estudiantepcb'),
     DtarifaController = require('./controllers/dtarifa'),
     AfiliadoController = require('./controllers/afiliado'),
@@ -57,6 +58,7 @@ module.exports = function(app){
         perfilRoutes = express.Router(),
         mailRoutes = express.Router(),
         estudianteovRoutes = express.Router(),
+        estudiantevtRoutes = express.Router(),
         estudiantepcbRoutes = express.Router(),
         empresaRoutes = express.Router(),
         permisoRoutes = express.Router(),
@@ -230,6 +232,11 @@ datosfijosRoutes.get('/:id/:id2',  DatosfijosController.getCombofijo);
 apiRoutes.use('/estudianteov', estudianteovRoutes);
 estudianteovRoutes.get('/',  EstudianteovController.getEstudianteov);
 estudianteovRoutes.get('/:codigo',  EstudianteovController.getEstudianteov);
+
+//---------------------------------------estudiantes vt
+apiRoutes.use('/estudiantevt', estudiantevtRoutes);
+estudiantevtRoutes.get('/',  EstudiantevtController.getEstudiantevt);
+estudiantevtRoutes.get('/:codigo',  EstudiantevtController.getEstudiantevt);
 
 //---------------------------------------estudiantes PCB
 apiRoutes.use('/estudiantepcb', estudiantepcbRoutes);

@@ -1,12 +1,13 @@
 var mongoose =require("mongoose");
-    var EstudiantepcbSchema 		=	new  mongoose.Schema({
-        bo_orientacion   		: { type : String},
-        idmateria   		: { type : String},
-        fecha_evaluacion   		: { type : String},
-        no_oportunidad   		: { type : String},
-        aprobacion   		: { type : String},
-        anio_evaluacion   		: { type : String},
-        nombres   		: { type : String}
+ 
+var EstudiantepcbSchema 		=	new  mongoose.Schema({
+        ORIENTACION   		: { type : String},
+        IDMATERIA   		: { type : String},
+        FECHA_EVALUACION   		: { type : String},
+        NO_OPORTUNIDAD   		: { type : String},
+        APROBACION   		: { type : String},
+        ANIO_EVALUACION   		: { type : String},
+        NOMBRES   		: { type : String}
         }, {
         timestamps: true
         });

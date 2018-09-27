@@ -97,9 +97,7 @@ else{
         { 
             
             
-  console.log('busca en las asignaciones');
-  console.log(todos);
-
+  
 //todo lo que tengo que ganar
 
 Facplan.find({idtipounidad        	: req.body.tipounidad        	,
@@ -107,8 +105,6 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
          }).lean().exec({}, function(err,myData) {
     if (err) res.send(err);
 
-    console.log('busca los planes');
-    console.log(myData);
   
     Facmat.find({idtipounidad        	: req.body.tipounidad.id        	,
         idunidadacademica        	: req.body.unidadacademica.id 	
@@ -131,19 +127,20 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
             idestudiante:req.body.idestudiante,aprobado:'Aprobado',
             idperiodo        	: req.body.periodo        }).lean().exec({}, function(err,myData2) {
             if (err) res.send(err);
-            
-            console.log(myData2)
              var myData0a = [];
              
              if(myData2.length==0)
-             {
+             {console.log('no tiene asignaciones')
                 myData0a=myData0    
+                console.log(myData0);
              }
              else
              {
+                 console.log('compara asignaciones')
              for(var i = 0; i < myData0.length;i++){
                 var gane=0;
                  for(var ii = 0; ii < myData.length;ii++){
+                     console.log(myData0[i].idmateria  + ' === ' +myData[ii].idmateria)
                          if(myData0[i].idmateria==myData[ii].idmateria)
                          {   gane=1;   break;                     }
                          else{gane=0;}
@@ -169,7 +166,7 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
                                       {
                                         myData3.push({_id:myData[ii]._id,idedificio:myData[ii].idedificio,idsalon:myData[ii].idsalon
                                             ,idhorario:myData[ii].idhorario,idmateria:myData[ii].idmateria
-                                            ,capacidad:myData[ii].capacidad,asignados:myData[ii].asignados,fexamen:myData[ii].fexamen});
+                                            ,capacidad:myData[ii].capacidad,asignados:'0',fexamen:myData[ii].fexamen});
         
                                         break;
 
@@ -180,9 +177,8 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
                         }
 
      console.log(myData3)
-     res.json(myData3);
+//     res.json(myData3);
 
-/*
                         Asignapcb.create({ idtipounidad        	: req.body.tipounidad        	,
                             idunidadacademica        	: req.body.unidadacademica        	,
                             no_orientacion        	: req.body.no_orientacion        	,
@@ -203,12 +199,14 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
                                 idasigna:todo._id,
                                 idtipounidad        	: req.body.tipounidad        	,
                                 idunidadacademica        	: req.body.unidadacademica        	,
-                                no_orientacion        	: req.body.no_orientacion        	,
                                 idperiodo        	: req.body.periodo        	,
-                                nombre 	: req.body.nombre, 	
-                                idestudiante 	: req.body.idestudiante, 	
                                 idedificio:myData3[i].idedificio,
                                 idsalon:myData3[i].idsalon,
+                            
+                                no_orientacion        	: req.body.no_orientacion        	,
+                               
+                                nombre 	: req.body.nombre, 	
+                                idestudiante 	: req.body.idestudiante, 	
                                 idhorario:myData3[i].idhorario,
                                 idmateria:myData3[i].idmateria,
                                 fexamen:myData3[i].fexamen,
@@ -235,7 +233,7 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
                             res.json(todo);
 
                         });
-*/
+
 
            
          });

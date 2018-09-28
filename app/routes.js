@@ -95,6 +95,7 @@ module.exports = function(app){
 //-----------------------------------PERSONAL
 apiRoutes.use('/personals', personalRoutes);
 personalRoutes.get('/', PersonalController.getPersonal);
+personalRoutes.get('/:email/:id2', PersonalController.getPersonal);
 personalRoutes.get('/:email',  PersonalController.getPersonal);
 personalRoutes.post('/:recordID',  PersonalController.creaPersonal2s);
 personalRoutes.delete('/:recordID/:userID',  PersonalController.deletePersonal);
@@ -152,6 +153,7 @@ eventoRoutes.delete('/:recordID/:userID',  EventoController.deleteEvento);
 apiRoutes.use('/perfils', perfilRoutes);
 perfilRoutes.get('/', PerfilController.getPerfil);
 perfilRoutes.get('/:id',  PerfilController.getPerfil);
+perfilRoutes.get('/:id1/:id2',  PerfilController.getPerfil);
 perfilRoutes.post('/:recordID',  PerfilController.creaPerfil2s);
 perfilRoutes.delete('/:recordID/:userID',  PerfilController.deletePerfil);
 

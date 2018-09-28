@@ -49,7 +49,7 @@ else
 
 if(req.params.id=='catalogo-tipo')  
 {   
-        res.json([{id:'DIAS FESTIVOS',nombre:'DIAS FESTIVOS'},{id:'RUTAS',nombre:'RUTAS'},{id:'MATERIAS',nombre:'MATERIAS'},{id:'PERIODOSSUM',nombre:'PERIODOSSUM'} 
+        res.json([{id:'DIAS FESTIVOS',nombre:'DIAS FESTIVOS'},{id:'RUTAS',nombre:'RUTAS'},{id:'MATERIAS',nombre:'MATERIAS'},{id:'PERIODOSSUM',nombre:'PERIODOSSUM'},{id:'UNIDADES',nombre:'UNIDADES'} 
         ,{id:'TIPO UNIDADES',nombre:'TIPO UNIDADES'}]);
    
 }
@@ -71,7 +71,7 @@ else
         {
                 if(req.params.id=='user-rol')  
                 {   
-                        Perfil.find(function(err, todos) {
+                        Perfil.find({unidad:req.params.id2},function(err, todos) {
                                 if (err){  res.send(err);  }
                                  res.json(todos);
                         });
@@ -186,7 +186,7 @@ else
                                                                         for(var j = 0; j < todos2.length;j++){
                                                                                 if(todos[i].nombre==todos2[j].nombre)
                                                                                 {
-                                                                                        console.log(todos[i].nombre);
+                                                                                    //    console.log(todos[i].nombre);
                                                                                         myData.push({idrol:todos[i].idrol,title:todos2[j].nombre,component: todos2[j].componente, tabComponent:todos2[j].tabcomponente,name:todos2[j].titulo,index:todos2[j].index,icon:todos2[j].icono,estado:todos2[j].estado,
                                                                                         permiso:todos[i].ingreso+','+todos[i].consulta+','+todos[i].eliminacion+','+todos[i].creacion+','+todos[i].actualizacion});
                                                 

@@ -67,9 +67,11 @@ exports.register = function(req, res, next){
             telefono    	: req.body.telefono    	,
             lenguaje    	: req.body.lenguaje    	,
             sexo    	: req.body.sexo    	,
-            estado    	: 'Activo' ,
-            role:req.body.role,
-            nov    	: req.body.nov    	
+            estado    	: req.body.estado ,
+            nov    	: req.body.nov   , 	
+            unidad    	: req.body.unidad   ,
+            codpersonal    	: req.body.codpersonal   
+         
         });
  
         user.save(function(err, user){

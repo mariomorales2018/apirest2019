@@ -25,7 +25,9 @@ var UserSchema = new mongoose.Schema({
     lenguaje	: { type : String, required : true , max : 20},
     sexo 	: { type : String },
     estado 	: { type : String },
-    nov 	: { type : String }
+    nov 	: { type : String },
+    unidad 	: { type : String },
+    codpersonal 	: { type : String }
  
 }, {
     timestamps: true

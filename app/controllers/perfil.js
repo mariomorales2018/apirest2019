@@ -3,6 +3,15 @@ var Perfil = require('../models/perfil');
 var Bitacora = require('../models/bitacora');
 
 exports.getPerfil = function(req, res, next){
+    if(req.params.id2)
+    { 
+        Perfil.find({unidad:req.params.id2},function(err, todos) {
+            if (err){  res.send(err);  }
+             res.json(todos);
+         });
+    }
+    else
+    {
     if(req.params.id)
     {   Perfil.find({_id:req.params.id},function(err, todos) {
             if (err){ res.send(err); }
@@ -19,6 +28,7 @@ exports.getPerfil = function(req, res, next){
             res.json(todos);
         });
     }
+}
 }
 exports.deletePerfil = function(req, res, next){
    
@@ -40,7 +50,7 @@ if(req.params.recordID!=='crea')
         else
         {   todo.nombre        	=	req.body.nombre        	||	todo.nombre        	;
             todo.estado    	=	req.body.estado    	||	todo.estado    	;
-            
+            todo.unidad    	=	req.body.unidad    	||	todo.unidad    	;
             todo.save(function (err, todo){
                 if (err)     {  res.status(500).send(err.message)   }
                 res.json(todo);
@@ -52,7 +62,7 @@ if(req.params.recordID!=='crea')
 else{
    
 
-    Perfil.find({ nombre        	: req.body.nombre  },function(err, todos) {
+    Perfil.find({ nombre        	: req.body.nombre ,unidad        	: req.body.unidad        	 },function(err, todos) {
         if (err){ res.send(err); }
        
         if(todos.length>0)   {     res.status(500).send('Ya existe creado un perfil con este nombre');  }
@@ -60,6 +70,7 @@ else{
         {    
 
             Perfil.create({ nombre        	: req.body.nombre        	,
+                unidad        	: req.body.unidad        	,
                 estado 	: req.body.estado 	
               }
                 , function(err, todo) {

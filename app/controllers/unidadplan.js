@@ -73,7 +73,10 @@ else{
   
     
 
-    Unidadplan.find({idtipounidad        	: req.body.idtipounidad        	,  idunidadacademica: req.body.idunidadacademica,  idperiodo: req.body.idperiodo,    idedificio: req.body.idedificio,   idsalon: req.body.idsalon,   idhorario: req.body.idhorario  },function(err, todos) {
+    Unidadplan.find({idtipounidad        	: req.body.idtipounidad       
+         	,  idunidadacademica: req.body.idunidadacademica, 
+         idperiodo: req.body.idperiodo,    idedificio: req.body.idedificio, 
+           idsalon: req.body.idsalon,   idhorario: req.body.idhorario  },function(err, todos) {
         if (err){ res.send(err); }
       
         if(todos.length>0)   {    res.status(500).send('Ya existe una planificacion para este salon y horario'); }

@@ -1,6 +1,6 @@
 module.exports = {
-   //'url': 'mongodb://usac:usac@ds111618.mlab.com:11618/usac'
+   'url': 'mongodb://usac:usac@ds111618.mlab.com:11618/usac'
  
-    'url': 'mongodb://usac:Admin123@ds253831.mlab.com:53831/usac'  
+    //'url': 'mongodb://usac:Admin123@ds253831.mlab.com:53831/usac'  
     
 }

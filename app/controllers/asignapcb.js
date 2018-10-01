@@ -1,5 +1,5 @@
 
-
+var Nuevosalon = require('../models/nuevosalon');
 var Facplan = require('../models/unidadplan');
 var Facmat = require('../models/facultadmateria');
 
@@ -64,7 +64,14 @@ function getNextSequenceValue(myData3,myData3aa,req,res){
  //myData3 = lo que me puedo asignar
 
         if(myData3aa.length>0)
-        {  res.status(500).send('No existe cupo para asignarse este curso , realize la asignacion mas tarde')    
+        { 
+            Nuevosalon.create({ 
+                nombre:'Solicitando salon para Unidad academica: ' + req.body.unidadacademica.nombre + ', Materia: '+  myData3aa[0].idmateria +', Edificio: '+  myData3aa[0].idedificio.nombre +' y Salon: '+  myData3aa[0].idsalon.nombre ,
+                estado        	: 'Solicitando' ,
+                correo:''       	
+            });
+//            console.log('No existe cupo para asignarse esta materia: '+  myData3aa[0].idmateria +' para el edificio: '+  myData3aa[0].idedificio.nombre +' salon: '+  myData3aa[0].idsalon.nombre +' , realize la asignacion mas tarde')
+            res.status(500).send('No existe cupo para asignarse esta materia: '+  myData3aa[0].idmateria +', Intente asignarce más tarde')    
         }
         else
         {
@@ -99,8 +106,8 @@ function getNextSequenceValue(myData3,myData3aa,req,res){
                                                   var asigno=0
                                                   asigno=myasigcupo.length;
                                                   asigno=asigno+1;
-                                                  console.log('calcula el asignado')
-                                                  console.log(asigno)
+                                              //    console.log('calcula el asignado')
+                                                //  console.log(asigno)
                                                    
                                                             Asignaest.create({ 
                                                                 idasigna:todo._id,
@@ -189,7 +196,8 @@ else{
         { 
   
 Facplan.find({idtipounidad        	: req.body.tipounidad        	,
-    idunidadacademica        	: req.body.unidadacademica        	
+    idunidadacademica        	: req.body.unidadacademica  
+ //,   asignados:{$lt:capacidad}    	
          }).lean().exec({}, function(err,myData) {
     if (err) res.send(err);
 
@@ -244,37 +252,48 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
 
                           var myData3 = [];
                           var myData3aa = [];
-                          var nohaycupo=0;
+                          
+                          var cii=0;
                           //las materias qye tengo que ganar
+                         // console.log(myData);
                         for(var i = 0; i < myData0a.length;i++){
                             //todo lo que esta planificado en el plan    
                             for(var ii = 0; ii < myData.length;ii++){
                                     if(myData0a[i].idmateria==myData[ii].idmateria )
                                     {
-                                      if( myData[ii].capacidad!=(myData[ii].asignados+1))
-                                      {//si hay cupo lo hago
-                                        myData3.push({_id:myData[ii]._id,idedificio:myData[ii].idedificio,idsalon:myData[ii].idsalon
-                                            ,idhorario:myData[ii].idhorario,idmateria:myData[ii].idmateria
-                                            ,capacidad:myData[ii].capacidad,asignados:'0',fexamen:myData[ii].fexamen,codfac:myData[ii].codfac});
-        
-                                        break;
+                                            if( myData[ii].capacidad!=(myData[ii].asignados))
+                                            {//si hay cupo lo hago
+                                                cii=0;
+                                                myData3.push({_id:myData[ii]._id,idedificio:myData[ii].idedificio,idsalon:myData[ii].idsalon
+                                                    ,idhorario:myData[ii].idhorario,idmateria:myData[ii].idmateria
+                                                    ,capacidad:myData[ii].capacidad,asignados:'0',fexamen:myData[ii].fexamen,codfac:myData[ii].codfac});
+                
+                                                break;
 
-                                      }
-                                      else
-                                      {
-                                            nohaycupo=1;
-                                            myData3aa.push({_id:myData[ii]._id,idedificio:myData[ii].idedificio,idsalon:myData[ii].idsalon
-                                                ,idhorario:myData[ii].idhorario,idmateria:myData[ii].idmateria
-                                                ,capacidad:myData[ii].capacidad,asignados:'0',fexamen:myData[ii].fexamen,codfac:myData[ii].codfac});
-            
+                                            }
+                                            else
+                                            { 
+                                                   cii=ii;
+                                                 
 
-                                      }
+                                            }
                                         
                                     }
                             }
+
+                            //////////////////
+                            if(cii>0)
+                            {
+                                myData3aa.push({_id:myData[cii]._id,idedificio:myData[cii].idedificio,idsalon:myData[cii].idsalon
+                                    ,idhorario:myData[cii].idhorario,idmateria:myData[cii].idmateria
+                                    ,capacidad:myData[cii].capacidad,asignados:'0',fexamen:myData[cii].fexamen,codfac:myData[cii].codfac});
+
+                            }
+
+
                         }
 
-console.log('llega hasta aqui')
+//console.log('llega hasta aqui')
 
                         getNextSequenceValue(myData3,myData3aa,req,res);
 

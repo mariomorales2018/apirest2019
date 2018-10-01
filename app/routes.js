@@ -11,6 +11,7 @@ var AuthenticationController = require('./controllers/authentication'),
     ModuloController = require('./controllers/moduloxx'),
     CatalogoController = require('./controllers/catalogo'),
     TarifaController = require('./controllers/tarifa'),
+    NuevosalonController = require('./controllers/nuevosalon'),
     SuscriptorController = require('./controllers/suscriptor'),
     busController = require('./controllers/bus'),
     PermisoController = require('./controllers/permiso'),
@@ -53,6 +54,7 @@ module.exports = function(app){
         moduloRoutes = express.Router(),
         catalogoRoutes = express.Router(),
         tarifaRoutes = express.Router(),
+        nuevosalonRoutes = express.Router(),
         datosfijosRoutes = express.Router(),
         eventoRoutes = express.Router(),
         perfilRoutes = express.Router(),
@@ -338,6 +340,12 @@ departamentoRoutes.post('/:recordID',  DepartamentoController.creaDepartamento2s
 departamentoRoutes.delete('/:recordID/:userID',  DepartamentoController.deleteDepartamento);
 
 
+//-----------------------------------NUEVO SALON
+apiRoutes.use('/nuevosalons', nuevosalonRoutes);
+nuevosalonRoutes.get('/', NuevosalonController.getNuevosalon);
+nuevosalonRoutes.get('/:id',  NuevosalonController.getNuevosalon);
+nuevosalonRoutes.post('/:recordID',  NuevosalonController.creaNuevosalon2s);
+nuevosalonRoutes.delete('/:recordID/:userID',  NuevosalonController.deleteNuevosalon);
 
     app.use('/api', apiRoutes);
  

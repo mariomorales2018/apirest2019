@@ -5,7 +5,7 @@ var AsignaestudianteSchema = new mongoose.Schema({
         required: true
     },
     idtipounidad :  		{    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
-    idunidadacademica   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
+    idunidadacademica   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }  ,   codigo	: { type : String, required : true }      },
     idperiodo   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
     idedificio: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
     idsalon: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
@@ -47,7 +47,13 @@ var AsignaestudianteSchema = new mongoose.Schema({
         type: String
       
     },
-   
+    noasignado: {
+        type: Number
+    },
+    codfac: {
+        type: String,
+        required: true
+    },
     date 		: { type: Date, default: Date.now }
 }, {
     timestamps: true

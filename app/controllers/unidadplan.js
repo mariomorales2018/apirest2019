@@ -49,7 +49,7 @@ if(req.params.recordID!=='crea')
 
     
             todo.idtipounidad        	={id:req.body.idtipounidad.id,nombre:req.body.idtipounidad.nombre   }   	;
-            todo.idunidadacademica        	={id:req.body.idunidadacademica.id,nombre:req.body.idunidadacademica.nombre   }   	;
+            todo.idunidadacademica        	={id:req.body.idunidadacademica.id,nombre:req.body.idunidadacademica.nombre, codigo:req.body.idunidadacademica.codigo  }   	;
             todo.idperiodo        	=	{id:req.body.idperiodo.id,nombre:req.body.idperiodo.nombre   }   	;
             todo.idedificio=	{id:req.body.idedificio.id,nombre:req.body.idedificio.nombre   }   	;
             todo.idsalon=	req.body.idsalon        	||	todo.idsalon        	;
@@ -59,6 +59,7 @@ if(req.params.recordID!=='crea')
             todo.capacidad=	req.body.capacidad        	||	todo.capacidad        	;
             todo.asignados=	req.body.asignados        	||	todo.asignados        	;
             todo.fexamen=	req.body.fexamen        	||	todo.fexamen        	;
+            todo.codfac=	req.body.codfac        	||	todo.codfac        	;
 
             todo.save(function (err, todo){
                 if (err)     {  res.status(500).send(err.message)   }
@@ -95,6 +96,7 @@ else{
             capacidad: req.body.capacidad,
             asignados: req.body.asignados,
             fexamen: req.body.fexamen,
+            codfac: req.body.codfac,
         
               }
                 , function(err, todo) {

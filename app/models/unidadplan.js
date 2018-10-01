@@ -3,7 +3,7 @@ var mongoose =require("mongoose");
 
     var UnidadplanSchema 		=	new  mongoose.Schema({
         idtipounidad :  		{    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
-        idunidadacademica   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
+        idunidadacademica   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }  ,codigo	: { type : String, required : true }      },
         idperiodo   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
         idedificio: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
         idsalon: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
@@ -30,6 +30,10 @@ var mongoose =require("mongoose");
             type: Date,
             required: true
             , default: Date.now
+        },
+        codfac: {
+            type: String,
+            required: true
         },
         date 		: { type: Date, default: Date.now }
         }, {

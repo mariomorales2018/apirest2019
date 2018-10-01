@@ -55,6 +55,98 @@ exports.deleteAsignapcb = function(req, res, next){
 }
 
 
+function getNextSequenceValue(myData3,myData3aa,req,res){
+//mydata=todo lo que tengo que ganar
+//mydata0=las materias que tengo que pasar
+ //myData2= las que ya gane como estudiante
+ //myData0a= las materia que tengo que ganar
+ //myData3aa = si hay registros no hay vcupo
+ //myData3 = lo que me puedo asignar
+
+        if(myData3aa.length>0)
+        {  res.status(500).send('No existe cupo para asignarse este curso , realize la asignacion mas tarde')    
+        }
+        else
+        {
+
+      
+                        Asignapcb.create({ idtipounidad        	: req.body.tipounidad        	,
+                            idunidadacademica        	: req.body.unidadacademica        	,
+                            no_orientacion        	: req.body.no_orientacion        	,
+                            idperiodo        	: req.body.periodo        	,
+                            nombre 	: req.body.nombre, 	
+                            idestudiante 	: req.body.idestudiante, 	
+                            idinterno 	: req.body.idinterno
+                        }
+                            , function(err, todo) {
+                            if (err){ 
+                            
+                                res.status(500).send(err.message)    }
+                                        //crea todas las asignaciones nuevas que tiene que sacar
+                                     
+                                    
+                                    for(var i = 0; i < myData3.length;i++){
+                                       var myData3cc=myData3[i] 
+                                        Asignaest.find({idtipounidad        	: req.body.tipounidad        	,
+                                            idunidadacademica        	: req.body.unidadacademica  , 
+                                            idperiodo        	: req.body.periodo      	,
+                                            idedificio:myData3[i].idedificio,
+                                            idsalon:myData3[i].idsalon,
+                                            idhorario:myData3[i].idhorario,
+                                            idmateria:myData3[i].idmateria
+                                                  }).lean().exec({}, function(err,myasigcupo) {
+                                            if (err) res.send(err);
+                                                  var asigno=0
+                                                  asigno=myasigcupo.length;
+                                                  asigno=asigno+1;
+                                                  console.log('calcula el asignado')
+                                                  console.log(asigno)
+                                                   
+                                                            Asignaest.create({ 
+                                                                idasigna:todo._id,
+                                                                idtipounidad        	: req.body.tipounidad        	,
+                                                                idunidadacademica        	: req.body.unidadacademica        	,
+                                                                idperiodo        	: req.body.periodo        	,
+                                                                idedificio:myData3cc.idedificio,
+                                                                idsalon:myData3cc.idsalon,
+                                                            
+                                                                no_orientacion        	: req.body.no_orientacion        	,
+                                                            
+                                                                nombre 	: req.body.nombre, 	
+                                                                idestudiante 	: req.body.idestudiante, 	
+                                                                idhorario:myData3cc.idhorario,
+                                                                idmateria:myData3cc.idmateria,
+                                                                fexamen:myData3cc.fexamen,
+                                                                aprobado:'',
+                                                                nota:'',
+                                                                ingreso:'0',
+                                                                noasignado:asigno,
+                                                                codfac:myData3cc.codfac,
+                                                            });
+                                        
+
+                                                            Facplan.findById({ _id:myData3cc._id }, function (err, todo)  {
+                                                                if (err) {  res.send(err);  }
+                                                                else
+                                                                {   todo.asignados        	=		Number(todo.asignados)+1       	;
+                                                                    
+                                                                    todo.save(function (err, todo){
+                                                                        if (err)     {  console.log(err.message)   }
+                                                                        //console.log(todo);
+                                                                    });
+                                                                }
+                                                            });
+                                        });
+
+                                    }
+                            
+                                    res.json(todo);
+
+                      
+                });
+        }
+ }
+
 exports.creaAsignapcb2s = function(req, res, next){
    
  
@@ -65,7 +157,7 @@ if(req.params.recordID!=='crea')
         if (err) {  res.send(err);  }
         else
         {   todo.idtipounidad        	={id:req.body.idtipounidad.id,nombre:req.body.idtipounidad.nombre   }   	;
-            todo.idunidadacademica        	={id:req.body.idunidadacademica.id,nombre:req.body.idunidadacademica.nombre   }   	;
+            todo.idunidadacademica        	={id:req.body.idunidadacademica.id,nombre:req.body.idunidadacademica.nombre,codigo:req.body.idunidadacademica.codigo   }   	;
             todo.idperiodo        	=	{id:req.body.idperiodo.id,nombre:req.body.idperiodo.nombre   }   	;
             todo.no_orientacion        	=	req.body.no_orientacion        	||	todo.no_orientacion        	;
             todo.nombre    	=	req.body.nombre    	||	todo.nombre    	;
@@ -81,7 +173,7 @@ if(req.params.recordID!=='crea')
 }
 else{
 
-  console.log(req.body);
+
 
 
 
@@ -95,17 +187,13 @@ else{
         if(todos.length>0)   {    res.status(500).send('Ya existe una Asignación para este periodo'); }
         else
         { 
-            
-            
   
-//todo lo que tengo que ganar
-
 Facplan.find({idtipounidad        	: req.body.tipounidad        	,
     idunidadacademica        	: req.body.unidadacademica        	
          }).lean().exec({}, function(err,myData) {
     if (err) res.send(err);
 
-  
+    
     Facmat.find({idtipounidad        	: req.body.tipounidad.id        	,
         idunidadacademica        	: req.body.unidadacademica.id 	
              }).lean().exec({}, function(err,myData0t) {
@@ -118,9 +206,7 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
            if(myData0t[0].matematica==true){ myData0.push({idmateria:'Matematica'});      }
            if(myData0t[0].quimica==true){ myData0.push({idmateria:'Quimica'});      }
            if(myData0t[0].biologia==true){ myData0.push({idmateria:'Biologia'});      }
-           console.log('busca las materias');
-           console.log(myData0)
-
+   
         Asignaest.find({idtipounidad        	: req.body.tipounidad        	,
             idunidadacademica        	: req.body.unidadacademica        	,
             no_orientacion        	: req.body.no_orientacion        	,
@@ -129,27 +215,27 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
             if (err) res.send(err);
              var myData0a = [];
              
+             //las materias que tengo que ganar
              if(myData2.length==0)
-             {console.log('no tiene asignaciones')
-                myData0a=myData0    
-                console.log(myData0);
+             {
+                myData0a=myData0   //tengo que ganar todas 
+               
              }
              else
              {
-                 console.log('compara asignaciones')
+              //las materias que tengo que ganar
              for(var i = 0; i < myData0.length;i++){
                 var gane=0;
-                 for(var ii = 0; ii < myData.length;ii++){
-                     console.log(myData0[i].idmateria  + ' === ' +myData[ii].idmateria)
-                         if(myData0[i].idmateria==myData[ii].idmateria)
+                //las que ya gane
+                 for(var ii = 0; ii < myData2.length;ii++){
+                  
+                         if(myData0[i].idmateria==myData2[ii].idmateria)
                          {   gane=1;   break;                     }
                          else{gane=0;}
                  }
                  if(gane==0)
-                 {
-                     myData0a.push({_id:myData0[i]._id,idtipounidad:myData0[i].idtipounidad,
-                        idunidadacademica:myData0[i].idunidadacademica,
-                        idmateria:myData0[i].idmateria,estado:myData0[i].estado});
+                 {//no la e ganado
+                     myData0a.push({idmateria:myData0[i].idmateria});
                  }
 
              }
@@ -157,18 +243,30 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
             }
 
                           var myData3 = [];
+                          var myData3aa = [];
+                          var nohaycupo=0;
+                          //las materias qye tengo que ganar
                         for(var i = 0; i < myData0a.length;i++){
-
+                            //todo lo que esta planificado en el plan    
                             for(var ii = 0; ii < myData.length;ii++){
                                     if(myData0a[i].idmateria==myData[ii].idmateria )
                                     {
-                                      if( myData[ii].capacidad!=myData[ii].asignados)
-                                      {
+                                      if( myData[ii].capacidad!=(myData[ii].asignados+1))
+                                      {//si hay cupo lo hago
                                         myData3.push({_id:myData[ii]._id,idedificio:myData[ii].idedificio,idsalon:myData[ii].idsalon
                                             ,idhorario:myData[ii].idhorario,idmateria:myData[ii].idmateria
-                                            ,capacidad:myData[ii].capacidad,asignados:'0',fexamen:myData[ii].fexamen});
+                                            ,capacidad:myData[ii].capacidad,asignados:'0',fexamen:myData[ii].fexamen,codfac:myData[ii].codfac});
         
                                         break;
+
+                                      }
+                                      else
+                                      {
+                                            nohaycupo=1;
+                                            myData3aa.push({_id:myData[ii]._id,idedificio:myData[ii].idedificio,idsalon:myData[ii].idsalon
+                                                ,idhorario:myData[ii].idhorario,idmateria:myData[ii].idmateria
+                                                ,capacidad:myData[ii].capacidad,asignados:'0',fexamen:myData[ii].fexamen,codfac:myData[ii].codfac});
+            
 
                                       }
                                         
@@ -176,63 +274,9 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
                             }
                         }
 
-     console.log(myData3)
-//     res.json(myData3);
+console.log('llega hasta aqui')
 
-                        Asignapcb.create({ idtipounidad        	: req.body.tipounidad        	,
-                            idunidadacademica        	: req.body.unidadacademica        	,
-                            no_orientacion        	: req.body.no_orientacion        	,
-                            idperiodo        	: req.body.periodo        	,
-                            nombre 	: req.body.nombre, 	
-                            idestudiante 	: req.body.idestudiante, 	
-                            idinterno 	: req.body.idinterno
-                        }
-                            , function(err, todo) {
-                            if (err){ 
-                            
-                                res.status(500).send(err.message)    }
-                        //crea todas las asignaciones nuevas que tiene que sacar
-                       
-                        for(var i = 0; i < myData3.length;i++){
-                         //   console.log('crea asignaest ' + myData3[i].fexamen)
-                            Asignaest.create({ 
-                                idasigna:todo._id,
-                                idtipounidad        	: req.body.tipounidad        	,
-                                idunidadacademica        	: req.body.unidadacademica        	,
-                                idperiodo        	: req.body.periodo        	,
-                                idedificio:myData3[i].idedificio,
-                                idsalon:myData3[i].idsalon,
-                            
-                                no_orientacion        	: req.body.no_orientacion        	,
-                               
-                                nombre 	: req.body.nombre, 	
-                                idestudiante 	: req.body.idestudiante, 	
-                                idhorario:myData3[i].idhorario,
-                                idmateria:myData3[i].idmateria,
-                                fexamen:myData3[i].fexamen,
-                                aprobado:'',
-                                nota:'',
-                                ingreso:'0'
-                            });
-                          
-
-                            Facplan.findById({ _id:myData3[i]._id }, function (err, todo)  {
-                                if (err) {  res.send(err);  }
-                                else
-                                {   todo.asignados        	=		Number(todo.asignados)+1       	;
-                                    
-                                    todo.save(function (err, todo){
-                                        if (err)     {  console.log(err.message)   }
-                                        //console.log(todo);
-                                    });
-                                }
-                            });
-
-
-                   }
-                            res.json(todo);
-
-                        });
+                        getNextSequenceValue(myData3,myData3aa,req,res);
 
 
            

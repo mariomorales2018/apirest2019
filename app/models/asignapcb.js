@@ -1,7 +1,7 @@
 var mongoose =require("mongoose");
 var AsignapcbSchema = new mongoose.Schema({
     idtipounidad :  		{    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
-    idunidadacademica   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
+    idunidadacademica   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }     ,   codigo	: { type : String, required : true }       },
     idperiodo   		: {    id	: { type : String, required : true },   nombre	: { type : String, required : true }        },
       
     no_orientacion: {

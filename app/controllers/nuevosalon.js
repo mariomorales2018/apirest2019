@@ -53,12 +53,6 @@ if(req.params.recordID!=='crea')
 }
 else{
 
-    Nuevosalon.find({nombre        	: req.body.nombre },function(err, todos) {
-        if (err){ res.send(err); }
-
-        if(todos.length>0)   {    res.status(500).send('Ya existe una tarifa con este nombre'); }
-        else
-        {   
 
             Nuevosalon.create({
                 nombre        	: req.body.nombre        	,
@@ -78,9 +72,7 @@ else{
             });
 
             
-             }
-        
-    });
+          
    
  
 }

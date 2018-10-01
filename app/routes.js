@@ -281,6 +281,7 @@ apiRoutes.use('/asignapcbs', asignapcbRoutes);
 asignapcbRoutes.get('/', AsignapcbController.getAsignapcb);
 asignapcbRoutes.get('/:id',  AsignapcbController.getAsignapcb);
 asignapcbRoutes.get('/:id/:id2',  AsignapcbController.getAsignapcb);
+asignapcbRoutes.get('/:id/:id2/:id3',  AsignapcbController.getAsignapcb);
 asignapcbRoutes.post('/:recordID',  AsignapcbController.creaAsignapcb2s);
 asignapcbRoutes.delete('/:recordID/:userID',  AsignapcbController.deleteAsignapcb);
 

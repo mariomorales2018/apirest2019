@@ -8,6 +8,20 @@ var Asignapcb = require('../models/asignapcb');
 var Bitacora = require('../models/bitacora');
 
 exports.getAsignapcb = function(req, res, next){
+    if(req.params.id3)
+    { 
+        
+        Asignapcb.find({no_orientacion:req.params.id3},function(err, todos) {
+            if (err){ res.send(err); }
+           
+            if(todos.length>0)   {    res.json(todos);   }
+            else
+            {  res.status(500).send('NO EXISTE REGISTRO');      }
+            
+        });
+    }
+    else
+    {
     if(req.params.id)
     { 
         Asignapcb.find({tipo:req.params.id2},function(err, todos) {
@@ -43,7 +57,7 @@ exports.getAsignapcb = function(req, res, next){
             });
         }
 
-    }
+    }}
  
 }
 exports.deleteAsignapcb = function(req, res, next){

@@ -63,9 +63,21 @@ exports.getAsignapcb = function(req, res, next){
 exports.deleteAsignapcb = function(req, res, next){
    
     Bitacora.create({email: req.params.userID ,permiso:'Elimina',accion:'Elimina Asignapcb '});
-    Asignapcb.findByIdAndRemove({ _id: req.params.recordID  }, function(err, todo) {
-        res.json(todo);
+
+
+    Asignaest.remove({idasigna: req.params.recordID  }, function(err, todo) {
+//console.log(todo);
+        Asignapcb.findByIdAndRemove({ _id: req.params.recordID  }, function(err, todo) {
+
+            // Asignaest
+     
+     
+             res.json(todo);
+         });
     });
+
+
+  
 }
 
 

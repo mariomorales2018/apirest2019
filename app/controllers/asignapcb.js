@@ -208,13 +208,14 @@ else{
 
 
 
+console.log({   no_orientacion        	: req.body.no_orientacion        	,
+    'idperiodo.nombre'        	: req.body.periodo.nombre        
+       });
 
-
-    Asignapcb.find({idtipounidad        	: req.body.tipounidad        	,
-        idunidadacademica        	: req.body.unidadacademica        	,
+    Asignapcb.find({
         no_orientacion        	: req.body.no_orientacion        	,
-        idperiodo        	: req.body.periodo        
-        	, idinterno 	: req.body.idinterno  },function(err, todos) {
+        'idperiodo.nombre'        	: req.body.periodo.nombre        
+        	 },function(err, todos) {
         if (err){ res.send(err); }
       
         if(todos.length>0)   {    res.status(500).send('Ya existe una Asignación para este periodo'); }
@@ -250,7 +251,7 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
              var myData0a = [];
              
              //las materias que tengo que ganar
-             if(myData2.length==0)
+             if(myData2.length==0 && req.body.resultadopcb.length==0)
              {
                 myData0a=myData0   //tengo que ganar todas 
                
@@ -269,13 +270,37 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
                  }
                  if(gane==0)
                  {//no la e ganado
-                     myData0a.push({idmateria:myData0[i].idmateria});
+                    if(req.body.resultadopcb.length>0)
+                    {
+                        gane=0;    
+                        for(var iii = 0; iii < req.body.resultadopcb.length;iii++){
+                  
+                            if(myData0[i].idmateria==req.body.resultadopcb[iii].idmateria)
+                            {   gane=1;   break;                     }
+                            else{gane=0;}
+                         }
+
+                         if(gane==0)
+                            {//
+                                myData0a.push({idmateria:myData0[i].idmateria});
+                            }
+
+                    }
+                    else
+                    {
+                        myData0a.push({idmateria:myData0[i].idmateria});
+
+                    }
+                   
+                    
                  }
 
              }
 
             }
 
+
+        
                           var myData3 = [];
                           var myData3aa = [];
                           
@@ -320,8 +345,22 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
                         }
 
 //console.log('llega hasta aqui')
+if(myData0a.length==0)
+{   var matganada=''
+    for(var iii = 0; iii < req.body.resultadopcb.length;iii++){
+       matganada=  matganada + '-' +req.body.resultadopcb[iii].idmateria + ' ' 
+    }
+    res.status(500).send(' Prueba ya a sido ganada satisfactoriamente, no se puede volver asignar , Materias ganadas: '+ matganada)    
+    
 
-                        getNextSequenceValue(myData3,myData3aa,req,res);
+}
+else
+{
+    getNextSequenceValue(myData3,myData3aa,req,res);
+
+}
+
+                       
 
 
            

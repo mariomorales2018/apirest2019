@@ -82,8 +82,8 @@ exports.deleteAsignapcb = function(req, res, next){
 
 
 function getNextSequenceValue2(myData3,myData3cc,req,res,i,todo){
-    console.log('asignado antes:')
-    console.log(myData3cc);
+  //  console.log('asignado antes:')
+   // console.log(myData3cc);
      Asignaest.find({idtipounidad        	: req.body.tipounidad        	,
          idunidadacademica        	: req.body.unidadacademica  , 
          idperiodo        	: req.body.periodo      	,
@@ -97,8 +97,8 @@ function getNextSequenceValue2(myData3,myData3cc,req,res,i,todo){
                asigno=myasigcupo.length;
                asigno=asigno+1;
            //    console.log('calcula el asignado')
-               console.log('asignado :')
-                console.log(myData3cc);
+            //   console.log('asignado :')
+              //  console.log(myData3cc);
                          Asignaest.create({ 
                              idasigna:todo._id,
                              idtipounidad        	: req.body.tipounidad        	,
@@ -125,8 +125,8 @@ function getNextSequenceValue2(myData3,myData3cc,req,res,i,todo){
                          Facplan.findById({ _id:myData3cc._id }, function (err, todo)  {
                              if (err) {  res.send(err);  }
                              else
-                             {  console.log('asignados')
-                             console.log(Number(todo.asignados))
+                             { // console.log('asignados')
+                             //console.log(Number(todo.asignados))
                                   todo.asignados        	=		Number(todo.asignados)+1       	;
                                  
                                  todo.save(function (err, todo){
@@ -190,7 +190,9 @@ function getNextSequenceValue(myData3,myData3aa,req,res){
 
 exports.creaAsignapcb2s = function(req, res, next){
    
- 
+  //  res.status(500).send(' espere un momento ')    
+   //  return;
+
     Bitacora.create(req.body.bitacora);
 if(req.params.recordID!=='crea')
 { 
@@ -239,8 +241,8 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
     
     if(myData.length==0)
     {
-     res.status(500).send(' No existe  configurado salones para esta unidad academica')    
-     return;
+  //   res.status(500).send(' No existe  configurado salones para esta unidad academica')    
+    // return;
 
     }
 
@@ -250,8 +252,8 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
      
         if (err) res.send(err);
 
-        console.log('facmat')
-        console.log(myData0t)
+      //  console.log('facmat')
+      //  console.log(myData0t)
         var myData0 = [];
             
        
@@ -264,8 +266,8 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
 
            if(myData0.length==0)
            {
-            res.status(500).send(' No existen materias configuradas para esta unidad academica')    
-            return;
+       //     res.status(500).send(' No existen materias configuradas para esta unidad academica')    
+         //   return;
 
            }
         Asignaest.find({idtipounidad        	: req.body.tipounidad        	,
@@ -277,14 +279,14 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
              var myData0a = [];
              
              //las materias que tengo que ganar
-             console.log('ya gano')
-             console.log(req.body.resultadopcb)
+        //     console.log('ya gano')
+          //   console.log(req.body.resultadopcb)
              if(myData2.length==0 && req.body.resultadopcb.length==0)
              {//NO TENGO NADA GANADO
                 myData0a=myData0   //tengo que ganar todas 
 
-                console.log('tiene que ganar')
-                console.log(myData0a)
+            //    console.log('tiene que ganar')
+              //  console.log(myData0a)
                
              }
              else
@@ -347,7 +349,7 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
                                             {//si hay cupo lo hago
                                                 
                                                 cii=0;
-                                                console.log('encontre cupo para ' + myData[ii].idmateria )
+                                             //   console.log('encontre cupo para ' + myData[ii].idmateria )
                                                 myData3.push({_id:myData[ii]._id,idedificio:myData[ii].idedificio,idsalon:myData[ii].idsalon
                                                     ,idhorario:myData[ii].idhorario,idmateria:myData[ii].idmateria
                                                     ,capacidad:myData[ii].capacidad,asignados:'0',fexamen:myData[ii].fexamen,codfac:myData[ii].codfac});
@@ -367,7 +369,7 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
 
                             //////////////////
                             if(cii>0)
-                            {    console.log(' NOOOO encontre cupo para ' + myData[cii].idmateria )
+                            {  //  console.log(' NOOOO encontre cupo para ' + myData[cii].idmateria )
                                 myData3aa.push({_id:myData[cii]._id,idedificio:myData[cii].idedificio,idsalon:myData[cii].idsalon
                                     ,idhorario:myData[cii].idhorario,idmateria:myData[cii].idmateria
                                     ,capacidad:myData[cii].capacidad,asignados:'0',fexamen:myData[cii].fexamen,codfac:myData[cii].codfac});
@@ -377,8 +379,8 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
 
                         }
 
-console.log('le tengo que asignar esto' )
-console.log(myData3)
+//console.log('le tengo que asignar esto' )
+//console.log(myData3)
 if(myData0a.length==0)
 {   var matganada=''
     for(var iii = 0; iii < req.body.resultadopcb.length;iii++){

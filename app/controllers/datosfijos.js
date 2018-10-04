@@ -9,7 +9,8 @@ var Participa = require('../models/participa');
 var Facplan = require('../models/unidadplan');
 
 var request = require('request');
-  
+
+var Asignaest = require('../models/asignaestudiante');
 
 var cleanName = function(str) {
         if (str == '') return str; // jQuery
@@ -27,7 +28,59 @@ var cleanName = function(str) {
         return str.toUpperCase();
     };
 
+    function getNextSequenceValue2(myData){
+        //  console.log('asignado antes:')
+         // console.log(myData3cc);
+           Asignaest.find({idtipounidad        	: myData.idtipounidad        	,
+               idunidadacademica        	: myData.idunidadacademica  , 
+               idperiodo        	: myData.idperiodo      	,
+               idedificio:myData.idedificio,
+               idsalon:myData.idsalon,
+               idhorario:myData.idhorario,
+               idmateria:myData.idmateria
+                     }).lean().exec({}, function(err,myasigcupo) {
+               if (err) res.send(err);
+                     var asigno=0
+                     asigno=myasigcupo.length;
+      
+                    // console.log('asigno')
+                     //console.log(myasigcupo)
+                      if(asigno!=myData.asignados)
+                     {
+                        console.log(asigno + '(estuiantes) = ' + myData.asignados + 'planificacion')
+                   
+                        console.log( myData.idunidadacademica)
+                       
+                     }
+                   
+                     
+  /*
+         
+                               Facplan.findById({ _id:myData._id }, function (err, todo)  {
+                                   if (err) {  res.send(err);  }
+                                   else
+                                   { 
+                                           
+                                        console.log('asigno')
+                                        console.log(asigno)
+                     
+                                        // console.log('asignados')
+                                   //console.log(Number(todo.asignados))
+                                        todo.asignados        	=		asigno     	;
+                                       
+                                       todo.save(function (err, todo){
+                                           if (err)     {  console.log(err.message)   }
+                                           //console.log(todo);
+                                       });
 
+
+                                   }
+                               });
+    */                           
+           });
+      }
+
+      
 exports.getCombofijo = function(req, res, next){
        var sql='';
 
@@ -48,6 +101,31 @@ exports.getCombofijo = function(req, res, next){
                   res.json([{id:'RFID interno',nombre:'RFID interno'} ,{id:'DPI',nombre:'DPI'},{id:'RFID externo',nombre:'RFID externo'},{id:'OTRO dispositivo',nombre:'OTRO dispositivo'},{id:'Ninguno',nombre:'Ninguno'}]);
          
         break;
+        case 'reporte-salon':
+  
+        //Facplan
+        Facplan.find({_id:'aaaa'},function(err, todos) {
+                if (err){  res.send(err);  }
+                var aa=0;
+               // console.log(todos[100].caca)
+                for(var i = 0; i < todos.length;i++){
+                   if(todos[i].asignados>0)
+                   {
+                                aa=aa+todos[i].asignados
+                     //console.log(todos[i].idtipounidad,todos[i].idunidadacademica,todos[i].idperiodo,todos[i].idedificio,todos[i].idsalon);   
+                     getNextSequenceValue2(todos[i]);
+
+                
+        }     
+     
+                }
+                console.log('total asignados fac plan: ')
+                //res.json(todos);
+        });
+
+
+        break;
+
         case 'modulo-grupo':
                         res.json([{id:'USAC',nombre:'USAC'} ,{id:'BUSES',nombre:'BUSES'},{id:'TICKES',nombre:'TICKES'},{id:'TODOS',nombre:'TODOS'}]);
         break;

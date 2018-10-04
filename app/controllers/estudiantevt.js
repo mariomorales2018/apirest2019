@@ -49,7 +49,7 @@ if(req.params.recordID!=='crea')
 }
 else{
 
-    Estudiantevt.find({carnet:req.body.codigo  },function(err, todos) {
+    Estudiantevt.find({carnet:req.body.carnet },function(err, todos) {
         if (err){ res.send(err); }
       
         if(todos.length>0)   {    res.status(500).send('Ya existe estudiante'); }

@@ -241,6 +241,7 @@ estudianteovRoutes.get('/:codigo',  EstudianteovController.getEstudianteov);
 apiRoutes.use('/estudiantevt', estudiantevtRoutes);
 estudiantevtRoutes.get('/',  EstudiantevtController.getEstudiantevt);
 estudiantevtRoutes.get('/:codigo',  EstudiantevtController.getEstudiantevt);
+estudiantevtRoutes.post('/:recordID',  EstudiantevtController.creaEstudiantevts);
 
 //---------------------------------------estudiantes PCB
 apiRoutes.use('/estudiantepcb', estudiantepcbRoutes);

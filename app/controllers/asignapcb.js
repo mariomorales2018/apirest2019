@@ -125,7 +125,9 @@ function getNextSequenceValue2(myData3,myData3cc,req,res,i,todo){
                          Facplan.findById({ _id:myData3cc._id }, function (err, todo)  {
                              if (err) {  res.send(err);  }
                              else
-                             {   todo.asignados        	=		Number(todo.asignados)+1       	;
+                             {  console.log('asignados')
+                             console.log(Number(todo.asignados))
+                                  todo.asignados        	=		Number(todo.asignados)+1       	;
                                  
                                  todo.save(function (err, todo){
                                      if (err)     {  console.log(err.message)   }
@@ -235,10 +237,21 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
     if (err) res.send(err);
 
     
+    if(myData.length==0)
+    {
+     res.status(500).send(' No existe  configurado salones para esta unidad academica')    
+     return;
+
+    }
+
     Facmat.find({idtipounidad        	: req.body.tipounidad.id        	,
         idunidadacademica        	: req.body.unidadacademica.id 	
              }).lean().exec({}, function(err,myData0t) {
+     
         if (err) res.send(err);
+
+        console.log('facmat')
+        console.log(myData0t)
         var myData0 = [];
             
        
@@ -248,6 +261,13 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
            if(myData0t[0].quimica==true){ myData0.push({idmateria:'Quimica'});      }
            if(myData0t[0].biologia==true){ myData0.push({idmateria:'Biologia'});      }
    
+
+           if(myData0.length==0)
+           {
+            res.status(500).send(' No existen materias configuradas para esta unidad academica')    
+            return;
+
+           }
         Asignaest.find({idtipounidad        	: req.body.tipounidad        	,
             idunidadacademica        	: req.body.unidadacademica        	,
             no_orientacion        	: req.body.no_orientacion        	,
@@ -260,7 +280,7 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
              console.log('ya gano')
              console.log(req.body.resultadopcb)
              if(myData2.length==0 && req.body.resultadopcb.length==0)
-             {
+             {//NO TENGO NADA GANADO
                 myData0a=myData0   //tengo que ganar todas 
 
                 console.log('tiene que ganar')
@@ -273,7 +293,7 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
               
              for(var i = 0; i < myData0.length;i++){
                 var gane=0;
-                //las que ya gane
+                //REVISAR LA MATERIA QUE TENGO QUE GANAR CON LAS QUE YA GANE PARA DESCARTARLA
                  for(var ii = 0; ii < myData2.length;ii++){
                   
                          if(myData0[i].idmateria==myData2[ii].idmateria)
@@ -281,9 +301,9 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
                          else{gane=0;}
                  }
                  if(gane==0)
-                 {//no la e ganado
+                 {//no la e ganado ENTONCES LA INSERTO PERO LA COMPARO CON LAS OTRA
                     if(req.body.resultadopcb.length>0)
-                    {
+                    {//HAGO LA MISMA VALIDACION LAS QUE YA GANE AQUI EN ESTA PRUEBA DEL SISTEMA
                         gane=0;    
                         for(var iii = 0; iii < req.body.resultadopcb.length;iii++){
                   
@@ -293,13 +313,13 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
                          }
 
                          if(gane==0)
-                            {//
+                            {//NO LA E GANADO TAMPO LA INSERTO
                                 myData0a.push({idmateria:myData0[i].idmateria});
                             }
 
                     }
                     else
-                    {
+                    {//SI YA NO HAY NADA QUE COMPARAR Y NO LA E GANADO LA INSERTO
                         myData0a.push({idmateria:myData0[i].idmateria});
 
                     }
@@ -311,8 +331,7 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
 
             }
 
-
-        
+      
                           var myData3 = [];
                           var myData3aa = [];
                           

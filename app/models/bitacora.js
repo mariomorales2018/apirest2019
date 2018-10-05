@@ -3,8 +3,7 @@ var BitacoraSchema = new mongoose.Schema({
  
     email: {
         type: String,
-        lowercase: true,
-        required: true
+        lowercase: true
     },
     permiso: {
         type: String,

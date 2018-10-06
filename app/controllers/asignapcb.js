@@ -278,7 +278,7 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
      
         if (err) res.send(err);
 
-        if(myDatat.length==0)
+        if(myData0t.length==0)
     {
      res.status(500).send(' No existe  configurado materias en unidad academica')    
      return;

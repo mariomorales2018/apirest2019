@@ -47,9 +47,10 @@ var cleanName = function(str) {
                      //console.log(myasigcupo)
                       if(asigno!=myData.asignados)
                      {
+                             
+                      //  console.log( myData)
                         console.log(asigno + '(estuiantes) = ' + myData.asignados + 'planificacion')
                    
-                        console.log( myData.idunidadacademica)
                        
                      }
                    
@@ -76,11 +77,18 @@ var cleanName = function(str) {
 
                                    }
                                });
-    */                           
+                               */
+                              
            });
       }
 
-      
+      function logErrors(err, req, res, next) {
+        console.error(err.stack);
+        next(err);
+      }
+
+
+
 exports.getCombofijo = function(req, res, next){
        var sql='';
 
@@ -102,16 +110,62 @@ exports.getCombofijo = function(req, res, next){
          
         break;
         case 'reporte-salon':
-  
+
+
+     var query=req.body.unidadacademica.nombre;
+     var undef;
+
+// Fails on undefined variables
+if (query !== undef) {
+    // variable is defined
+    console.log('ssssssssss')
+    res.status(500).send('si ');
+    return;
+                       
+} else {
+    // else do this
+    console.log('nnnnnnnnnnnnnnnnnn')
+    res.status(500).send('mo');
+    return;
+
+}
+
+        if (query  != undefined) { console.log('ssssssssss')
+
+        res.status(500).send('si ');
+        return;
+}
+
+
+        if ( typeof query  !== 'undefined' && query )
+{
+  //do stuff if query is defined and not null
+  console.log('si')
+  res.status(500).send('si ');
+  return;
+}
+else
+{
+        console.log('no')
+        res.status(500).send('si ');
+        return;
+}
+
         //Facplan
-        Facplan.find({_id:'aaaa'},function(err, todos) {
-                if (err){  res.send(err);  }
+        Facplan.find({ _id: req.body.unidadacademica.nombre  },function(err, todos) {
+                if (err){ // res.send(err);
+                      //  if(err) return next(err);
+                      console.log('aqui quedo')
+                        res.status(500).send('No existe ');
+                       
+                }
+                console.log('paso')
                 var aa=0;
-               // console.log(todos[100].caca)
+               console.log(todos[100].caca)
                 for(var i = 0; i < todos.length;i++){
                    if(todos[i].asignados>0)
                    {
-                                aa=aa+todos[i].asignados
+                               // aa=aa+todos[i].asignados
                      //console.log(todos[i].idtipounidad,todos[i].idunidadacademica,todos[i].idperiodo,todos[i].idedificio,todos[i].idsalon);   
                      getNextSequenceValue2(todos[i]);
 

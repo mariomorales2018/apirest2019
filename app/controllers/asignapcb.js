@@ -2,7 +2,7 @@
 var Nuevosalon = require('../models/nuevosalon');
 var Facplan = require('../models/unidadplan');
 var Facmat = require('../models/facultadmateria');
-
+var mailt = require('../controllers/mail');
 var Asignaest = require('../models/asignaestudiante');
 var Asignapcb = require('../models/asignapcb');
 var Bitacora = require('../models/bitacora');
@@ -127,7 +127,7 @@ function getNextSequenceValue2(myData3,myData3cc,req,res,i,todo){
                              else
                              { // console.log('asignados')
                              //console.log(Number(todo.asignados))
-                                  todo.asignados        	=		Number(todo.asignados)+1       	;
+                                  todo.asignados        	=		asigno     	;
                                  
                                  todo.save(function (err, todo){
                                      if (err)     {  console.log(err.message)   }
@@ -153,6 +153,19 @@ function getNextSequenceValue(myData3,myData3aa,req,res){
                 estado        	: 'Solicitando' ,
                 correo:''       	
             });
+
+            
+
+
+            const mailO = {
+                destino: 'ambrosioaleman07@gmail.com;mario.morales@mcloude.com', // list of receivers
+                subject: 'Solicitud de nuevo salon', // Subject line
+                html: 'Solicitando salon para Unidad academica: ' + req.body.unidadacademica.nombre + ', Materia: '+  myData3aa[0].idmateria +', Edificio: '+  myData3aa[0].idedificio.nombre +' y Salon: '+  myData3aa[0].idsalon.nombre ,// plain text body
+                actualiza: 0// plain text body
+              };
+            
+
+            mailt.getMail2(mailO,res);
 //            console.log('No existe cupo para asignarse esta materia: '+  myData3aa[0].idmateria +' para el edificio: '+  myData3aa[0].idedificio.nombre +' salon: '+  myData3aa[0].idsalon.nombre +' , realize la asignacion mas tarde')
             res.status(500).send('No existe disponibilidad para asignarse , Intente asignarce más tarde')    
         }
@@ -171,7 +184,9 @@ function getNextSequenceValue(myData3,myData3aa,req,res){
                             , function(err, todo) {
                             if (err){ 
                             
-                                res.status(500).send(err.message)    }
+                                res.status(500).send(err.message)  
+                                return;
+                              }
                                         //crea todas las asignaciones nuevas que tiene que sacar
                                      
                                     
@@ -226,12 +241,19 @@ console.log({   no_orientacion        	: req.body.no_orientacion     
         no_orientacion        	: req.body.no_orientacion        	,
         'idperiodo.nombre'        	: req.body.periodo.nombre        
         	 },function(err, todos) {
-        if (err){ res.send(err); }
+        if (err){  if(err) return next(err);// res.status(500).send(err); 
+        return;}
       
         if(todos.length>0)   {    res.status(500).send('Ya existe una Asignación para este periodo'); }
         else
         { 
   //agregar periodo que se esta trabajando*************************************************************
+  console.log('facplan');
+  
+  console.log({idtipounidad        	: req.body.tipounidad        	,
+    idunidadacademica        	: req.body.unidadacademica  
+ //,   asignados:{$lt:capacidad}    	
+         });
 Facplan.find({idtipounidad        	: req.body.tipounidad        	,
     idunidadacademica        	: req.body.unidadacademica  
  //,   asignados:{$lt:capacidad}    	
@@ -241,16 +263,27 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
     
     if(myData.length==0)
     {
-  //   res.status(500).send(' No existe  configurado salones para esta unidad academica')    
-    // return;
+     res.status(500).send(' No existe  configurado salones para esta unidad academica')    
+     return;
 
     }
 
+    console.log('facmat');
+    console.log({idtipounidad        	: req.body.tipounidad.id        	,
+        idunidadacademica        	: req.body.unidadacademica.id 	
+             });
     Facmat.find({idtipounidad        	: req.body.tipounidad.id        	,
         idunidadacademica        	: req.body.unidadacademica.id 	
              }).lean().exec({}, function(err,myData0t) {
      
         if (err) res.send(err);
+
+        if(myDatat.length==0)
+    {
+     res.status(500).send(' No existe  configurado materias en unidad academica')    
+     return;
+
+    }
 
       //  console.log('facmat')
       //  console.log(myData0t)
@@ -270,7 +303,14 @@ Facplan.find({idtipounidad        	: req.body.tipounidad        	,
          //   return;
 
            }
-        Asignaest.find({idtipounidad        	: req.body.tipounidad        	,
+           console.log('asignaest');
+           console.log({idtipounidad        	: req.body.tipounidad        	,
+            idunidadacademica        	: req.body.unidadacademica        	,
+            no_orientacion        	: req.body.no_orientacion        	,
+            idestudiante:req.body.idestudiante,aprobado:'Aprobado',
+            idperiodo        	: req.body.periodo        });
+       
+           Asignaest.find({idtipounidad        	: req.body.tipounidad        	,
             idunidadacademica        	: req.body.unidadacademica        	,
             no_orientacion        	: req.body.no_orientacion        	,
             idestudiante:req.body.idestudiante,aprobado:'Aprobado',

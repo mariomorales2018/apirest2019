@@ -14,6 +14,33 @@ var transporter = nodemailer.createTransport({
    });
 
 
+   
+   
+exports.getMail2 = function(req1, res){
+
+  const mailOptions = {
+    from: 'usacenlinea2018@gmail.com', // sender address
+    to: req1.destino, // list of receivers
+    subject: req1.subjet, // Subject line
+    html: req1.html
+  };
+
+ 
+  transporter.sendMail(mailOptions, function (err, info) {
+    if(err){
+    res.status(500).send(err.sqlMessage);
+    }
+   
+    
+      
+ });
+  
+
+
+
+    
+}
+
 exports.getMail = function(req, res, next){
 
   const mailOptions = {
@@ -61,36 +88,7 @@ exports.getMail = function(req, res, next){
     
       
  });
-  /*
-    var eparam = {
-        Destination: {
-          ToAddresses: [req.body.destino]
-        },
-        Message: {
-          Body: {
-            Html: {
-              Data: req.body.html
-            },
-            Text: {
-              Data: req.body.text
-            }
-          },
-          Subject: {
-            Data: req.body.subjet
-          }
-        },
-        Source: "usacenlinea2018@gmail.com"
-       
-    };
-     
-    ses.sendEmail(eparam, function (err, data) {
-      if (err) {
-        console.log(err);
-        res.status(500).send(err.sqlMessage);}
-      else{ res.json(data);}
-    });
-
-  */
+  
 
 
 

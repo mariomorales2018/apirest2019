@@ -15,6 +15,12 @@ exports.getEvento = function(req, res, next){
         }
         else
         {
+
+            if(req.params.id=='1' || req.params.id=='2')
+        {
+        }
+        else
+        {
             Evento.find({_id:req.params.id},function(err, todos) {
                 if (err){ res.send(err); }
                
@@ -23,6 +29,7 @@ exports.getEvento = function(req, res, next){
                 {  res.status(500).send('NO EXISTE REGISTRO');      }
                 
             });
+        }
 
         }   
        

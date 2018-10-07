@@ -4,6 +4,8 @@
 //, "secretAccessKey": "tYBp3xpvycteEUfJSQi71joHVycuQaiiheKCh/0X", "region": "us-east-1"});
 
 var Participa = require('../models/participa');
+
+var Participa2 = require('../models/participa2');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -51,38 +53,58 @@ exports.getMail = function(req, res, next){
     actualiza: req.body.actualiza// plain text body
   };
 
- 
+ console.log(req.body.actualiza);
   transporter.sendMail(mailOptions, function (err, info) {
     if(err){
     res.status(500).send(err.sqlMessage);
+    cosnole.log('actualiza entra participa2ssssssssssssssssss');
+    console.log(err.sqlMessage);
     }
     else
     {
-      
-      if(req.body.actualiza.tipo=='participantes')
-      {
-
-        Participa.findById({ _id: req.body.actualiza.id}, function (err, todo)  {
-          if (err) {  res.send(err);  }
-          else
-          {  
-              todo.estado 	=	req.body.actualiza.estado 	||req.body.actualiza.estado 	;
-              todo.otros 	=	req.body.actualiza.otros 	||	req.body.actualiza.otros 	;
-            
-              todo.save(function (err, todo){
-                  if (err)     {  res.status(500).send(err.message)   }
-                  res.json(todo);
-              });
-          }
-      });
-        
-      }
-      else
-      {
-
+/*
+      switch(req.body.actualiza.tipo) {
+        case 'participantes':
+        cosnole.log('actualiza entra participa333333333333332');
+                      Participa.findById({ _id: req.body.actualiza.id}, function (err, todo)  {
+                        if (err) {  res.status(500).send(err.sqlMessage);  }
+                        else
+                        {  
+                            todo.estado 	=	req.body.actualiza.estado 	||req.body.actualiza.estado 	;
+                            todo.otros 	=	req.body.actualiza.otros 	||	req.body.actualiza.otros 	;
+                          
+                            todo.save(function (err, todo){
+                                if (err)     {  res.status(500).send(err.message)   }
+                                res.json(todo);
+                            });
+                        }
+                    });
+            break;
+        case 'participantes2':
+        cosnole.log('actualiza entra participa2ddddddddddddddddddddddd');
+                      Participa2.findById({ _id: req.body.actualiza.id}, function (err, todo)  {
+                        if (err) {  res.status(500).send(err.sqlMessage);  }
+                        else
+                        {  
+                          cosnole.log('actualiza entra participa2');
+                          console.log(req.body.actualiza);
+                            todo.estado 	=	req.body.actualiza.estado 	||req.body.actualiza.estado 	;
+                        //  todo.otros 	=	req.body.actualiza.otros 	||	req.body.actualiza.otros 	;
+                          
+                            todo.save(function (err, todo){
+                                if (err)     {  res.status(500).send(err.message)   }
+                                res.json(todo);
+                            });
+                        }
+                    });
+            break;
+        default:
         res.json(info);
-      }
-      
+    }
+*/
+res.json(info);
+                 
+                      
 
     }
     

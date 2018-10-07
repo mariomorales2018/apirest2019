@@ -2,6 +2,7 @@ var AuthenticationController = require('./controllers/authentication'),
     OraController = require('./controllers/oraclesqlx'), 
     DatosfijosController = require('./controllers/datosfijos'),
     ParticipaController = require('./controllers/participa'),
+    Participa2Controller = require('./controllers/participa2'),
     ConferenciaController = require('./controllers/conferencia'),
     DcatalogoController = require('./controllers/dcatalogo'),
     PersonalController = require('./controllers/personal'),
@@ -49,6 +50,7 @@ module.exports = function(app){
     var apiRoutes = express.Router(),
         authRoutes = express.Router(),
         participaRoutes = express.Router(),
+        participa2Routes = express.Router(),
         conferenciaRoutes = express.Router(),
         dcatalogoRoutes = express.Router(),
         moduloRoutes = express.Router(),
@@ -167,6 +169,13 @@ participaRoutes.get('/:id/:id2',  ParticipaController.getParticipa);
 participaRoutes.post('/:id',  ParticipaController.creaParticipa2s);
 participaRoutes.delete('/:id/:userID',  ParticipaController.deleteParticipa);
 
+
+//-----------------------------------PARTICIPA2
+apiRoutes.use('/participa2s', participa2Routes);
+participa2Routes.get('/:id',  Participa2Controller.getParticipa2);
+participa2Routes.get('/:id/:id2',  Participa2Controller.getParticipa2);
+participa2Routes.post('/:id',  Participa2Controller.creaParticipa22s);
+participa2Routes.delete('/:id/:userID',  Participa2Controller.deleteParticipa2);
 //-----------------------------------CONFERENCIAS
 apiRoutes.use('/conferencias', conferenciaRoutes);
 conferenciaRoutes.get('/:id',  ConferenciaController.getConferencia);
@@ -231,7 +240,8 @@ dtarifaRoutes.delete('/:id/:userID',  DtarifaController.deleteDtarifa);
 //-----------------------------------datos combo fijos
 apiRoutes.use('/datosfijos', datosfijosRoutes);
 datosfijosRoutes.get('/:id',  DatosfijosController.getCombofijo);
-datosfijosRoutes.get('/:id/:id2',  DatosfijosController.getCombofijo);
+datosfijosRoutes.get('/:id/:id2/:id3',  DatosfijosController.getCombofijo);
+//datosfijosRoutes.get('/:id/:id2/:id3',  DatosfijosController.getCombofijo);
 //---------------------------------------estudiantes ov
 apiRoutes.use('/estudianteov', estudianteovRoutes);
 estudianteovRoutes.get('/',  EstudianteovController.getEstudianteov);

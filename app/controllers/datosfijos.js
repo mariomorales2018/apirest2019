@@ -2,6 +2,8 @@
 var Perfil = require('../models/perfil');
 var Moduloxx = require('../models/moduloxx');
 var Permiso = require('../models/permiso');
+var Area_evento = require('../models/area_evento');
+var Aread_evento = require('../models/aread_evento');
 var csv      = require('csv-express');
 var Evento = require('../models/eventos');
 
@@ -93,6 +95,19 @@ exports.getCombofijo = function(req, res, next){
        var sql='';
 
        switch(req.params.id) {
+        case 'areas-evento':
+     console.log({'idtipoevento.codigo':req.params.id2});
+        Area_evento.find({'idtipoevento.codigo':req.params.id2},function(err, todos) {
+                if (err){  res.send(err);  }
+                res.json(todos);
+        });
+        break;
+        case 'areasd-evento':
+        Aread_evento.find({'idtipoevento.codigo':req.params.id2,'idarea.id':req.params.id3},function(err, todos) {
+                if (err){  res.send(err);  }
+                res.json(todos);
+        });
+        break;
         case 'buses-nelson':
                                 request('http://190.143.151.236:8500/ws/databuses.cfm', function (error, response, body) {
                                         if (!error && response.statusCode == 200) {

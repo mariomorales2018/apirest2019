@@ -8,7 +8,9 @@ var csv      = require('csv-express');
 var Evento = require('../models/eventos');
 
 var Participa = require('../models/participa');
+var Participa2 = require('../models/participa2');
 var Facplan = require('../models/unidadplan');
+var cursoeve=require('../models/aread_evento');
 
 var request = require('request');
 
@@ -107,6 +109,27 @@ exports.getCombofijo = function(req, res, next){
                 if (err){  res.send(err);  }
                 res.json(todos);
         });
+        break;
+        case 'participantes2':
+
+        cursoeve.find({},function(err, todos0) {
+                        if (err){  res.send(err);  }      
+                                Participa2.find({},function(err, todos) {
+                                        if (err){  res.send(err);  }
+                                        var resp=[]
+                                        var tevento=''
+                                        for(var i = 0; i < todos.length;i++){
+                                                for(var ii = 0; ii < todos0.length;ii++){
+                                                        if(todos0[ii]._id==todos[i].idevento)
+                                                        {
+                                                           tevento=  todos0[ii].nombre   
+                                                        }
+                                                }        
+                                                resp.push({tipocurso:todos[i].idtipoevento.nombre,area:todos[i].idarea.nombre,curso:tevento});
+                                        }
+                                        res.json(resp);
+                                });
+                });
         break;
         case 'buses-nelson':
                                 request('http://190.143.151.236:8500/ws/databuses.cfm', function (error, response, body) {

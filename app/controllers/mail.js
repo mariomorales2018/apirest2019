@@ -56,9 +56,9 @@ exports.getMail = function(req, res, next){
  //console.log(req.body.actualiza);
   transporter.sendMail(mailOptions, function (err, info) {
     if(err){
+        console.log(err);
     res.status(500).send(err.sqlMessage);
-  //  cosnole.log('actualiza entra participa2ssssssssssssssssss');
-    console.log(err.sqlMessage);
+  
     }
     else
     {

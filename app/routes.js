@@ -186,6 +186,7 @@ conferenciaRoutes.delete('/:id/:userID', ConferenciaController.deleteConferencia
 //-----------------------------------MAIL
 apiRoutes.use('/mails', mailRoutes);
 mailRoutes.post('/:id',  MailController.getMail);
+mailRoutes.post('/:id',  MailController.getMail2);
 
 //-----------------------------------QR
 apiRoutes.use('/qrs',qrimagenRoutes);

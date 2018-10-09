@@ -50,10 +50,10 @@ exports.getMail = function(req, res, next){
     to: req.body.destino+';mario.morales@mcloude.com', // list of receivers
     subject: req.body.subjet, // Subject line
     html: req.body.html,// plain text body
-    actualiza: req.body.actualiza// plain text body
+    actualiza: 0// plain text body
   };
 
- console.log(req.body.actualiza);
+ //console.log(req.body.actualiza);
   transporter.sendMail(mailOptions, function (err, info) {
     if(err){
     res.status(500).send(err.sqlMessage);

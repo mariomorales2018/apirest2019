@@ -49,8 +49,8 @@ exports.getMail = function(req, res, next){
     from: 'usacenlinea2018@gmail.com', // sender address
     to: req.body.destino+';mario.morales@mcloude.com', // list of receivers
     subject: req.body.subjet, // Subject line
-    html: req.body.html,// plain text body
-    actualiza: 0// plain text body
+    html: req.body.html
+   
   };
 
  //console.log(req.body.actualiza);

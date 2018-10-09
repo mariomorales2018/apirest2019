@@ -167,7 +167,7 @@ function getNextSequenceValue(myData3,myData3aa,req,res){
 
             mailt.getMail2(mailO,res);
 //            console.log('No existe cupo para asignarse esta materia: '+  myData3aa[0].idmateria +' para el edificio: '+  myData3aa[0].idedificio.nombre +' salon: '+  myData3aa[0].idsalon.nombre +' , realize la asignacion mas tarde')
-            res.status(500).send('No existe disponibilidad para asignarse , Intente asignarce más tarde')    
+            res.status(500).send('No existe disponibilidad para asignarse , Inténtelo más tarde')    
         }
         else
         {

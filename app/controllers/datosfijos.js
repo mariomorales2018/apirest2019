@@ -7,6 +7,8 @@ var Aread_evento = require('../models/aread_evento');
 var csv      = require('csv-express');
 var Evento = require('../models/eventos');
 
+
+
 var Participa = require('../models/participa');
 var Participa2 = require('../models/participa2');
 var Facplan = require('../models/unidadplan');
@@ -110,6 +112,98 @@ exports.getCombofijo = function(req, res, next){
                 res.json(todos);
         });
         break;
+
+        
+
+        case 'tablaasignacion':
+//'idunidadacademica.codigo':'1'
+                        Asignaest.find({}).lean().exec(function(err, todos) {
+                        if (err){  res.send(err);  }    
+                        var resp=[]
+                        for(var i = 0; i < todos.length;i++){
+                        var periodo=todos[i].idperiodo.nombre.split("-");
+                //   console.log(periodo)
+                        var anio=Number(periodo[0])+1
+                        var idmat=0
+                        
+                        if(todos[i].idmateria=='Biologia'){idmat=1}
+                        if(todos[i].idmateria=='Fisica'){idmat=2}
+                        if(todos[i].idmateria=='Lenguaje'){idmat=3}
+                        if(todos[i].idmateria=='Matematica'){idmat=4}
+                        if(todos[i].idmateria=='Quimica'){idmat=5}
+
+                        var ll=todos[i].no_orientacion
+                        var tno=0;
+                        if(ll.length==10)
+                        {
+                                tno=1
+                        }
+                        else
+                        {
+                                tno=2
+                        }
+                        var d =new Date( todos[i].date).toISOString().substr(0,10);   
+                        var n = d.split('-')   
+
+                        resp.push({periodo:periodo[0],no_orientacion:todos[i].no_orientacion,ingreso:tno
+                                ,no_oportunidad:periodo[1]
+                                ,anio_asignacion:anio,id_facultad:todos[i].idunidadacademica.codigo
+                                ,codigo_fac:todos[i].codfac,no_asignado:todos[i].noasignado,id_materia:idmat,fecha:n[2] + '-'+ n[1] + '-' + n[0]});
+                        }
+                      //  res.json(resp);
+                        var filename   = "Tablaasignacion.csv";
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+                        res.setHeader("Content-Disposition", 'attachment; filename='+filename);
+                        res.csv(resp, true);
+        
+                });
+              
+        break;
+        case 'tablainfoboleta':
+//'idunidadacademica.codigo':'1'
+                        Facplan.find({}).lean().exec(function(err, todos) {
+                        if (err){  res.send(err);  }    
+                        var resp=[]
+                        for(var i = 0; i < todos.length;i++){
+                        var periodo=todos[i].idperiodo.nombre.split("-");
+                //   console.log(periodo)
+                        var anio=Number(periodo[0])+1
+                        var idmat=0
+                        
+                        if(todos[i].idmateria=='Biologia'){idmat=1}
+                        if(todos[i].idmateria=='Fisica'){idmat=2}
+                        if(todos[i].idmateria=='Lenguaje'){idmat=3}
+                        if(todos[i].idmateria=='Matematica'){idmat=4}
+                        if(todos[i].idmateria=='Quimica'){idmat=5}
+
+                     
+                        var d =new Date( todos[i].date).toISOString().substr(0,10);   
+                        var n = d.split('-')   
+
+                        resp.push({codigo_fac:todos[i].codfac,id_facultad:todos[i].idunidadacademica.codigo
+                                ,no_oportunidad:periodo[1]
+                                ,anio_asignacion:anio
+                                ,lugar:todos[i].idedificio.nombre
+                                ,salon:todos[i].idsalon.nombre
+                                ,horario:todos[i].idhorario
+                                ,disponible:todos[i].capacidad
+                                ,asignados:todos[i].asignados
+                                ,fecha:n[2] + '-'+ n[1] + '-' + n[0]
+
+                                ,id_materia:idmat});
+                        }
+                      //  res.json(resp);
+                        var filename   = "Tablainfoboleta.csv";
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+                        res.setHeader("Content-Disposition", 'attachment; filename='+filename);
+                        res.csv(resp, true);
+        
+                });
+              
+        break;
+        
         case 'participantes2':
 
         cursoeve.find({},function(err, todos0) {

@@ -114,7 +114,47 @@ exports.getCombofijo = function(req, res, next){
         break;
 
         
-
+        case 'tablaasignacion2':
+        //'idunidadacademica.codigo':'1'
+                                Asignaest.find({}).lean().exec(function(err, todos) {
+                                if (err){  res.send(err);  }    
+                                var resp=[]
+                                for(var i = 0; i < todos.length;i++){
+                                var periodo=todos[i].idperiodo.nombre.split("-");
+                        //   console.log(periodo)
+                                var anio=Number(periodo[0])+1
+                                var idmat=0
+                                
+                                if(todos[i].idmateria=='Biologia'){idmat=1}
+                                if(todos[i].idmateria=='Fisica'){idmat=2}
+                                if(todos[i].idmateria=='Lenguaje'){idmat=3}
+                                if(todos[i].idmateria=='Matematica'){idmat=4}
+                                if(todos[i].idmateria=='Quimica'){idmat=5}
+        
+                                var ll=todos[i].no_orientacion
+                                var tno=0;
+                                if(ll.length==10)
+                                {
+                                        tno=1
+                                }
+                                else
+                                {
+                                        tno=2
+                                }
+                                var d =new Date( todos[i].date).toISOString().substr(0,10);   
+                                var n = d.split('-')   
+        
+                                resp.push({periodo:periodo[0] ,no_oportunidad:periodo[1]
+                                        ,anio_asignacion:anio,id_facultad:todos[i].idunidadacademica.nombre
+                                        ,id_tipo:todos[i].idtipounidad.nombre
+                                        ,id_materia:todos[i].idmateria});
+                                }
+                                res.json(resp);
+                              
+                
+                        });
+                      
+                break;
         case 'tablaasignacion':
 //'idunidadacademica.codigo':'1'
                         Asignaest.find({}).lean().exec(function(err, todos) {
@@ -134,6 +174,9 @@ exports.getCombofijo = function(req, res, next){
 
                         var ll=todos[i].no_orientacion
                         var tno=0;
+
+                
+
                         if(ll.length==10)
                         {
                                 tno=1
@@ -142,13 +185,47 @@ exports.getCombofijo = function(req, res, next){
                         {
                                 tno=2
                         }
+
+                        var pp=''
+                        var noori=''
+
+                        if(ll.length==10 || ll.length==9)
+                        {
+                                pp=ll.substr(0,4);
+                                noori=ll.substr(4,ll.length-1)
+
+                        }
+                        else
+                        {
+                                        if(ll.length==7)
+                                        {
+                                                pp=ll.substr(0,2);
+                                                noori=ll.substr(2,ll.length-1)
+                
+                                                
+                                        }
+                                        else
+                                        {
+                                                pp='0'
+                                                noori=ll
+                
+
+                                        }
+
+
+                        }
+
+
                         var d =new Date( todos[i].date).toISOString().substr(0,10);   
                         var n = d.split('-')   
 
-                        resp.push({periodo:periodo[0],no_orientacion:todos[i].no_orientacion,ingreso:tno
+                        resp.push({periodo:pp,no_orientacion:noori,ingreso:tno
                                 ,no_oportunidad:periodo[1]
                                 ,anio_asignacion:anio,id_facultad:todos[i].idunidadacademica.codigo
                                 ,codigo_fac:todos[i].codfac,no_asignado:todos[i].noasignado,id_materia:idmat,fecha:n[2] + '-'+ n[1] + '-' + n[0]});
+
+                        
+
                         }
                       //  res.json(resp);
                         var filename   = "Tablaasignacion.csv";

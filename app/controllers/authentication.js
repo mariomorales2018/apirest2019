@@ -92,6 +92,42 @@ exports.register = function(req, res, next){
     });
  
 }
+
+exports.register2 = function(req, res, next){
+ 
+    var email = req.body.email;
+    var password2 = req.body.password;
+    var bitacora= req.body.bitacora;
+ 
+    if(!email){
+        return res.status(422).send({error: 'You must enter an email address'});
+    }
+ 
+    if(!password2){
+        return res.status(422).send({error: 'You must enter a password'});
+    }
+    Bitacora.create(bitacora);
+    User.findOne({email: email}, function(err, user){
+ 
+        if(err){
+            return next(err);
+        }
+        user.password=password2
+        user.save(function(err){
+ 
+            if(err){
+                return next(err);
+            }
+ 
+            
+            res.json(setUserInfo(user));    
+ 
+        });
+ 
+    });
+ 
+}
+
  
 exports.roleAuthorization = function(roles){
  

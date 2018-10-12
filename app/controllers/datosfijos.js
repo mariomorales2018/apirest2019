@@ -147,9 +147,14 @@ exports.getCombofijo = function(req, res, next){
                                 resp.push({periodo:periodo[0] ,no_oportunidad:periodo[1]
                                         ,anio_asignacion:anio,id_facultad:todos[i].idunidadacademica.nombre
                                         ,id_tipo:todos[i].idtipounidad.nombre
-                                        ,id_materia:todos[i].idmateria});
+                                        ,id_materia:todos[i].idmateria,noorientacion:todos[i].no_orientacion,id:todos[i]._id});
                                 }
-                                res.json(resp);
+                              //  res.json(resp);
+                              var filename   = "Tablaasignacion2.csv";
+                              res.statusCode = 200;
+                              res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+                              res.setHeader("Content-Disposition", 'attachment; filename='+filename);
+                              res.csv(resp, true);
                               
                 
                         });

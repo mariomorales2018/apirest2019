@@ -27,7 +27,9 @@ var UserSchema = new mongoose.Schema({
     estado 	: { type : String },
     nov 	: { type : String },
     unidad 	: { type : String },
-    codpersonal 	: { type : String }
+    codpersonal 	: { type : String },
+    estadoemail	: { type : String },
+    interno 	: { type : String }
  
 }, {
     timestamps: true

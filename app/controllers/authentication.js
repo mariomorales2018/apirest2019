@@ -35,7 +35,7 @@ exports.login = function(req, res, next){
     
     }
     else{
-        res.status(500).json({error: 'Usuario no existe / no se autenticado via correo electronico'});
+        res.status(500).json({error: 'Usuario no existe / No a confirmado su cuenta via correo electronico'});
             
 
     }
@@ -158,7 +158,7 @@ exports.roleAuthorization = function(roles){
     return function(req, res, next){
  
         var user = req.user;
- conole.log({_id:user._id,estadoemail:'1'});
+ 
         User.find({_id:user._id,estadoemail:'1'}, function(err, foundUser){
  
             if(err){

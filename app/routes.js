@@ -175,10 +175,10 @@ participaRoutes.delete('/:id/:userID',  ParticipaController.deleteParticipa);
 
 //-----------------------------------PARTICIPA2
 apiRoutes.use('/participa2s', participa2Routes);
-participa2Routes.get('/:id',requireAuth,  Participa2Controller.getParticipa2);
-participa2Routes.get('/:id/:id2',requireAuth,  Participa2Controller.getParticipa2);
-participa2Routes.post('/:id',requireAuth,  Participa2Controller.creaParticipa22s);
-participa2Routes.delete('/:id/:userID',requireAuth,  Participa2Controller.deleteParticipa2);
+participa2Routes.get('/:id',  Participa2Controller.getParticipa2);
+participa2Routes.get('/:id/:id2',  Participa2Controller.getParticipa2);
+participa2Routes.post('/:id',  Participa2Controller.creaParticipa22s);
+participa2Routes.delete('/:id/:userID',  Participa2Controller.deleteParticipa2);
 //-----------------------------------CONFERENCIAS
 apiRoutes.use('/conferencias', conferenciaRoutes);
 conferenciaRoutes.get('/:id',requireAuth,  ConferenciaController.getConferencia);

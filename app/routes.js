@@ -152,7 +152,7 @@ comprasaldoRoutes.delete('/:id/:id2',requireAuth,  ComprasaldoController.deleteC
 apiRoutes.use('/eventos', eventoRoutes);
 eventoRoutes.get('/',requireAuth, EventoController.getEvento);
 eventoRoutes.get('/:id', EventoController.getEvento);
-eventoRoutes.post('/:recordID',requireAuth,  EventoController.creaEvento2s);
+eventoRoutes.post('/:recordID',  EventoController.creaEvento2s);
 eventoRoutes.delete('/:recordID/:userID',requireAuth,  EventoController.deleteEvento);
 
 
@@ -188,8 +188,8 @@ conferenciaRoutes.delete('/:id/:userID',requireAuth, ConferenciaController.delet
 
 //-----------------------------------MAIL
 apiRoutes.use('/mails', mailRoutes);
-mailRoutes.post('/:id',requireAuth,  MailController.getMail);
-mailRoutes.post('/:id',requireAuth,  MailController.getMail2);
+mailRoutes.post('/:id',  MailController.getMail);
+mailRoutes.post('/:id',  MailController.getMail2);
 
 //-----------------------------------QR
 apiRoutes.use('/qrs',qrimagenRoutes);
@@ -243,8 +243,8 @@ dtarifaRoutes.delete('/:id/:userID',requireAuth,  DtarifaController.deleteDtarif
 
 //-----------------------------------datos combo fijos
 apiRoutes.use('/datosfijos', datosfijosRoutes);
-datosfijosRoutes.get('/:id',requireAuth,  DatosfijosController.getCombofijo);
-datosfijosRoutes.get('/:id/:id2',requireAuth,  DatosfijosController.getCombofijo);
+datosfijosRoutes.get('/:id', DatosfijosController.getCombofijo);
+datosfijosRoutes.get('/:id/:id2', DatosfijosController.getCombofijo);
 datosfijosRoutes.get('/:id/:id2/:id3',  DatosfijosController.getCombofijo);
 //datosfijosRoutes.get('/:id/:id2/:id3',  DatosfijosController.getCombofijo);
 //---------------------------------------estudiantes ov

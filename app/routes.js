@@ -150,7 +150,7 @@ comprasaldoRoutes.delete('/:id/:id2',requireAuth,  ComprasaldoController.deleteC
 
 //-----------------------------------EVENTOS
 apiRoutes.use('/eventos', eventoRoutes);
-eventoRoutes.get('/',requireAuth, EventoController.getEvento);
+eventoRoutes.get('/', EventoController.getEvento);
 eventoRoutes.get('/:id', EventoController.getEvento);
 eventoRoutes.post('/:recordID',  EventoController.creaEvento2s);
 eventoRoutes.delete('/:recordID/:userID',requireAuth,  EventoController.deleteEvento);

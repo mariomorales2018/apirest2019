@@ -167,10 +167,10 @@ perfilRoutes.delete('/:recordID/:userID',requireAuth,  PerfilController.deletePe
 
 //-----------------------------------PARTICIPA
 apiRoutes.use('/participas', participaRoutes);
-participaRoutes.get('/:id',requireAuth,  ParticipaController.getParticipa);
-participaRoutes.get('/:id/:id2',requireAuth,  ParticipaController.getParticipa);
-participaRoutes.post('/:id',requireAuth,  ParticipaController.creaParticipa2s);
-participaRoutes.delete('/:id/:userID',requireAuth,  ParticipaController.deleteParticipa);
+participaRoutes.get('/:id',  ParticipaController.getParticipa);
+participaRoutes.get('/:id/:id2',  ParticipaController.getParticipa);
+participaRoutes.post('/:id',  ParticipaController.creaParticipa2s);
+participaRoutes.delete('/:id/:userID',  ParticipaController.deleteParticipa);
 
 
 //-----------------------------------PARTICIPA2

@@ -245,7 +245,7 @@ dtarifaRoutes.delete('/:id/:userID',requireAuth,  DtarifaController.deleteDtarif
 apiRoutes.use('/datosfijos', datosfijosRoutes);
 datosfijosRoutes.get('/:id',requireAuth,  DatosfijosController.getCombofijo);
 datosfijosRoutes.get('/:id/:id2',requireAuth,  DatosfijosController.getCombofijo);
-datosfijosRoutes.get('/:id/:id2/:id3',requireAuth,  DatosfijosController.getCombofijo);
+datosfijosRoutes.get('/:id/:id2/:id3',  DatosfijosController.getCombofijo);
 //datosfijosRoutes.get('/:id/:id2/:id3',  DatosfijosController.getCombofijo);
 //---------------------------------------estudiantes ov
 apiRoutes.use('/estudianteov', estudianteovRoutes);

@@ -2,6 +2,7 @@
 var Perfil = require('../models/perfil');
 var Moduloxx = require('../models/moduloxx');
 var Permiso = require('../models/permiso');
+var Permiso2 = require('../models/permison2');
 var Area_evento = require('../models/area_evento');
 var Aread_evento = require('../models/aread_evento');
 var csv      = require('csv-express');
@@ -395,7 +396,7 @@ else
         break;
 
         case 'modulo-grupo':
-                        res.json([{id:'USAC',nombre:'USAC'} ,{id:'BUSES',nombre:'BUSES'},{id:'TICKES',nombre:'TICKES'},{id:'TODOS',nombre:'TODOS'}]);
+                        res.json([{id:'PAGINA',nombre:'PAGINA'} ,{id:'LINK',nombre:'LINK'},{id:'MENU',nombre:'MENU'},{id:'PAGINAHTML',nombre:'PAGINAHTML'}]);
         break;
         case 'user-rol':
                         Perfil.find({unidad:req.params.id2},function(err, todos) {
@@ -530,44 +531,78 @@ else
                         Permiso.find({idrol:todos[0]._id},function(err, todos) {
                                 if (err){ res.send(err); }
                                 
-                               
-                                if(todos.length>0)   {  
+                                Permiso2.find({idrol:todos[0].idrol},function(err, todos4) {
+                                if (err){ res.send(err); }
                                         
-                                        Moduloxx.find({},function(err, todos2) {
-                                                if (err){ res.send(err); }
-                                               
-                                                var myData = [];
-                                                for(var i = 0; i < todos.length;i++){
-                                                        for(var j = 0; j < todos2.length;j++){
-                                                                if(todos[i].nombre==todos2[j].nombre)
-                                                                {
-                                                                    //    console.log(todos[i].nombre);
-                                                                        myData.push({idrol:todos[i].idrol,title:todos2[j].nombre,component: todos2[j].componente, tabComponent:todos2[j].tabcomponente,name:todos2[j].titulo,index:todos2[j].index,icon:todos2[j].icono,estado:todos2[j].estado,
-                                                                        permiso:todos[i].ingreso+','+todos[i].consulta+','+todos[i].eliminacion+','+todos[i].creacion+','+todos[i].actualizacion});
-                                
-                                                                        break;                
-                                                                }
-
-
-                                                        }          
-                                                      
-                                                       
-                
-                                                }
-                
-                                                 res.json(myData);
+                                                    
                                         
+                                        if(todos.length>0)   {  
+                                                
+                                                Moduloxx.find({},function(err, todos2) {
+                                                        if (err){ res.send(err); }
+                                                
+                    
 
+                                                        var myData = [];
+                                                        for(var i = 0; i < todos.length;i++){
+                                                                for(var j = 0; j < todos2.length;j++){
+                                                                        if(todos[i].nombre==todos2[j].nombre)
+                                                                        {       var childrem=[]
+                                                                                for(var k = 0; k < todos4.length;k++){
+                                                                                        if(todos4[k].idpermiso==todos[i]._id)
+                                                                                        {
+                                                                                                for(var j5 = 0; j5 < todos2.length;j5++){
+                                                                                                        if(todos4[k].nombre==todos2[j5].nombre)
+                                                                                                        {   
+                                                                                                                childrem.push({idrol:todos4[k].idrol,title:todos2[j5].nombre,component: todos2[j5].componente, tabComponent:todos2[j5].tabcomponente,name:todos2[j5].componente,index:todos2[j5].index,icon:todos2[j5].icono,estado:todos2[j5].estado,
+                                                                                                                        permiso:todos4[k].ingreso+','+todos4[k].consulta+','+todos4[k].eliminacion+','+todos4[k].creacion+','+todos4[k].actualizacion})
+                                                                                                        }
+                                                                                                }
+                                                                                        }                                                 
+
+                                                                                }   
+                                                                        //    console.log(todos[i].nombre);
+                                                                                if(childrem.length>0)
+                                                                                {
+                                                                                myData.push({idrol:todos[i].idrol,title:todos2[j].nombre,component: todos2[j].componente, tabComponent:todos2[j].tabcomponente,name:todos2[j].componente,index:todos2[j].index,icon:todos2[j].icono,estado:todos2[j].estado,
+                                                                                        permiso:todos[i].ingreso+','+todos[i].consulta+','+todos[i].eliminacion+','+todos[i].creacion+','+todos[i].actualizacion,children:childrem});
+                                                
+
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                myData.push({idrol:todos[i].idrol,title:todos2[j].nombre,component: todos2[j].componente, tabComponent:todos2[j].tabcomponente,name:todos2[j].componente,index:todos2[j].index,icon:todos2[j].icono,estado:todos2[j].estado,
+                                                                                        permiso:todos[i].ingreso+','+todos[i].consulta+','+todos[i].eliminacion+','+todos[i].creacion+','+todos[i].actualizacion});
+                                                
+                                                                                }
+                                                                                
+                                                                                break;                
+                                                                        }
+
+
+                                                                }          
+                                                        
+                                                        
+                        
+                                                        }
+                        
+                                                        res.json(myData);
+                                                
+
+
+                                                
+                                        });       
 
                                         
-                                    });       
+                                        
+                                        }
+                                        else
+                                        {  res.status(500).send('NO EXISTE ROL ASIGNADO');      }
 
-                                       
-                                
-                                }
-                                else
-                                {  res.status(500).send('NO EXISTE ROL ASIGNADO');      }
-                                
+
+
+
+                                });         
                             });
 
                       

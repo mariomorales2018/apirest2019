@@ -1,6 +1,7 @@
 var mongoose =require("mongoose");
 
-    var PermisoSchema 		=	new  mongoose.Schema({
+    var Permison2Schema 		=	new  mongoose.Schema({
+        idpermiso   		: { type : String, required : true },
         idrol   		: { type : String, required : true },
         nombre   		: { type : String, required : true },
         icon   		: { type : String },
@@ -16,5 +17,5 @@ var mongoose =require("mongoose");
 
 
 
-module.exports = mongoose.model('Permiso', PermisoSchema);
+module.exports = mongoose.model('Permison2', Permison2Schema);
 

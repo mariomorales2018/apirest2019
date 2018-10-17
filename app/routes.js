@@ -16,6 +16,7 @@ var AuthenticationController = require('./controllers/authentication'),
     SuscriptorController = require('./controllers/suscriptor'),
     busController = require('./controllers/bus'),
     PermisoController = require('./controllers/permiso'),
+    Permiso2Controller = require('./controllers/permiso2'),
     EstudianteovController = require('./controllers/estudianteov'),
     EstudiantevtController = require('./controllers/estudiantevt'),
     EstudiantepcbController = require('./controllers/estudiantepcb'),
@@ -67,6 +68,7 @@ module.exports = function(app){
         estudiantepcbRoutes = express.Router(),
         empresaRoutes = express.Router(),
         permisoRoutes = express.Router(),
+        permiso2Routes = express.Router(),
         oraRoutes = express.Router(),
         dtarifaRoutes = express.Router(),
         suscriptorRoutes = express.Router(),
@@ -165,20 +167,7 @@ perfilRoutes.post('/:recordID',requireAuth,  PerfilController.creaPerfil2s);
 perfilRoutes.delete('/:recordID/:userID',requireAuth,  PerfilController.deletePerfil);
 
 
-//-----------------------------------PARTICIPA
-apiRoutes.use('/participas', participaRoutes);
-participaRoutes.get('/:id',  ParticipaController.getParticipa);
-participaRoutes.get('/:id/:id2',  ParticipaController.getParticipa);
-participaRoutes.post('/:id',  ParticipaController.creaParticipa2s);
-participaRoutes.delete('/:id/:userID',  ParticipaController.deleteParticipa);
 
-
-//-----------------------------------PARTICIPA2
-apiRoutes.use('/participa2s', participa2Routes);
-participa2Routes.get('/:id',  Participa2Controller.getParticipa2);
-participa2Routes.get('/:id/:id2',  Participa2Controller.getParticipa2);
-participa2Routes.post('/:id',  Participa2Controller.creaParticipa22s);
-participa2Routes.delete('/:id/:userID',  Participa2Controller.deleteParticipa2);
 //-----------------------------------CONFERENCIAS
 apiRoutes.use('/conferencias', conferenciaRoutes);
 conferenciaRoutes.get('/:id',requireAuth,  ConferenciaController.getConferencia);
@@ -186,14 +175,7 @@ conferenciaRoutes.get('/:id/:id2',requireAuth,  ConferenciaController.getConfere
 conferenciaRoutes.post('/:id',requireAuth,  ConferenciaController.creaConferencia2s);
 conferenciaRoutes.delete('/:id/:userID',requireAuth, ConferenciaController.deleteConferencia);
 
-//-----------------------------------MAIL
-apiRoutes.use('/mails', mailRoutes);
-mailRoutes.post('/:id',  MailController.getMail);
-mailRoutes.post('/:id',  MailController.getMail2);
 
-//-----------------------------------QR
-apiRoutes.use('/qrs',qrimagenRoutes);
-qrimagenRoutes.get('/:key',  QrimagenController.getQR);
 
 //-----------------------------------PERMISOS
 apiRoutes.use('/permisos', permisoRoutes);
@@ -201,6 +183,13 @@ permisoRoutes.get('/:id',requireAuth,  PermisoController.getPermiso);
 permisoRoutes.get('/:id/:id2',requireAuth,  PermisoController.getPermiso);
 permisoRoutes.post('/:id',requireAuth,  PermisoController.creaPermiso2s);
 permisoRoutes.delete('/:id/:userID',requireAuth,  PermisoController.deletePermiso);
+
+//-----------------------------------PERMISOS
+apiRoutes.use('/permiso2s', permiso2Routes);
+permiso2Routes.get('/:id/:id2',requireAuth,  Permiso2Controller.getPermison2);
+permiso2Routes.get('/:id/:id2/:id3',requireAuth,  Permiso2Controller.getPermison2);
+permiso2Routes.post('/:id',requireAuth,  Permiso2Controller.creaPermison22s);
+permiso2Routes.delete('/:id/:userID',requireAuth,  Permiso2Controller.deletePermison2);
 
 //-----------------------------------MODULO
 apiRoutes.use('/modulos', moduloRoutes);
@@ -241,12 +230,7 @@ dtarifaRoutes.post('/:id',requireAuth,  DtarifaController.creaDtarifa2s);
 dtarifaRoutes.delete('/:id/:userID',requireAuth,  DtarifaController.deleteDtarifa);
 
 
-//-----------------------------------datos combo fijos
-apiRoutes.use('/datosfijos', datosfijosRoutes);
-datosfijosRoutes.get('/:id', DatosfijosController.getCombofijo);
-datosfijosRoutes.get('/:id/:id2', DatosfijosController.getCombofijo);
-datosfijosRoutes.get('/:id/:id2/:id3',  DatosfijosController.getCombofijo);
-//datosfijosRoutes.get('/:id/:id2/:id3',  DatosfijosController.getCombofijo);
+
 //---------------------------------------estudiantes ov
 apiRoutes.use('/estudianteov', estudianteovRoutes);
 estudianteovRoutes.get('/', requireAuth, EstudianteovController.getEstudianteov);
@@ -367,6 +351,36 @@ nuevosalonRoutes.delete('/:recordID/:userID',requireAuth,  NuevosalonController.
 //-----------------------------------AUTORIZA
 apiRoutes.use('/autorizar', autorizaRoutes);
 autorizaRoutes.get('/:id',   AutorizaController.getAutoriza);
+
+//-----------------------------------PARTICIPA
+apiRoutes.use('/participas', participaRoutes);
+participaRoutes.get('/:id',  ParticipaController.getParticipa);
+participaRoutes.get('/:id/:id2',  ParticipaController.getParticipa);
+participaRoutes.post('/:id',  ParticipaController.creaParticipa2s);
+participaRoutes.delete('/:id/:userID',requireAuth,  ParticipaController.deleteParticipa);
+
+
+//-----------------------------------PARTICIPA2
+apiRoutes.use('/participa2s', participa2Routes);
+participa2Routes.get('/:id',  Participa2Controller.getParticipa2);
+participa2Routes.get('/:id/:id2',  Participa2Controller.getParticipa2);
+participa2Routes.post('/:id',  Participa2Controller.creaParticipa22s);
+participa2Routes.delete('/:id/:userID',requireAuth,  Participa2Controller.deleteParticipa2);
+
+//-----------------------------------datos combo fijos
+apiRoutes.use('/datosfijos', datosfijosRoutes);
+datosfijosRoutes.get('/:id', DatosfijosController.getCombofijo);
+datosfijosRoutes.get('/:id/:id2', DatosfijosController.getCombofijo);
+datosfijosRoutes.get('/:id/:id2/:id3',  DatosfijosController.getCombofijo);
+
+//-----------------------------------MAIL
+apiRoutes.use('/mails', mailRoutes);
+mailRoutes.post('/:id',  MailController.getMail);
+mailRoutes.post('/:id',  MailController.getMail2);
+
+//-----------------------------------QR
+apiRoutes.use('/qrs',qrimagenRoutes);
+qrimagenRoutes.get('/:key',  QrimagenController.getQR);
 //autorizaRoutes.post('/:recordID',  AutorizaController.creaAutorizar);
 
     app.use('/api', apiRoutes);

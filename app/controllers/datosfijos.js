@@ -321,7 +321,7 @@ exports.getCombofijo = function(req, res, next){
                         ,{id:'TIPO UNIDADES',nombre:'TIPO UNIDADES'}]);
             break;
         case 'suscriptor-disp':
-                  res.json([{id:'RFID interno',nombre:'RFID interno'} ,{id:'DPI',nombre:'DPI'},{id:'RFID externo',nombre:'RFID externo'},{id:'OTRO dispositivo',nombre:'OTRO dispositivo'},{id:'Ninguno',nombre:'Ninguno'}]);
+                  res.json([{id:'RFID Tarjeta',nombre:'RFID Tarjeta'} ,{id:'RFID movil',nombre:'RFID movil'},{id:'RFID pulcera',nombre:'RFID pulcera'},{id:'OTRO dispositivo',nombre:'OTRO dispositivo'},{id:'Ninguno',nombre:'Ninguno'}]);
          
         break;
         case 'reporte-salon':
